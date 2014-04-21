@@ -1,4 +1,4 @@
 cg
 ==
 
-cg (computation geometry) algorithms templates for JavaScript
+cg (computational geometry) algorithms templates for JavaScript
