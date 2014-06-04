@@ -1,0 +1,10 @@
+{
+  "name": "cg",
+  "version": "0.1.0",
+  "description" : "cg (computational geometry) algorithms templates for JavaScript",
+  "homepage": "https://github.com/aureooms/cg",
+  "moduleType": [
+    "node"
+  ],
+  "license": "GPL v2"
+}
