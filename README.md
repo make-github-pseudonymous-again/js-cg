@@ -7,3 +7,4 @@ cg (computational geometry) algorithms templates for JavaScript
 [![Coverage Status](https://coveralls.io/repos/aureooms/cg/badge.png)](https://coveralls.io/r/aureooms/cg)
 [![Dependencies Status](https://david-dm.org/aureooms/cg.png)](https://david-dm.org/aureooms/cg#info=dependencies)
 [![devDependencies Status](https://david-dm.org/aureooms/cg/dev-status.png)](https://david-dm.org/aureooms/cg#info=devDependencies)
+[![Code Climate](https://codeclimate.com/github/aureooms/cg.png)](https://codeclimate.com/github/aureooms/cg)
