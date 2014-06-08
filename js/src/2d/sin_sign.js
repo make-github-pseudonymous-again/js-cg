@@ -1,8 +1,9 @@
 
 /**
- * Computes the cross product of _ab_ and _ac_,
- * can be interpreted as the sinus sign in a "right-handed" coordinate system
- * (i.e. clockwise angle values).
+ * Computes the cross product of vectors _ab_ and _ac_.
+ * Can be interpreted as the sinus sign in a "right-handed"
+ * coordinate system (i.e. clockwise angle values).
+ * sin_sign(a, b, c) > 0 iff point c 'lies to the left' of segment _ab_. 
  * 
  * <p>
  * Originally implemented as
