@@ -1,20 +1,16 @@
 {
   "name": "cg",
   "version": "0.1.1",
-  "description": "cg (computational geometry) algorithms templates for JavaScript",
-  "main": "dist/cg.js",
+  "description": "cg (computational geometry) kernel for JavaScript",
+  "main": "js/dist/cg.js",
   "dependencies": {},
   "devDependencies": {
-    "qunit": "git://github.com/gotwarlost/node-qunit.git#istanbul-coverage",
-    "coveralls": "^2.10.0",
-    "uglify-js": "^2.4.13",
-    "recquire": "~0.1.0",
-    "recbuild": "~0.0.3",
-    "codeclimate-test-reporter": "0.0.3"
+    "aureooms-node-package": "^0.3.2"
   },
   "scripts": {
-    "build": "node js/build.js",
-    "test": "export DIR=node_modules/qunit/support/qunit/qunit && mkdir -p $DIR && cp support/qunit.js $DIR/ && node test/js/run.js"
+    "build": "./node_modules/.bin/aureooms-node-package-build",
+    "test": "./node_modules/.bin/aureooms-node-package-test",
+    "doc": "./node_modules/.bin/groc"
   },
   "repository": {
     "type": "git",
@@ -26,6 +22,7 @@
     "algorithm",
     "complexity",
     "template",
+    "kernel",
     "computational geometry",
     "cg"
   ],

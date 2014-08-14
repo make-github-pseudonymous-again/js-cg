@@ -1,15 +1,16 @@
-(function(exports){
+(function(exports, undefined){
 
 	'use strict';
 
 
-/* /home/genius/Bureau/cg/js/src/2d */
-/* /home/genius/Bureau/cg/js/src/2d/sin_sign.js */
+/* js/src/2d */
+/* js/src/2d/sin_sign.js */
 
 /**
- * Computes the cross product of _ab_ and _ac_,
- * can be interpreted as the sinus sign in a "right-handed" coordinate system
- * (i.e. clockwise angle values).
+ * Computes the cross product of vectors _ab_ and _ac_.
+ * Can be interpreted as the sinus sign in a "right-handed"
+ * coordinate system (i.e. clockwise angle values).
+ * sin_sign(a, b, c) > 0 iff point c 'lies to the left' of segment _ab_. 
  * 
  * <p>
  * Originally implemented as
@@ -37,4 +38,5 @@ var sin_sign = function(a, b, c){
 
 
 exports.sin_sign = sin_sign;
+
 })(typeof exports === 'undefined' ? this['cg'] = {} : exports);

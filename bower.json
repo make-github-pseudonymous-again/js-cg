@@ -1,7 +1,7 @@
 {
   "name": "cg",
   "version": "0.1.1",
-  "description" : "cg (computational geometry) algorithms templates for JavaScript",
+  "description" : "cg (computational geometry) kernel for JavaScript",
   "homepage": "https://github.com/aureooms/cg",
   "license": "GPL v2"
 }
