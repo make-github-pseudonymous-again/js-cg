@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="en"><head><title>2d/sin_sign</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="2d/sin_sign"><meta name="groc-project-path" content="js/src/2d/sin_sign.js"><meta name="groc-github-url" content="https://github.com/aureooms/cg"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/aureooms/cg/blob/master/js/src/2d/sin_sign.js">js/src/2d/sin_sign.js</a></div></div><div id="document"><div class="segment"></div><div class="segment"><div class="comments "><div class="wrapper"><p>Computes the cross product of vectors <em>ab</em> and <em>ac</em>.
+Can be interpreted as the sinus sign in a "right-handed"
+coordinate system (i.e. clockwise angle values).
+sin<em>sign(a, b, c) > 0 iff point c 'lies to the left' of segment _ab</em>. </p>
+
+<p><p>
+Originally implemented as</p>
+
+<pre><code>a[1] * (c[0] - b[0]) + b[1] * (a[0] - c[0]) + c[1] * (b[0] - a[0])
+</code></pre>
+
+<p>with
+  - 2 add
+  - 3 sub
+  - 3 mul</p>
+
+<p>Reduced to</p>
+
+<pre><code>(b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0])
+</code></pre>
+
+<p>with
+  - 5 sub
+  - 2 mul</p></div></div><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">sin_sign</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">){</span>
+  <span class="k">return</span> <span class="p">(</span><span class="nx">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nx">a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="nx">c</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">a</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="nx">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="nx">a</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="p">(</span><span class="nx">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="nx">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<span class="p">};</span>
+
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">sin_sign</span> <span class="o">=</span> <span class="nx">sin_sign</span><span class="p">;</span></div></div></div></div></body></html>
