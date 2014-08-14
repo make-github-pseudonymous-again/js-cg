@@ -1,6 +1,6 @@
 {
 	"name": "cg",
-	"version": "0.1.3",
+	"version": "0.1.4",
 	"description": "cg (computational geometry) kernel for JavaScript",
 	"main": "js/dist/cg.js",
 	"dependencies": {},
