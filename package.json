@@ -1,11 +1,11 @@
 {
-	"name": "cg",
-	"version": "0.1.9",
-	"description": "cg (computational geometry) kernel for JavaScript",
+	"name": "aureooms-js-cg",
+	"description": "computational geometry code bricks for JavaScript",
+	"version": "0.2.0",
 	"main": "js/dist/cg.js",
 	"dependencies": {},
 	"devDependencies": {
-		"aureooms-node-package": "^0.3.2"
+		"aureooms-node-package": "^1.0.0"
 	},
 	"scripts": {
 		"build": "./node_modules/.bin/aureooms-node-package-build",
@@ -14,7 +14,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/aureooms/cg.git"
+		"url": "https://github.com/aureooms/js-cg.git"
 	},
 	"keywords": [
 		"js",
@@ -27,9 +27,9 @@
 		"cg"
 	],
 	"author": "aureooms",
-	"license": "GPL v2",
+	"license": "AGPL-3.0",
 	"bugs": {
-		"url": "https://github.com/aureooms/cg/issues"
+		"url": "https://github.com/aureooms/js-cg/issues"
 	},
-	"homepage": "https://aureooms.github.io/cg"
+	"homepage": "https://aureooms.github.io/js-cg"
 }

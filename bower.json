@@ -1,7 +1,19 @@
 {
-	"name": "cg",
-	"version": "0.1.9",
-	"description": "cg (computational geometry) kernel for JavaScript",
-	"homepage": "https://github.com/aureooms/cg",
-	"license": "GPL v2"
+	"name": "aureooms-js-cg",
+	"version": "0.2.0",
+	"description": "computational geometry code bricks for JavaScript",
+	"homepage": "https://aureooms.github.io/js-cg",
+	"license": "AGPL-3.0",
+	"main": "js/dist/cg.js",
+	"ignore": [
+		"js/index.js",
+		"js/src",
+		"test",
+		"pkg.json",
+		"package.json",
+		".groc.json",
+		".travis.yml",
+		".gitignore",
+		"README.md"
+	]
 }

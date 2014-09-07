@@ -1,10 +1,17 @@
 {
-	"ns" : "cg",
-	"src" : "js/src/",
-	"out" : "js/dist/",
-	"code" : {
-		"main" : ["js", "dist", "cg.js"],
-		"test" : ["test", "js"]
+	"ns": "cg",
+	"code": {
+		"main": [
+			"js",
+			"dist",
+			"cg.js"
+		],
+		"test": [
+			"test",
+			"js"
+		]
 	},
-	"debug" : false
+	"src": "js/src/",
+	"debug": false,
+	"out": "js/dist/"
 }

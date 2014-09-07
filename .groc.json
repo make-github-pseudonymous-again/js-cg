@@ -1,4 +1,7 @@
 {
-  "glob": ["js/src/**/*.js", "README.md"],
-  "github": true
+	"glob": [
+		"js/src/**/*.js",
+		"README.md"
+	],
+	"github": true
 }
