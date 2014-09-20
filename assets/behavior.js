@@ -13,7 +13,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "commentsOnly": true,
           "name": "Markdown"
         },
-        "sourcePath": "/home/genius/dev/cg/README.md",
+        "sourcePath": "/home/genius/dev/js/js-cg/README.md",
         "projectPath": "README.md",
         "targetPath": "index",
         "pageTitle": "index",
@@ -41,7 +41,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/home/genius/dev/cg/js/src/2d/sin_sign.js",
+            "sourcePath": "/home/genius/dev/js/js-cg/js/src/2d/sin_sign.js",
             "projectPath": "js/src/2d/sin_sign.js",
             "targetPath": "2d/sin_sign",
             "pageTitle": "2d/sin_sign",
