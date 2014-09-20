@@ -1,0 +1,8 @@
+<!DOCTYPE html><html lang="en"><head><title>d2/colinear</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="d2/colinear"><meta name="groc-project-path" content="js/src/d2/colinear.js"><meta name="groc-github-url" content="https://github.com/aureooms/js-cg"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/aureooms/js-cg/blob/master/js/src/d2/colinear.js">js/src/d2/colinear.js</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> __colinear__ = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(sinsign)</span>{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Returns true if <em>a</em> , <em>b</em> and <em>c</em> are colinear.</p></div></div><div class="code"><div class="wrapper">	<span class="hljs-keyword">var</span> colinear = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(a, b, c)</span>{</span>
+		<span class="hljs-keyword">return</span> sinsign(a, b, c) === <span class="hljs-number">0</span>;
+	};
+
+	<span class="hljs-keyword">return</span> colinear;
+};
+
+exports.__colinear__ = __colinear__;</div></div></div></div></body></html>

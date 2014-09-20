@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head><title>2d/sin_sign</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="2d/sin_sign"><meta name="groc-project-path" content="js/src/2d/sin_sign.js"><meta name="groc-github-url" content="https://github.com/aureooms/js-cg"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/aureooms/js-cg/blob/master/js/src/2d/sin_sign.js">js/src/2d/sin_sign.js</a></div></div><div id="document"><div class="segment"></div><div class="segment"><div class="comments "><div class="wrapper"><p>Computes the cross product of vectors <em>ab</em> and <em>ac</em>.
 Can be interpreted as the sinus sign in a &quot;right-handed&quot;
 coordinate system (i.e. clockwise angle values).
-sin<em>sign(a, b, c) &gt; 0 iff point c &#39;lies to the left&#39; of segment _ab</em>. </p>
+sin_sign(a, b, c) &gt; 0 iff point c &#39;lies to the left&#39; of segment <em>ab</em>. </p>
 <p><p>
 Originally implemented as</p>
 <pre><code>a[1] * (c[0] - b[0]) + b[1] * (a[0] - c[0]) + c[1] * (b[0] - a[0])</code></pre>
