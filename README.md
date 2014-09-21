@@ -12,3 +12,4 @@ computational geometry code bricks for JavaScript
 references
  - https://github.com/crm416/point-location
  - https://github.com/ironwallaby/delaunay
+ - http://www.toptal.com/python/computational-geometry-in-python-from-theory-to-implementation
