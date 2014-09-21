@@ -1,6 +1,6 @@
 {
 	"name": "aureooms-js-cg",
-	"version": "0.4.0",
+	"version": "0.4.1",
 	"description": "computational geometry code bricks for JavaScript",
 	"homepage": "https://aureooms.github.io/js-cg",
 	"license": "AGPL-3.0",
