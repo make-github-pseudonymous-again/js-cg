@@ -61,6 +61,26 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
+            "sourcePath": "/home/genius/dev/js/js-cg/js/src/d2/convex.js",
+            "projectPath": "js/src/d2/convex.js",
+            "targetPath": "d2/convex",
+            "pageTitle": "d2/convex",
+            "title": "convex"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
             "sourcePath": "/home/genius/dev/js/js-cg/js/src/d2/cossign.js",
             "projectPath": "js/src/d2/cossign.js",
             "targetPath": "d2/cossign",
