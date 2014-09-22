@@ -8,13 +8,13 @@ test('convex', function (assert) {
 
 	var sinsign = cg.sinsign;
 
-	var __lc__ = cg.__lc__;
+	var __ccwc__ = cg.__ccwc__;
 
-	var lc = __lc__(sinsign);
+	var ccwc = __ccwc__(sinsign);
 
 	var __convex__ = cg.__convex__;
 
-	var convex = __convex__(lc);
+	var convex = __convex__(ccwc);
 
 	var p = [
 		[0, 0],
