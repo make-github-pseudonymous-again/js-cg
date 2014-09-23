@@ -4,8 +4,8 @@
 
 
 /* js/src/d2 */
-/* js/src/d2/hull */
-/* js/src/d2/hull/chn2.js */
+/* js/src/d2/ch */
+/* js/src/d2/ch/chn2.js */
 
 
 var ch_n2 = function(set){
@@ -45,53 +45,59 @@ var ch_n2 = function(set){
 
 exports.ch_n2 = ch_n2;
 
-/* js/src/d2/hull/chn3.js */
+/* js/src/d2/ch/chn3.js */
 
 
 /**
  * Find the convex hull in O(n^3) by keeping any point that
- * is not the vertex of an acute angle of the set of points.
+ * is not the vertex of an obtuse angle of the set of points.
  */
 
-var chn3 = function(set, hull){
+var __chn3__ = function (sinsign, cossign) {
 
-	var i, j, k, a, b, c, len, sin;
+	var chn3 = function(set, hull){
 
-	len = set.length;
+		var i, j, k, a, b, c, len, sin;
 
-	for (i = 0; i < len; ++i){
+		len = set.length;
 
-		a = set[i];
+		for (i = 0; i < len; ++i){
 
-		loopj : for (j = 0; j < len; ++j){
+			a = set[i];
 
-			if (j === i) continue;
+			loopj : for (j = 0; j < len; ++j){
 
-			b = set[j];
+				if (j === i) continue;
 
-			for (k = 0; k < len; ++k){
+				b = set[j];
 
-				if (k === i || k === j) continue;
+				for (k = 0; k < len; ++k){
 
-				c = set[k];
+					if (k === i || k === j) continue;
 
-				sin = sinsign(a, b, c);
+					c = set[k];
 
-				if (sin < 0 || (sin === 0 && cossign(a, b, c) > 0)){
-					continue loopj;
+					sin = sinsign(a, b, c);
+
+					if (sin < 0 || (sin === 0 && cossign(a, b, c) < 0)){
+						continue loopj;
+					}
+
 				}
 
+				hull[j] = true;
 			}
-
-			hull[j] = true;
 		}
-	}
+
+	};
+
+	return chn3;
 
 };
 
-exports.chn3 = chn3;
+exports.__chn3__ = __chn3__;
 
-/* js/src/d2/hull/chn4.js */
+/* js/src/d2/ch/chn4.js */
 
 
 /**
@@ -99,7 +105,7 @@ exports.chn3 = chn3;
  * a triangle of the set of points.
  */
 
-var __chn4__ = function (pit) {
+var __chn4__ = function (colinear, pit) {
 
 
 	var chn4 = function (set, hull) {
@@ -146,7 +152,7 @@ var __chn4__ = function (pit) {
 
 exports.__chn4__ = __chn4__;
 
-/* js/src/d2/hull/chonline.js */
+/* js/src/d2/ch/chonline.js */
 
 
 var binary_ext_sin_search = function(ch, l, r, o, p){
@@ -232,7 +238,7 @@ var ch_online_rm = function(set, p, ch){
 exports.ch_online_add = ch_online_add;
 exports.ch_online_rm = ch_online_rm;
 
-/* js/src/d2/hull/chsort.js */
+/* js/src/d2/ch/chsort.js */
 
 
 var ch_sort = function(ch){
@@ -242,7 +248,7 @@ var ch_sort = function(ch){
 
 exports.ch_sort = ch_sort;
 
-/* js/src/d2/hull/graham_scan.js */
+/* js/src/d2/ch/graham_scan.js */
 
 
 var graham_sort = function(set){
@@ -291,7 +297,7 @@ var graham_scan = function(set){
 exports.graham_sort = graham_sort;
 exports.graham_scan = graham_scan;
 
-/* js/src/d2/hull/graham_scan_mono.js */
+/* js/src/d2/ch/graham_scan_mono.js */
 
 
 var graham_scan_mono = function(set){
@@ -323,7 +329,7 @@ var graham_scan_mono = function(set){
 
 exports.graham_scan_mono = graham_scan_mono;
 
-/* js/src/d2/hull/jarvis_march.js */
+/* js/src/d2/ch/jarvis_march.js */
 
 
 var jarvis_march = function(set){
@@ -391,7 +397,7 @@ var jarvis_march = function(set){
 
 exports.jarvis_march = jarvis_march;
 
-/* js/src/d2/hull/quick_hull.js */
+/* js/src/d2/ch/quick_hull.js */
 
 
 var quick_hull = function(set){

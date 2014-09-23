@@ -5,7 +5,8 @@
 	"main": "js/dist/cg.js",
 	"dependencies": {},
 	"devDependencies": {
-		"aureooms-node-package": "^1.1.0"
+		"aureooms-node-package": "^1.1.0",
+		"aureooms-js-algo": "^0.2.3"
 	},
 	"scripts": {
 		"build": "./node_modules/.bin/aureooms-node-package-build",

@@ -5,7 +5,7 @@
  * a triangle of the set of points.
  */
 
-var __chn4__ = function (pit) {
+var __chn4__ = function (colinear, pit) {
 
 
 	var chn4 = function (set, hull) {
