@@ -9,7 +9,7 @@ computational geometry code bricks for JavaScript
 [![devDependencies Status](https://david-dm.org/aureooms/js-cg/dev-status.png)](https://david-dm.org/aureooms/js-cg#info=devDependencies)
 [![Code Climate](https://codeclimate.com/github/aureooms/js-cg.png)](https://codeclimate.com/github/aureooms/js-cg)
 
-references
+reference:
  - https://github.com/crm416/point-location
  - https://github.com/ironwallaby/delaunay
  - http://www.toptal.com/python/computational-geometry-in-python-from-theory-to-implementation
