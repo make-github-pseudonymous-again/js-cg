@@ -1,38 +1,73 @@
 
 
-var ch_n2 = function(set){
-	var discard = [];
-	for(var b = 0; b < set.length; ++b){
-		for(var a = 0; a < set.length; ++a){
-			if(b == a) continue;
-			var max = [null, null];
-			var max_cos = [1, 1];
-			for(var x = 0; x < set.length; ++x){
-				if(x == a || x == b) continue;
-				var sin = sin_sign(set[a], set[b], set[x]);
-				var cos = geo.cos(set[a], set[b], set[x]);
-				if(sin >= 0 && cos <= max_cos[0]){
-					max[0] = set[x];
-					max_cos[0] = cos;
-				}
-				if(sin <= 0 && cos <= max_cos[1]){
-					max[1] = set[x];
-					max_cos[1] = cos;
-				}
-			}
-			if(max[0] && max[1] && sin_sign(max[0], max[1], set[b]) <= 0){
-				discard[b] = true;
-				break;
-			}
-			break;
-		}
-	}
+/**
+ * Find the convex hull in O(n^2) by checking for every point b
+ * that there is no triangle ( a,  maxleft, maxright ) that
+ * contains this point.
+ */
 
-	var ch = [];
-	for(var x = 0; x < set.length; ++x){
-		if(!discard[x]) ch.push(set[x]);
-	}
-	return ch;
+var __chn2__ = function ( sinsign, cosval ) {
+
+	var chn2 = function ( set, hull ) {
+
+		var i, j, k, a, b, c, n, maxleft, maxright, cosleft, cosright, sin, cos;
+
+		n = set.length;
+
+		for ( j = 0 ; j < n ; ++j ) {
+
+			for ( i = 0 ; i < n ; ++i ) {
+
+				if ( j === i ) {
+					continue;
+				}
+
+				a = set[i];
+				b = set[j];
+
+				maxleft = null;
+				maxright = null;
+				cosleft = 1;
+				cosright = 1;
+
+				// k = 1
+
+				for ( k = 0; k < n ; ++k ) {
+
+					if ( k === i || k === j ) {
+						continue;
+					}
+
+					c = set[k];
+
+					sin = sinsign( a, b, c );
+					cos = cosval( a, b, c );
+
+					if ( sin >= 0 && cos <= cosleft ) {
+						maxleft = c;
+						cosleft = cos;
+					}
+
+					if ( sin <= 0 && cos <= cosright ) {
+						maxright = c;
+						cosright = cos;
+					}
+
+				}
+
+				if ( maxleft !== null || maxright !== null ) {
+					hull[b] = sinsign( maxleft, maxright, b ) > 0;
+				}
+
+				break;
+
+			}
+		}
+
+	};
+
+	return chn2;
+
 };
 
-exports.ch_n2 = ch_n2;
+exports.__chn2__ = __chn2__;
