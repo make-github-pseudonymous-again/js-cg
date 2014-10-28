@@ -1,5 +1,5 @@
 
-var det3 = function (A) {
+var det3 = function ( A ) {
 
 	var A0, A1, A2, A00, A01, A02, A10, A11, A12, A20, A21, A22;
 
