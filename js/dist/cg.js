@@ -8,42 +8,77 @@
 /* js/src/d2/ch/chn2.js */
 
 
-var ch_n2 = function(set){
-	var discard = [];
-	for(var b = 0; b < set.length; ++b){
-		for(var a = 0; a < set.length; ++a){
-			if(b == a) continue;
-			var max = [null, null];
-			var max_cos = [1, 1];
-			for(var x = 0; x < set.length; ++x){
-				if(x == a || x == b) continue;
-				var sin = sin_sign(set[a], set[b], set[x]);
-				var cos = geo.cos(set[a], set[b], set[x]);
-				if(sin >= 0 && cos <= max_cos[0]){
-					max[0] = set[x];
-					max_cos[0] = cos;
-				}
-				if(sin <= 0 && cos <= max_cos[1]){
-					max[1] = set[x];
-					max_cos[1] = cos;
-				}
-			}
-			if(max[0] && max[1] && sin_sign(max[0], max[1], set[b]) <= 0){
-				discard[b] = true;
-				break;
-			}
-			break;
-		}
-	}
+/**
+ * Find the convex hull in O(n^2) by checking for every point b
+ * that there is no triangle ( a,  maxleft, maxright ) that
+ * contains this point.
+ */
 
-	var ch = [];
-	for(var x = 0; x < set.length; ++x){
-		if(!discard[x]) ch.push(set[x]);
-	}
-	return ch;
+var __chn2__ = function ( sinsign, cosval ) {
+
+	var chn2 = function ( set, hull ) {
+
+		var i, j, k, a, b, c, n, maxleft, maxright, cosleft, cosright, sin, cos;
+
+		n = set.length;
+
+		for ( j = 0 ; j < n ; ++j ) {
+
+			for ( i = 0 ; i < n ; ++i ) {
+
+				if ( j === i ) {
+					continue;
+				}
+
+				a = set[i];
+				b = set[j];
+
+				maxleft = null;
+				maxright = null;
+				cosleft = 1;
+				cosright = 1;
+
+				// k = 1
+
+				for ( k = 0; k < n ; ++k ) {
+
+					if ( k === i || k === j ) {
+						continue;
+					}
+
+					c = set[k];
+
+					sin = sinsign( a, b, c );
+					cos = cosval( a, b, c );
+
+					if ( sin >= 0 && cos <= cosleft ) {
+						maxleft = c;
+						cosleft = cos;
+					}
+
+					if ( sin <= 0 && cos <= cosright ) {
+						maxright = c;
+						cosright = cos;
+					}
+
+				}
+
+				if ( maxleft !== null && maxright !== null ) {
+					hull[j] = sinsign( maxleft, maxright, b ) > 0;
+				}
+
+				break;
+
+			}
+		}
+
+	};
+
+	return chn2;
+
 };
 
-exports.ch_n2 = ch_n2;
+exports.__chn2__ = __chn2__;
 
 /* js/src/d2/ch/chn3.js */
 
@@ -53,33 +88,37 @@ exports.ch_n2 = ch_n2;
  * is not the vertex of an obtuse angle of the set of points.
  */
 
-var __chn3__ = function (sinsign, cossign) {
+var __chn3__ = function ( sinsign, cossign ) {
 
-	var chn3 = function(set, hull){
+	var chn3 = function ( set, hull ) {
 
 		var i, j, k, a, b, c, len, sin;
 
 		len = set.length;
 
-		for (i = 0; i < len; ++i){
+		for ( i = 0 ; i < len ; ++i ) {
 
 			a = set[i];
 
-			loopj : for (j = 0; j < len; ++j){
+			loopj : for ( j = 0 ; j < len ; ++j ) {
 
-				if (j === i) continue;
+				if ( j === i ) {
+					continue;
+				}
 
 				b = set[j];
 
-				for (k = 0; k < len; ++k){
+				for ( k = 0 ; k < len ; ++k ){
 
-					if (k === i || k === j) continue;
+					if ( k === i || k === j ) {
+						continue;
+					}
 
 					c = set[k];
 
-					sin = sinsign(a, b, c);
+					sin = sinsign( a, b, c );
 
-					if (sin < 0 || (sin === 0 && cossign(a, b, c) < 0)){
+					if ( sin < 0 || ( sin === 0 && cossign( a, b, c ) < 0 ) ) {
 						continue loopj;
 					}
 
@@ -105,39 +144,49 @@ exports.__chn3__ = __chn3__;
  * a triangle of the set of points.
  */
 
-var __chn4__ = function (colinear, pit) {
+var __chn4__ = function ( colinear, pit ) {
 
-
-	var chn4 = function (set, hull) {
+	var chn4 = function ( set, hull ) {
 
 		var i, j, k, a, b, c, x, len;
 
 		len = set.length;
 
-		for (i = 0; i < len; ++i) {
+		for ( i = 0 ; i < len ; ++i ) {
 
-			if (!hull[i]) continue;
+			if ( !hull[i] ) {
+				continue;
+			}
 
 			a = set[i];
 
-			for (j = 0; j < len; ++j) {
+			for ( j = 0 ; j < len ; ++j ) {
 
-				if (j === i || !hull[j]) continue;
+				if ( j === i || !hull[j] ) {
+					continue;
+				}
 
 				b = set[j];
 
-				for (k = 0; k < len; ++k) {
+				for ( k = 0 ; k < len ; ++k ) {
 
-					if (k === i || k === j || !hull[k]) continue;
+					if ( k === i || k === j || !hull[k] ) {
+						continue;
+					}
 
 					c = set[k];
 
-					if (colinear(a, b, c)) continue;
+					if ( colinear( a, b, c ) ) {
+						continue;
+					}
 
-					for (x = 0; x < len; ++x) {
-						if(x === i || x === j || x === k || !hull[x]) continue;
+					for ( x = 0 ; x < len ; ++x ) {
 
-						if (pit(set[x], a, b, c)) {
+						if ( x === i || x === j || x === k || !hull[x] ) {
+							continue;
+						}
+
+						if ( pit( set[x], a, b, c ) ) {
 							hull[x] = false;
 						}
 					}
@@ -513,10 +562,35 @@ var quick_hull_rec = function(set, l, r, b0, b1, b2, ch){
 exports.quick_hull = quick_hull;
 
 /* js/src/d2/intersect */
+/* js/src/d2/irrational */
+/* js/src/d2/irrational/cosval.js */
+
+var cosval = function ( a, b, c ) {
+	return cossign( a, b, c ) / dist( a, b ) / dist( b, c );
+};
+
+exports.cosval = cosval;
+
+/* js/src/d2/irrational/dist.js */
+
+var dist = function ( a, b ) {
+	return Math.sqrt( scalar ( a, b ) );
+};
+
+exports.dist = dist;
+
+/* js/src/d2/irrational/sinval.js */
+
+var sinval = function ( a, b, c ) {
+	return sinsign( a, b, c ) / dist( a, b ) / dist( b, c );
+};
+
+exports.sinval = sinval;
+
 /* js/src/d2/op */
 /* js/src/d2/op/det3.js */
 
-var det3 = function (A) {
+var det3 = function ( A ) {
 
 	var A0, A1, A2, A00, A01, A02, A10, A11, A12, A20, A21, A22;
 
@@ -536,6 +610,18 @@ exports.det3 = det3;
 
 /* js/src/d2/op/scalar.js */
 
+var scalar = function ( a, b ) {
+
+	var c;
+
+	c = vsub( a, b );
+
+	return vdot( c, c );
+	
+};
+
+exports.scalar = scalar;
+
 /* js/src/d2/op/vadd.js */
 
 
@@ -543,11 +629,11 @@ exports.det3 = det3;
  * Computes u + v
  */
 
-var vsub = function (u, v) {
-	return [u[0] + v[0], u[1] + v[1]];
+var vadd = function ( u, v ) {
+	return [ u[0] + v[0], u[1] + v[1] ];
 };
 
-exports.vsub = vsub;
+exports.vadd = vadd;
 
 /* js/src/d2/op/vcross.js */
 
@@ -556,7 +642,7 @@ exports.vsub = vsub;
  * Computes cross product u x v
  */
 
-var vcross = function (u, v) {
+var vcross = function ( u, v ) {
 	return u[0] * v[1] - u[1] * v[0];
 };
 
@@ -569,7 +655,7 @@ exports.vcross = vcross;
  * Computes dot product u.v
  */
 
-var vdot = function (u, v) {
+var vdot = function ( u, v ) {
 	return u[0] * v[0] + u[1] * v[1];
 };
 
@@ -582,8 +668,8 @@ exports.vdot = vdot;
  * Computes u - v
  */
 
-var vsub = function (u, v) {
-	return [u[0] - v[0], u[1] - v[1]];
+var vsub = function ( u, v ) {
+	return [ u[0] - v[0], u[1] - v[1] ];
 };
 
 exports.vsub = vsub;
@@ -592,15 +678,15 @@ exports.vsub = vsub;
 /* js/src/d2/pred/ccw.js */
 
 
-var __ccw__ = function(sinsign){
+var __ccw__ = function ( sinsign ) {
 
 	/**
 	 * Returns true if _c_ lies to the left of segment _ab_
 	 * in a "right-handed" coordinate system.
 	 */
 
-	var ccw = function(a, b, c){
-		return sinsign(a, b, c) > 0;
+	var ccw = function ( a, b, c ) {
+		return sinsign( a, b, c ) > 0;
 	};
 
 	return ccw;
@@ -611,7 +697,7 @@ exports.__ccw__ = __ccw__;
 /* js/src/d2/pred/ccwc.js */
 
 
-var __ccwc__ = function(sinsign){
+var __ccwc__ = function ( sinsign ) {
 
 	/**
 	 * Returns true if _c_ lies to the left of segment _ab_
@@ -619,8 +705,8 @@ var __ccwc__ = function(sinsign){
 	 * "right-handed" coordinate system.
 	 */
 
-	var ccwc = function(a, b, c){
-		return sinsign(a, b, c) >= 0;
+	var ccwc = function ( a, b, c ) {
+		return sinsign( a, b, c ) >= 0;
 	};
 
 	return ccwc;
@@ -631,14 +717,14 @@ exports.__ccwc__ = __ccwc__;
 /* js/src/d2/pred/colinear.js */
 
 
-var __colinear__ = function(sinsign){
+var __colinear__ = function ( sinsign ) {
 
 	/**
 	 * Returns true if _a_ , _b_ and _c_ are colinear.
 	 */
 
-	var colinear = function(a, b, c){
-		return sinsign(a, b, c) === 0;
+	var colinear = function ( a, b, c ) {
+		return sinsign( a, b, c ) === 0;
 	};
 
 	return colinear;
@@ -649,14 +735,15 @@ exports.__colinear__ = __colinear__;
 /* js/src/d2/pred/convex.js */
 
 
-var __convex__ = function (ccwc) {
+var __convex__ = function ( ccwc ) {
 
-	var convex = function (a, i, j) {
+	var convex = function ( a, i, j ) {
+
 		var x, y, z, k, n;
 
 		n = j - i;
 
-		if (n <= 2) {
+		if ( n <= 2 ) {
 			return true;
 		}
 
@@ -669,72 +756,72 @@ var __convex__ = function (ccwc) {
 		z = a[k];
 		++k;
 
-		if (n === 3) {
-			return ccwc(x, y, z);
+		if ( n === 3 ) {
+			return ccwc( x, y, z );
 		}
 
 		for (;;) {
 
-			if (!ccwc(x, y, z)) {
+			if ( !ccwc( x, y, z ) ) {
 				return false;
 			}
 
-			if (k === j) {
+			if ( k === j ) {
 				k = i;
 				x = a[k];
 
-				if (!ccwc(y, z, x)) {
+				if ( !ccwc( y, z, x ) ) {
 					return false;
 				}
 
 				++k;
 				y = a[k];
 
-				return ccwc(z, x, y);
+				return ccwc( z, x, y );
 			}
 
 			x = a[k];
 			++k;
 
 
-			if (!ccwc(y, z, x)) {
+			if ( !ccwc( y, z, x ) ) {
 				return false;
 			}
 
-			if (k === j) {
+			if ( k === j ) {
 				k = i;
 				y = a[k];
 
-				if (!ccwc(z, x, y)) {
+				if ( !ccwc( z, x, y ) ) {
 					return false;
 				}
 
 				++k;
 				z = a[k];
 
-				return ccwc(x, y, z);
+				return ccwc( x, y, z );
 			}
 
 			y = a[k];
 			++k;
 
 
-			if (!ccwc(z, x, y)) {
+			if ( !ccwc( z, x, y ) ) {
 				return false;
 			}
 
-			if (k === j) {
+			if ( k === j ) {
 				k = i;
 				z = a[k];
 
-				if (!ccwc(x, y, z)) {
+				if ( !ccwc( x, y, z ) ) {
 					return false;
 				}
 
 				++k;
 				x = a[k];
 
-				return ccwc(y, z, x);
+				return ccwc( y, z, x );
 			}
 
 			z = a[k];
@@ -790,9 +877,9 @@ exports.__convex__ = __convex__;
  *
  */
 
-var cossign = function(x, y, z){
-	return (y[0] - x[0]) * (y[0] - z[0]) +
-	       (y[1] - x[1]) * (y[1] - z[1]);
+var cossign = function ( x, y, z ) {
+	return ( y[0] - x[0] ) * ( y[0] - z[0] ) +
+	       ( y[1] - x[1] ) * ( y[1] - z[1] );
 };
 
 exports.cossign = cossign;
@@ -800,15 +887,15 @@ exports.cossign = cossign;
 /* js/src/d2/pred/cw.js */
 
 
-var __cw__ = function(sinsign){
+var __cw__ = function ( sinsign ) {
 
 	/**
 	 * Returns true if _c_ lies to the right of segment _ab_
 	 * in a "right-handed" coordinate system.
 	 */
 
-	var cw = function(a, b, c){
-		return sinsign(a, b, c) < 0;
+	var cw = function ( a, b, c ) {
+		return sinsign( a, b, c ) < 0;
 	};
 
 	return cw;
@@ -819,7 +906,7 @@ exports.__cw__ = __cw__;
 /* js/src/d2/pred/cwc.js */
 
 
-var __cwc__ = function(sinsign){
+var __cwc__ = function ( sinsign ) {
 
 	/**
 	 * Returns true if _c_ lies to the right of segment _ab_
@@ -827,8 +914,8 @@ var __cwc__ = function(sinsign){
 	 * "right-handed" coordinate system.
 	 */
 
-	var cwc = function(a, b, c){
-		return sinsign(a, b, c) <= 0;
+	var cwc = function ( a, b, c ) {
+		return sinsign( a, b, c ) <= 0;
 	};
 
 	return cwc;
@@ -843,14 +930,15 @@ exports.__cwc__ = __cwc__;
  * In circum circle predicate
  */
 
-var __icc__ = function (det3) {
+var __icc__ = function ( det3 ) {
 
 	/**
 	 * Checks if _w_ lies strictly inside the circum circle
 	 * of triangle _tuv_.
 	 */
 
-	var icc = function (t, u, v, w) {
+	var icc = function ( t, u, v, w ) {
+
 		var t0, t1, u0, u1, v0, v1, w0, w1, y;
 
 		t0 = t[0]; t1 = t[1];
@@ -860,11 +948,12 @@ var __icc__ = function (det3) {
 
 		y = w0 * w0 + w1 * w1;
 
-		return det3([
+		return det3( [
 			[t0 - w0, t1 - w1, t0 * t0 + t1 * t1 - y],
 			[u0 - w0, u1 - w1, u0 * u0 + u1 * u1 - y],
 			[v0 - w0, v1 - w1, v0 * v0 + v1 * v1 - y]
-		]) > 0;
+		] ) > 0;
+
 	};
 
 	return icc;
@@ -879,12 +968,14 @@ exports.__icc__ = __icc__;
  * Returns true if point is in triangle.
  */
 
-var __pit__ = function (ccw) {
+var __pit__ = function ( ccw ) {
 
-	var pit = function (x, a, b, c) {
-		return ccw(a, b, x) &&
-		       ccw(b, c, x) &&
-		       ccw(c, a, x);
+	var pit = function ( x, a, b, c ) {
+
+		return ccw( a, b, x ) &&
+		       ccw( b, c, x ) &&
+		       ccw( c, a, x );
+
 	};
 
 	return pit;
@@ -914,9 +1005,9 @@ exports.__pit__ = __pit__;
  * see http://en.wikipedia.org/wiki/Point_in_polygon
  */
 
-var __rc__ = function (ris) {
+var __rc__ = function ( ris ) {
 
-	var rc = function (polygon, i, j, p, q) {
+	var rc = function ( polygon, i, j, p, q ) {
 
 		var u, v, n;
 
@@ -926,20 +1017,20 @@ var __rc__ = function (ris) {
 		v = polygon[i];
 		++i;
 
-		for (;;) {
-			n += ris(p, q, u, v);
+		for ( ; ; ) {
+			n += ris( p, q, u, v );
 			++i;
 
-			if (i === j) {
+			if ( i === j ) {
 				return n;
 			}
 
 			u = polygon[i];
 
-			n += ris(p, q, u, v);
+			n += ris( p, q, u, v );
 			++i;
 
-			if (i === j) {
+			if ( i === j ) {
 				return n;
 			}
 
@@ -981,9 +1072,9 @@ exports.__rc__ = __rc__;
  *
  */
 
-var sinsign = function(a, b, c){
-	return (b[0] - a[0]) * (c[1] - a[1]) -
-	       (b[1] - a[1]) * (c[0] - a[0]);
+var sinsign = function ( a, b, c ) {
+	return ( b[0] - a[0] ) * ( c[1] - a[1] ) -
+	       ( b[1] - a[1] ) * ( c[0] - a[0] );
 };
 
 
