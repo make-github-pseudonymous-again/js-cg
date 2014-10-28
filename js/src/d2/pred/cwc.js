@@ -1,6 +1,6 @@
 
 
-var __cwc__ = function(sinsign){
+var __cwc__ = function ( sinsign ) {
 
 	/**
 	 * Returns true if _c_ lies to the right of segment _ab_
@@ -8,8 +8,8 @@ var __cwc__ = function(sinsign){
 	 * "right-handed" coordinate system.
 	 */
 
-	var cwc = function(a, b, c){
-		return sinsign(a, b, c) <= 0;
+	var cwc = function ( a, b, c ) {
+		return sinsign( a, b, c ) <= 0;
 	};
 
 	return cwc;

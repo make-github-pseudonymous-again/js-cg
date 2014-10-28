@@ -19,9 +19,9 @@
  * see http://en.wikipedia.org/wiki/Point_in_polygon
  */
 
-var __rc__ = function (ris) {
+var __rc__ = function ( ris ) {
 
-	var rc = function (polygon, i, j, p, q) {
+	var rc = function ( polygon, i, j, p, q ) {
 
 		var u, v, n;
 
@@ -31,20 +31,20 @@ var __rc__ = function (ris) {
 		v = polygon[i];
 		++i;
 
-		for (;;) {
-			n += ris(p, q, u, v);
+		for ( ; ; ) {
+			n += ris( p, q, u, v );
 			++i;
 
-			if (i === j) {
+			if ( i === j ) {
 				return n;
 			}
 
 			u = polygon[i];
 
-			n += ris(p, q, u, v);
+			n += ris( p, q, u, v );
 			++i;
 
-			if (i === j) {
+			if ( i === j ) {
 				return n;
 			}
 

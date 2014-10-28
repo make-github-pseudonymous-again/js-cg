@@ -7,7 +7,6 @@
 
 var __chn4__ = function ( colinear, pit ) {
 
-
 	var chn4 = function ( set, hull ) {
 
 		var i, j, k, a, b, c, x, len;
