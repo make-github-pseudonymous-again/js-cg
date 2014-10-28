@@ -55,8 +55,8 @@ var __chn2__ = function ( sinsign, cosval ) {
 
 				}
 
-				if ( maxleft !== null || maxright !== null ) {
-					hull[b] = sinsign( maxleft, maxright, b ) > 0;
+				if ( maxleft !== null && maxright !== null ) {
+					hull[j] = sinsign( maxleft, maxright, b ) > 0;
 				}
 
 				break;
