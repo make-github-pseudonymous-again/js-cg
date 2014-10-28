@@ -2,66 +2,63 @@
 
 /**
  * Find the convex hull in O(n^2) by checking for every point b
- * that there is no triangle ( a,  maxleft, maxright ) that
+ * that there is no triangle ( a,  minleft, minright ) that
  * contains this point.
  */
 
 var __chn2__ = function ( sinsign, cosval ) {
 
+	/**
+	 * hypothesis : |set| >= 2
+	 * @param  {set} set   array of vertices
+	 * @param  {hull} hull inclusion array representation of the convex hull
+	 */
+
 	var chn2 = function ( set, hull ) {
 
-		var i, j, k, a, b, c, n, maxleft, maxright, cosleft, cosright, sin, cos;
+		var i, j, k, a, b, c, n, minleft, minright, cosleft, cosright, sin, cos;
 
 		n = set.length;
 
 		for ( j = 0 ; j < n ; ++j ) {
 
-			for ( i = 0 ; i < n ; ++i ) {
+			i = + ( j === 0 );
 
-				if ( j === i ) {
+			a = set[i];
+			b = set[j];
+
+			minleft = null;
+			minright = null;
+			cosleft = 1;
+			cosright = 1;
+
+			for ( k = 1 ; k < n ; ++k ) {
+
+				if ( k === i || k === j ) {
 					continue;
 				}
 
-				a = set[i];
-				b = set[j];
+				c = set[k];
 
-				maxleft = null;
-				maxright = null;
-				cosleft = 1;
-				cosright = 1;
+				sin = sinsign( a, b, c );
+				cos = cosval( a, b, c );
 
-				// k = 1
-
-				for ( k = 0; k < n ; ++k ) {
-
-					if ( k === i || k === j ) {
-						continue;
-					}
-
-					c = set[k];
-
-					sin = sinsign( a, b, c );
-					cos = cosval( a, b, c );
-
-					if ( sin >= 0 && cos <= cosleft ) {
-						maxleft = c;
-						cosleft = cos;
-					}
-
-					if ( sin <= 0 && cos <= cosright ) {
-						maxright = c;
-						cosright = cos;
-					}
-
+				if ( sin >= 0 && cos <= cosleft ) {
+					minleft = c;
+					cosleft = cos;
 				}
 
-				if ( maxleft !== null && maxright !== null ) {
-					hull[j] = sinsign( maxleft, maxright, b ) > 0;
+				if ( sin <= 0 && cos <= cosright ) {
+					minright = c;
+					cosright = cos;
 				}
-
-				break;
 
 			}
+
+			if ( minleft !== null && minright !== null ) {
+				hull[j] = sinsign( minleft, minright, b ) > 0;
+			}
+
 		}
 
 	};
