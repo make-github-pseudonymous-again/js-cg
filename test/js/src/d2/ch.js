@@ -1,11 +1,12 @@
+
 var algorithms, pit, ccwc, sets, hulls,
-    expectedlist, one, ch,
-    set, hull, expected,
-    i, j, k, points, p, algo,
-    randint, sample, shuffle, iota, fill,
-    __partition__, __quicksort__,
-    pred, partition, quicksort, sort,
-    identical, genhull, colinear;
+	expectedlist, one, ch,
+	set, hull, expected,
+	i, j, k, points, p, algo,
+	randint, sample, shuffle, iota, fill,
+	__partition__, __quicksort__,
+	pred, partition, quicksort, sort,
+	identical, genhull, colinear;
 
 algo = require("aureooms-js-algo");
 // randint = algo.randint;
@@ -71,7 +72,8 @@ pit = cg.__pit__( ccwc );
 
 algorithms = [
 	cg.__chn4__( colinear, pit ),
-	cg.__chn3__( cg.sinsign, cg.cossign )
+	cg.__chn3__( cg.sinsign, cg.cossign ),
+	cg.__chn2__( cg.sinsign, cg.cosval )
 ];
 
 sets = [
@@ -91,6 +93,11 @@ hulls = [ // one per algorithm
 	function ( n ) {
 		var h = new Array( n );
 		fill( h, 0, n, false );
+		return h;
+	},
+	function ( n ) {
+		var h = new Array( n );
+		fill( h, 0, n, true );
 		return h;
 	}
 ];
