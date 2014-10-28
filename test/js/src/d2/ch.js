@@ -47,56 +47,58 @@ fill = algo.fill;
 // 	return true;
 // };
 
-genhull = function (n) {
+genhull = function ( n ) {
+
 	var i, j, h;
-	h = new Array(n);
-	fill(h, 0, n, false);
-	for (i = 1; i < arguments.length; ++i) {
+
+	h = new Array( n );
+	fill( h, 0, n, false );
+	for ( i = 1 ; i < arguments.length ; ++i ) {
 		j = arguments[i];
 		h[j] = true;
 	}
 	return h;
 };
 
-points = require('../../dep/points.js');
+points = require( "../../dep/points.js" );
 p = points.data;
 
-colinear = cg.__colinear__(cg.sinsign);
+colinear = cg.__colinear__( cg.sinsign );
 
-ccwc = cg.__ccwc__(cg.sinsign);
+ccwc = cg.__ccwc__( cg.sinsign );
 
-pit = cg.__pit__(ccwc);
+pit = cg.__pit__( ccwc );
 
 algorithms = [
-	cg.__chn4__(colinear, pit),
-	cg.__chn3__(cg.sinsign, cg.cossign)
+	cg.__chn4__( colinear, pit ),
+	cg.__chn3__( cg.sinsign, cg.cossign )
 ];
 
 sets = [
-	p.slice(0)
+	p.slice( 0 )
 ];
 
 expectedlist = [ // one per set
-	genhull(p.length, 30, 36, 42, 48)
+	genhull( p.length, 30, 36, 42, 48 )
 ];
 
 hulls = [ // one per algorithm
-	function (n) {
-		var h = new Array(n);
-		fill(h, 0, n, true);
+	function ( n ) {
+		var h = new Array( n );
+		fill( h, 0, n, true );
 		return h;
 	},
-	function (n) {
-		var h = new Array(n);
-		fill(h, 0, n, false);
+	function ( n ) {
+		var h = new Array( n );
+		fill( h, 0, n, false );
 		return h;
 	}
 ];
 
-one = function (i, j, ch, set, hull, expected) {
-	test("ch("+i+", "+j+")", function () {
-		ch(set, hull);
-		deepEqual(hull, expected, JSON.stringify());
+one = function ( i, j, ch, set, hull, expected ) {
+	test( "ch("+i+", "+j+")", function () {
+		ch( set, hull );
+		deepEqual( hull, expected, JSON.stringify() );
 	});
 };
 
