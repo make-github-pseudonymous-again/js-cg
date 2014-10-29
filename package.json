@@ -6,7 +6,9 @@
 	"dependencies": {},
 	"devDependencies": {
 		"aureooms-node-package": "^1.1.0",
-		"aureooms-js-algo": "^0.2.3"
+		"aureooms-js-array": "^0.0.5",
+		"aureooms-js-algo": "^0.2.3",
+		"aureooms-js-sort": "^2.0.0"
 	},
 	"scripts": {
 		"build": "./node_modules/.bin/aureooms-node-package-build",
