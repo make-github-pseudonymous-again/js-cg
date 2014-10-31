@@ -5,71 +5,94 @@
 
 /* js/src/d2 */
 /* js/src/d2/ch */
+/* js/src/d2/ch/akltoussaint.js */
+
+/**
+ * Implement Akl–Toussaint heuristic
+ * -> https://en.wikipedia.org/wiki/Convex_hull_algorithms#Akl.E2.80.93Toussaint_heuristic
+ */
+
+/* js/src/d2/ch/chan.js */
+
+/**
+ * -> https://en.wikipedia.org/wiki/Chan%27s_algorithm
+ */
+
+/* js/src/d2/ch/chdynamic.js */
+
+/**
+ * -> https://en.wikipedia.org/wiki/Dynamic_convex_hull
+ */
+
+/* js/src/d2/ch/chincremental.js */
+
+/**
+ * Incremental convex hull algorithm -- O(n log n)
+ * Published in 1984 by Michael Kallay.
+ */
+
 /* js/src/d2/ch/chn2.js */
 
 
 /**
  * Find the convex hull in O(n^2) by checking for every point b
- * that there is no triangle ( a,  maxleft, maxright ) that
+ * that there is no triangle ( a,  minleft, minright ) that
  * contains this point.
  */
 
 var __chn2__ = function ( sinsign, cosval ) {
 
+	/**
+	 * hypothesis : |set| >= 2
+	 * @param  {set} set   array of vertices
+	 * @param  {hull} hull inclusion array representation of the convex hull
+	 */
+
 	var chn2 = function ( set, hull ) {
 
-		var i, j, k, a, b, c, n, maxleft, maxright, cosleft, cosright, sin, cos;
+		var i, j, k, a, b, c, n, minleft, minright, cosleft, cosright, sin, cos;
 
 		n = set.length;
 
 		for ( j = 0 ; j < n ; ++j ) {
 
-			for ( i = 0 ; i < n ; ++i ) {
+			i = + ( j === 0 );
 
-				if ( j === i ) {
+			a = set[i];
+			b = set[j];
+
+			minleft = null;
+			minright = null;
+			cosleft = 1;
+			cosright = 1;
+
+			for ( k = 1 ; k < n ; ++k ) {
+
+				if ( k === i || k === j ) {
 					continue;
 				}
 
-				a = set[i];
-				b = set[j];
+				c = set[k];
 
-				maxleft = null;
-				maxright = null;
-				cosleft = 1;
-				cosright = 1;
+				sin = sinsign( a, b, c );
+				cos = cosval( a, b, c );
 
-				// k = 1
-
-				for ( k = 0; k < n ; ++k ) {
-
-					if ( k === i || k === j ) {
-						continue;
-					}
-
-					c = set[k];
-
-					sin = sinsign( a, b, c );
-					cos = cosval( a, b, c );
-
-					if ( sin >= 0 && cos <= cosleft ) {
-						maxleft = c;
-						cosleft = cos;
-					}
-
-					if ( sin <= 0 && cos <= cosright ) {
-						maxright = c;
-						cosright = cos;
-					}
-
+				if ( sin >= 0 && cos <= cosleft ) {
+					minleft = c;
+					cosleft = cos;
 				}
 
-				if ( maxleft !== null && maxright !== null ) {
-					hull[j] = sinsign( maxleft, maxright, b ) > 0;
+				if ( sin <= 0 && cos <= cosright ) {
+					minright = c;
+					cosright = cos;
 				}
-
-				break;
 
 			}
+
+			if ( minleft !== null && minright !== null ) {
+				hull[j] = sinsign( minleft, minright, b ) > 0;
+			}
+
 		}
 
 	};
@@ -287,101 +310,156 @@ var ch_online_rm = function(set, p, ch){
 exports.ch_online_add = ch_online_add;
 exports.ch_online_rm = ch_online_rm;
 
-/* js/src/d2/ch/chsort.js */
+/* js/src/d2/ch/grahamscan.js */
 
+var __grahamscan__ = function ( sinsign ) {
 
-var ch_sort = function(ch){
-	if(ch.length < 2) return;
-	graham_sort(ch);
-};
+	/**
+	 * O(n)
+	 * Set must be prealably clocksorted.
+	 * @param  {[type]} set [description]
+	 * @param  {[type]} i   [description]
+	 * @param  {[type]} j   [description]
+	 * @return {[type]}     [description]
+	 */
+	var grahamscan = function ( set, i, j, hull ) {
 
-exports.ch_sort = ch_sort;
+		var p, k, u;
 
-/* js/src/d2/ch/graham_scan.js */
+		hull.push( set[i] );
+		hull.push( set[i + 1] );
 
+		p = 0;
 
-var graham_sort = function(set){
+		for ( k = i + 2 ; k < j ; ++k ) {
 
-	var c = 0;
-	for(var i = 1; i < set.length; ++i){
-		if(set[i].x < set[c].x || (set[i].x == set[c].x && set[i].y < set[c].y)) c = i;
-	}
+			u = set[k];
 
-	set[0] = [set[c], set[c] = set[0]][0];
+			while ( sinsign( hull[p], hull[p + 1], u ) <= 0 ) {
+				hull.pop();
+				--p;
+			}
 
-	var p = 0;
-	var tmp = new Point(set[p].x, set[p].y - 1);
-
-	shuffle(set, 1, set.length);
-	quicksort(set, 1, set.length, function(a,b){
-		var cos_a = geo.cos(tmp, set[p], a);
-		var cos_b = geo.cos(tmp, set[p], b);
-		return cos_a < cos_b || (cos_a == cos_b && dist(set[p], a) > dist(set[p], b));
-	});
-
-};
-
-
-var graham_scan = function(set){
-	if(set.length < 2) return set;
-
-	graham_sort(set);
-
-	var stack = [0, 1];
-
-	for(var i = 2; i < set.length; ++i){
-		while(sin_sign(set[stack[stack.length-2]], set[stack[stack.length-1]], set[i]) > 0){
-			stack.pop();
+			hull.push( u );
+			++p;
+			
 		}
-		stack.push(i);
-	}
 
-	var ch = [];
-	for(var i = 0; i < stack.length; ++i) ch.push(set[stack[i]]);
+	};
 
-	return ch;
+	return grahamscan;
 
 };
 
-exports.graham_sort = graham_sort;
-exports.graham_scan = graham_scan;
+exports.__grahamscan__ = __grahamscan__;
 
-/* js/src/d2/ch/graham_scan_mono.js */
+/* js/src/d2/ch/grahamscanmono.js */
+
+/**
+ * This method is O(n), the only requirement is that the
+ * set of vertices should be prealably sorted.
+ *
+ *
+ * From Wikipedia :
+ *
+ * Monotone chain aka Andrew's algorithm — O(n log n)
+ * Published in 1979 by A. M. Andrew. The algorithm can be seen as a variant of
+ * Graham scan which sorts the points lexicographically by their coordinates.
+ * When the input is already sorted, the algorithm takes O(n) time.
+ *
+ * -> https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain
+ *
+ */
+
+var __grahamscanmono__ = function ( sinsign ) {
 
 
-var graham_scan_mono = function(set){
-	if(set.length < 2) return set;
+	/**
+	 * hypothesis : set is lexicographically ordered
+	 * ( in 2D : sorted according to x then y or y then x )
+	 * @param  {[type]} set  [description]
+	 * @param  {[type]} hull [description]
+	 * @return {[type]}      [description]
+	 */
 
-	shuffle(set, 0, set.length);
-	quicksort(set, 0, set.length, function(a,b){ return a.x < b.x; });
+	var grahamscanmono = function ( set, i, j, lo ) {
 
-	var up = [0, 1], down = [0, 1];
+		var k, n, hi, u, p, q;
 
-	for(var i = 2; i < set.length; ++i){
-		while(up.length > 1 && sin_sign(set[up[up.length-2]], set[up[up.length-1]], set[i]) <= 0){
-			up.pop();
+		n = set.length;
+		hi = [];
+
+		hi.push( set[i] );
+		hi.push( set[i + 1] );
+		lo.push( set[i] );
+		lo.push( set[i + 1] );
+
+		p = 0;
+		q = 0;
+
+		for ( k = i + 2 ; k < j ; ++k ) {
+
+			u = set[k];
+
+			while ( p >= 0 && sinsign( hi[p], hi[p + 1], u ) >= 0 ) {
+				hi.pop();
+				--p;
+			}
+
+			hi.push( u );
+			++p;
+
+			while ( q >= 0 && sinsign( lo[q], lo[q + 1], u ) <= 0 ) {
+				lo.pop();
+				--q;
+			}
+
+			lo.push( u );
+			++q;
+
 		}
-		up.push(i);
-		while(down.length > 1 && sin_sign(set[down[down.length-2]], set[down[down.length-1]], set[i]) >= 0){
-			down.pop();
+
+		// enumerate hull vertices
+		// counter clock wise, in fact ccw if set is monotone *increasing*,
+		// cw otherwise
+		//
+		//                 * - < - * - < - *
+		//                /                 \
+		// hi[0] = lo[0] *                   * hi[p + 1] = lo[q + 1]
+		//                \                 /
+		//                 * - > - * - > - *
+		//
+		// Note that the first and last element of hi are droped since
+		// they are already in lo
+
+		for ( i = p ; i > 0 ; --i ) {
+			lo.push( hi[i] );
 		}
-		down.push(i);
-	}
 
-	var ch = [];
-	for(var i = 0; i < down.length; ++i) ch.push(set[down[i]]);
-	for(var i = up.length - 2; i > 0; --i) ch.push(set[up[i]]);
+	};
 
-	return ch;
-
+	return grahamscanmono;
 };
 
-exports.graham_scan_mono = graham_scan_mono;
+exports.__grahamscanmono__ = __grahamscanmono__;
 
-/* js/src/d2/ch/jarvis_march.js */
+/* js/src/d2/ch/jarvismarch.js */
 
+/**
+ * From Wikipedia :
+ *
+ * Gift wrapping aka Jarvis march — O(nh)
+ * One of the simplest (although not the most time efficient in the worst case)
+ * planar algorithms. Discovered independently by Chand & Kapur in 1970 and
+ * R. A. Jarvis in 1973. It has O(nh) time complexity, where n is the number of
+ * points in the set, and h is the number of points in the hull. In the worst
+ * case the complexity is Θ(n^2).
+ *
+ * -> https://en.wikipedia.org/wiki/Gift_wrapping_algorithm
+ *
+ */
 
-var jarvis_march = function(set){
+var jarvismarch = function(set){
 	if(set.length < 2) return set.slice();
 
 	var c = 0;
@@ -444,12 +522,28 @@ var jarvis_march = function(set){
 
 };
 
-exports.jarvis_march = jarvis_march;
+exports.jarvismarch = jarvismarch;
 
-/* js/src/d2/ch/quick_hull.js */
+/* js/src/d2/ch/kirkpatrickseidel.js */
 
+/**
+ * -> https://en.wikipedia.org/wiki/Kirkpatrick%E2%80%93Seidel_algorithm
+ */
 
-var quick_hull = function(set){
+/* js/src/d2/ch/quickhull.js */
+/**
+ * From Wikipedia :
+ *
+ * QuickHull
+ * Discovered independently in 1977 by W. Eddy and in 1978 by A. Bykat.
+ * Just like the quicksort algorithm, it has the expected time complexity
+ * of O(n log n), but may degenerate to \u0398(nh) = O(n2) in the worst case.
+ *
+ * -> https://en.wikipedia.org/wiki/QuickHull
+ *
+ */
+
+var quickhull = function(set){
 	if(set.length < 4) return set.slice();
 
 	var b0 = find_min_y(set, 0, set.length);
@@ -559,7 +653,261 @@ var quick_hull_rec = function(set, l, r, b0, b1, b2, ch){
 	}
 };
 
-exports.quick_hull = quick_hull;
+exports.quickhull = quickhull;
+
+/* js/src/d2/clockwise */
+/* js/src/d2/clockwise/bottomleft.js */
+
+var bottomleft = function ( compare ) {
+
+	return function ( a, b ) {
+
+		var d;
+
+		d = compare( a[0], b[0] );
+
+		if ( d !== 0 ) {
+			return d;
+		}
+
+		return compare( a[1], b[1] );
+
+	};
+
+};
+
+exports.bottomleft = bottomleft;
+
+/* js/src/d2/clockwise/bottomright.js */
+
+var bottomright = function ( compare ) {
+
+	return function ( a, b ) {
+
+		var d;
+
+		d = compare( b[0], a[0] );
+
+		if ( d !== 0 ) {
+			return d;
+		}
+
+		return compare( a[1], b[1] );
+
+	};
+
+};
+
+exports.bottomright = bottomright;
+
+/* js/src/d2/clockwise/clocksort.js */
+
+
+
+
+var __clocksort__ = function ( sort, sinsign, cossign ) {
+
+
+	/**
+	 *
+	 * @param  {[type]} set [description]
+	 * @param  {[type]} i   [description]
+	 * @param  {[type]} j   [description]
+	 * @return {[type]}     [description]
+	 */
+
+	return function ( ordering, set, i, j ) {
+
+		// set[i] is the starting vertex
+		// we will go counter clockwise around it
+		// set[i] should thus be an outermost element, i.e.
+		// an element such that there is a way to draw a
+		// line going through set[i] such that all the other
+		// vertices lie on one side of the line
+
+		sort( ordering( sinsign, cossign, set[i] ), set, i + 1, j );
+
+	};
+
+};
+
+exports.__clocksort__ = __clocksort__;
+
+/* js/src/d2/clockwise/clockwise.js */
+
+var __clockwise__ = function ( sinsign, cossign, u ) {
+
+	return function ( a, b ) {
+
+		var sin;
+
+		sin = sinsign( u, a, b );
+
+		if ( sin !== 0 ) {
+			return sin;
+		}
+
+		return cossign( u, a, b );
+
+	};
+
+};
+
+exports.__clockwise__ = __clockwise__;
+
+/* js/src/d2/clockwise/counterclockwise.js */
+
+var __counterclockwise__ = function ( sinsign, cossign, u ) {
+
+	return function ( a, b ) {
+
+		var sin;
+
+		sin = sinsign( u, b, a );
+
+		if ( sin !== 0 ) {
+			return sin;
+		}
+
+		return cossign( u, a, b );
+
+	};
+
+};
+
+exports.__counterclockwise__ = __counterclockwise__;
+
+/* js/src/d2/clockwise/leftbottom.js */
+
+var leftbottom = function ( compare ) {
+
+	return function ( a, b ) {
+
+		var d;
+
+		d = compare( a[1], b[1] );
+
+		if ( d !== 0 ) {
+			return d;
+		}
+
+		return compare( a[0], b[0] );
+
+	};
+
+};
+
+exports.leftbottom = leftbottom;
+
+/* js/src/d2/clockwise/lefttop.js */
+
+var lefttop = function ( compare ) {
+
+	return function ( a, b ) {
+
+		var d;
+
+		d = compare( b[1], a[1] );
+
+		if ( d !== 0 ) {
+			return d;
+		}
+
+		return compare( a[0], b[0] );
+
+	};
+
+};
+
+exports.lefttop = lefttop;
+
+/* js/src/d2/clockwise/rightbottom.js */
+
+var rightbottom = function ( compare ) {
+
+	return function ( a, b ) {
+
+		var d;
+
+		d = compare( a[1], b[1] );
+
+		if ( d !== 0 ) {
+			return d;
+		}
+
+		return compare( b[0], a[0] );
+
+	};
+
+};
+
+exports.rightbottom = rightbottom;
+
+/* js/src/d2/clockwise/righttop.js */
+
+var righttop = function ( compare ) {
+
+	return function ( a, b ) {
+
+		var d;
+
+		d = compare( b[1], a[1] );
+
+		if ( d !== 0 ) {
+			return d;
+		}
+
+		return compare( b[0], a[0] );
+
+	};
+
+};
+
+exports.righttop = righttop;
+
+/* js/src/d2/clockwise/topleft.js */
+
+var topleft = function ( compare ) {
+
+	return function ( a, b ) {
+
+		var d;
+
+		d = compare( a[0], b[0] );
+
+		if ( d !== 0 ) {
+			return d;
+		}
+
+		return compare( b[1], a[1] );
+
+	};
+
+};
+
+exports.topleft = topleft;
+
+/* js/src/d2/clockwise/topright.js */
+
+var topright = function ( compare ) {
+
+	return function ( a, b ) {
+
+		var d;
+
+		d = compare( b[0], a[0] );
+
+		if ( d !== 0 ) {
+			return d;
+		}
+
+		return compare( b[1], a[1] );
+
+	};
+
+};
+
+exports.topright = topright;
 
 /* js/src/d2/intersect */
 /* js/src/d2/irrational */
@@ -586,6 +934,22 @@ var sinval = function ( a, b, c ) {
 };
 
 exports.sinval = sinval;
+
+/* js/src/d2/monotonicity */
+/* js/src/d2/monotonicity/monotonic.js */
+
+
+var monotonic = function ( compare, d ) {
+
+	return function ( a, b ) {
+
+		return compare( a[d], b[d] );
+
+	};
+
+};
+
+exports.monotonic = monotonic;
 
 /* js/src/d2/op */
 /* js/src/d2/op/det3.js */

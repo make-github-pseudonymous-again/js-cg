@@ -1,9 +1,17 @@
 
-var __counterclockwise__ = function ( sinsign, u ) {
+var __counterclockwise__ = function ( sinsign, cossign, u ) {
 
 	return function ( a, b ) {
 
-		return sinsign( u, b, a );
+		var sin;
+
+		sin = sinsign( u, b, a );
+
+		if ( sin !== 0 ) {
+			return sin;
+		}
+
+		return cossign( u, a, b );
 
 	};
 

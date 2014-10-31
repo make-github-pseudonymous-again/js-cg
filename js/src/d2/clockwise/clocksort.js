@@ -2,26 +2,27 @@
 
 
 
-var __clocksort__ = function ( sort, sinsign ) {
+var __clocksort__ = function ( sort, sinsign, cossign ) {
 
 
 	/**
-	 * /!\
-	 * SET CANNOT CONTAIN 3 OR MORE VERTICES
-	 * ON THE SAME LINE
 	 *
 	 * @param  {[type]} set [description]
 	 * @param  {[type]} i   [description]
 	 * @param  {[type]} j   [description]
 	 * @return {[type]}     [description]
 	 */
-	
+
 	return function ( ordering, set, i, j ) {
 
 		// set[i] is the starting vertex
 		// we will go counter clockwise around it
+		// set[i] should thus be an outermost element, i.e.
+		// an element such that there is a way to draw a
+		// line going through set[i] such that all the other
+		// vertices lie on one side of the line
 
-		sort( ordering( sinsign, set[i] ), set, i + 1, j );
+		sort( ordering( sinsign, cossign, set[i] ), set, i + 1, j );
 
 	};
 

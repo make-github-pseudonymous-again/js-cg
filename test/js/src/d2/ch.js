@@ -1,65 +1,39 @@
 
 var algorithms, pit, ccwc, sets, hulls,
-	expectedlist, one, ch,
+	expectedlist, one,
 	set, hull, expected,
 	i, j, k, points, p, algo,
-	randint, sample, shuffle, iota, fill,
-	__partition__, __quicksort__,
-	pred, partition, quicksort, sort,
-	identical, genhull, colinear;
+	sort, heapsort,
+	identical, genhull, colinear, array,
+	clocksort, ch, chsort, sortmethod, compare;
 
-algo = require("aureooms-js-algo");
-// randint = algo.randint;
-// sample = algo.sample_t(randint);
-// shuffle = algo.shuffle_t(sample);
-// iota = algo.iota;
-fill = algo.fill;
-// __partition__ = algo.partition_t;
-// __quicksort__ = algo.quicksort_t;
+compare = require( "aureooms-js-compare" );
+random = require( "aureooms-js-random" );
+array = require( "aureooms-js-array" );
+algo = require( "aureooms-js-algo" );
+sort = require( "aureooms-js-sort" );
 
-// pred = function (u, v) {
-// 	return u[0] < v[0] || (u[0] === v[0] && u[1] < v[1]);
-// };
+heapsort = sort.__heapsort__( 2 );
 
-// partition = __partition__(pred);
-// quicksort = __quicksort__(partition);
+clocksort = cg.__clocksort__( heapsort, cg.sinsign, cg.cossign );
 
-// sort = function (set) {
-// 	shuffle(set, 0, set.length);
-// 	quicksort(set, 0, set.length);
-// };
+chsort = function ( set, i, j ) {
 
-// identical = function (set1, set2) {
-// 	var i;
+	var k;
 
-// 	if (set1.length !== set2.length) {
-// 		return false;
-// 	}
+	k = array.argmin( cg.leftbottom( compare.increasing ), set, i, j );
 
-// 	sort(set1);
-// 	sort(set2);
+	sort.swap( set, i, k );
 
-// 	for (i = 0; i < set1.length; ++i) {
-// 		if (set1[i] !== set2[i]) {
-// 			return false;
-// 		}
-// 	}
+	clocksort( cg.__counterclockwise__, set, i, j );
 
-// 	return true;
-// };
-
-genhull = function ( n ) {
-
-	var i, j, h;
-
-	h = new Array( n );
-	fill( h, 0, n, false );
-	for ( i = 1 ; i < arguments.length ; ++i ) {
-		j = arguments[i];
-		h[j] = true;
-	}
-	return h;
 };
+
+ch = function ( set ) {
+	chsort( set, 0, set.length );
+	return set;
+};
+
 
 points = require( "../../dep/points.js" );
 p = points.data;
@@ -70,10 +44,46 @@ ccwc = cg.__ccwc__( cg.sinsign );
 
 pit = cg.__pit__( ccwc );
 
+
+var fromboolarray = function ( fn ) {
+	return function ( set, hull ) {
+
+		var i, out;
+
+		fn( set, hull );
+
+		out = [];
+
+		for ( i = 0 ; i < hull.length ; ++i ) {
+			if ( hull[i] ) {
+				out.push( set[i] );
+			}
+		}
+
+		return ch(out);
+
+	};
+};
+
 algorithms = [
-	cg.__chn4__( colinear, pit ),
-	cg.__chn3__( cg.sinsign, cg.cossign ),
-	cg.__chn2__( cg.sinsign, cg.cosval )
+	fromboolarray( cg.__chn4__( colinear, pit ) ),
+	fromboolarray( cg.__chn3__( cg.sinsign, cg.cossign ) ),
+	fromboolarray( cg.__chn2__( cg.sinsign, cg.cosval ) ),
+	function ( set, hull ) {
+
+		var gsm;
+
+		set = set.slice( 0 );
+
+		gsm = cg.__grahamscanmono__( cg.sinsign );
+
+		array.sort( sort.lexicographical( compare.increasing ), set );
+
+		gsm( set, 0, set.length, hull );
+
+		return hull;
+
+	}
 ];
 
 sets = [
@@ -81,31 +91,38 @@ sets = [
 ];
 
 expectedlist = [ // one per set
-	genhull( p.length, 30, 36, 42, 48 )
+	ch([ p[30], p[36], p[42], p[48] ])
 ];
 
 hulls = [ // one per algorithm
 	function ( n ) {
-		var h = new Array( n );
-		fill( h, 0, n, true );
-		return h;
+		var hull;
+		hull = new Array( n );
+		array.fill( hull, 0, n, true );
+		return hull;
 	},
 	function ( n ) {
-		var h = new Array( n );
-		fill( h, 0, n, false );
-		return h;
+		var hull;
+		hull = new Array( n );
+		array.fill( hull, 0, n, false );
+		return hull;
 	},
 	function ( n ) {
-		var h = new Array( n );
-		fill( h, 0, n, true );
-		return h;
+		var hull;
+		hull = new Array( n );
+		array.fill( hull, 0, n, true );
+		return hull;
+	},
+	function ( n ) {
+		return [];
 	}
 ];
 
-one = function ( i, j, ch, set, hull, expected ) {
-	test( "ch("+i+", "+j+")", function () {
-		ch( set, hull );
-		deepEqual( hull, expected, JSON.stringify() );
+one = function ( i, j, fn, set, hull, expected ) {
+	test( "fn("+i+", "+j+")", function () {
+		var out;
+		out = fn( set, hull );
+		deepEqual( out, expected, JSON.stringify() );
 	});
 };
 

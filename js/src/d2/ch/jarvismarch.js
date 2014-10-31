@@ -1,6 +1,19 @@
 
+/**
+ * From Wikipedia :
+ *
+ * Gift wrapping aka Jarvis march — O(nh)
+ * One of the simplest (although not the most time efficient in the worst case)
+ * planar algorithms. Discovered independently by Chand & Kapur in 1970 and
+ * R. A. Jarvis in 1973. It has O(nh) time complexity, where n is the number of
+ * points in the set, and h is the number of points in the hull. In the worst
+ * case the complexity is Θ(n^2).
+ *
+ * -> https://en.wikipedia.org/wiki/Gift_wrapping_algorithm
+ *
+ */
 
-var jarvis_march = function(set){
+var jarvismarch = function(set){
 	if(set.length < 2) return set.slice();
 
 	var c = 0;
@@ -63,4 +76,4 @@ var jarvis_march = function(set){
 
 };
 
-exports.jarvis_march = jarvis_march;
+exports.jarvismarch = jarvismarch;

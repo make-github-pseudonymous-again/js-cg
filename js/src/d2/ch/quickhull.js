@@ -1,6 +1,16 @@
+/**
+ * From Wikipedia :
+ *
+ * QuickHull
+ * Discovered independently in 1977 by W. Eddy and in 1978 by A. Bykat.
+ * Just like the quicksort algorithm, it has the expected time complexity
+ * of O(n log n), but may degenerate to \u0398(nh) = O(n2) in the worst case.
+ *
+ * -> https://en.wikipedia.org/wiki/QuickHull
+ *
+ */
 
-
-var quick_hull = function(set){
+var quickhull = function(set){
 	if(set.length < 4) return set.slice();
 
 	var b0 = find_min_y(set, 0, set.length);
@@ -110,4 +120,4 @@ var quick_hull_rec = function(set, l, r, b0, b1, b2, ch){
 	}
 };
 
-exports.quick_hull = quick_hull;
+exports.quickhull = quickhull;

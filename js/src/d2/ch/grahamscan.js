@@ -29,7 +29,7 @@ var __grahamscan__ = function ( sinsign ) {
 
 			hull.push( u );
 			++p;
-
+			
 		}
 
 	};
