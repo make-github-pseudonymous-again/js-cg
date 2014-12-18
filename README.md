@@ -21,3 +21,8 @@ reference:
  - https://github.com/ironwallaby/delaunay
  - http://www.toptal.com/python/computational-geometry-in-python-from-theory-to-implementation
  - http://fremycompany.com/compugem
+ - http://homepages.ulb.ac.be/~slanger/cg/lenertz/
+ - http://homepages.ulb.ac.be/~slanger/cg/P/PopsAndPopturns/projetGeom.html
+ - http://homepages.ulb.ac.be/~slanger/cg/P/WSPD/index.html
+ - http://homepages.ulb.ac.be/~slanger/cg/Swimmer/one_swimmer.html
+ - http://homepages.ulb.ac.be/~slanger/cg/hsaureooms/def.html
