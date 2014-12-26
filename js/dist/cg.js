@@ -909,7 +909,191 @@ var topright = function ( compare ) {
 
 exports.topright = topright;
 
-/* js/src/d2/intersect */
+/* js/src/d2/dcel */
+/* js/src/d2/dcel/DCELFace.js */
+
+var DCELFace = function ( ) {
+
+	this.edge = null ;
+
+	this.iterator = null ;
+	this.data = null ;
+
+} ;
+
+
+DCELFace.prototype.edgecount = function ( ) {
+
+	var current , count ;
+
+	if ( this.edge === null ) {
+		return 0 ;
+	}
+
+	current = this.edge.next ;
+	count = 1 ;
+
+	// iterate until we cycle,
+	// i.e. encounter the first edge
+
+	while ( current !== this.edge ) {
+		++count ;
+		current = current.next ;
+	}
+
+	return count ;
+
+} ;
+
+
+exports.DCELFace = DCELFace ;
+
+/* js/src/d2/dcel/DCELHalfEdge.js */
+
+var DCELHalfEdge = function ( ) {
+
+	this.origin = null ;
+	this.twin = null ;
+	this.next = null ;
+	this.face = null ;
+
+	this.iterator = null ;
+	this.data = null ;
+
+} ;
+
+
+DCELHalfEdge.prototype.prev = function ( ) {
+
+	var current ;
+
+	current = this.twin.next.twin ;
+
+	while ( current.next !== this ) {
+		current = current.next.twin ;
+	}
+
+	return current ;
+
+} ;
+
+
+exports.DCELHalfEdge = DCELHalfEdge ;
+
+/* js/src/d2/dcel/DCELMesh.js */
+
+/**
+ *
+ * vertices, edges and faces lists MUST support the standard doubly linked list
+ * interface.
+ *
+ */
+
+var DCELMesh = function ( vertices , edges , faces ) {
+
+	this.vertices = vertices ;
+	this.edges = edges ;
+	this.faces = faces ;
+
+} ;
+
+
+DCELMesh.prototype.isempty = function ( ) {
+
+	return this.vertices.length === 0 &&
+	       this.edges.length === 0 &&
+	       this.faces.length === 0 ;
+
+} ;
+
+
+DCELMesh.prototype.addvertex = function ( vertex ) {
+
+	vertex.iterator = this.vertices.unshift( vertex ) ;
+
+} ;
+
+
+DCELMesh.prototype.addedge = function ( edge ) {
+
+	edge.iterator = this.edges.unshift( edge ) ;
+
+} ;
+
+
+DCELMesh.prototype.addface = function ( face ) {
+
+	face.iterator = this.faces.unshift( face ) ;
+
+} ;
+
+
+DCELMesh.prototype.removevertex = function ( vertex ) {
+
+	this.vertices.erase( vertex.iterator ) ;
+
+} ;
+
+
+DCELMesh.prototype.removeedge = function ( edge ) {
+
+	this.edges.erase( edge.iterator ) ;
+
+} ;
+
+
+DCELMesh.prototype.removeface = function ( face ) {
+
+	this.faces.erase( face.iterator ) ;
+
+} ;
+
+
+exports.DCELMesh = DCELMesh ;
+
+/* js/src/d2/dcel/DCELVertex.js */
+
+var DCELVertex = function ( ) {
+
+	this.leaving = null ;
+
+	this.iterator = null ;
+	this.data = null ;
+
+} ;
+
+
+DCELVertex.prototype.edgeto = function ( other ) {
+
+	var current ;
+
+	if ( leaving === null ) {
+		return null ;
+	}
+
+	if ( this.leaving.twin.origin === other ) {
+		return this.leaving ;
+	}
+
+	current = this.leaving.twin.next ;
+
+	while ( current !== this.leaving ) {
+
+		if ( current.twin.origin === other ) {
+			return current ;
+		}
+
+		current = current.twin.next;
+
+	}
+
+	return null ;
+
+} ;
+
+
+exports.DCELVertex = DCELVertex ;
+
 /* js/src/d2/irrational */
 /* js/src/d2/irrational/cosval.js */
 

@@ -31,7 +31,7 @@ DCELMesh.prototype.addvertex = function ( vertex ) {
 } ;
 
 
-DCELMesh.prototype.addedge ( edge ) {
+DCELMesh.prototype.addedge = function ( edge ) {
 
 	edge.iterator = this.edges.unshift( edge ) ;
 
@@ -52,7 +52,7 @@ DCELMesh.prototype.removevertex = function ( vertex ) {
 } ;
 
 
-DCELMesh.prototype.removeedge ( edge ) {
+DCELMesh.prototype.removeedge = function ( edge ) {
 
 	this.edges.erase( edge.iterator ) ;
 
