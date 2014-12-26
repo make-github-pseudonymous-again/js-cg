@@ -1,0 +1,504 @@
+<html>
+<head>
+<title>INFO-F-420: Computational Geometry</title>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</head>
+<body>
+<h1>INFO-F-420: Computational Geometry</h1>
+<p>
+<a
+href="http://gehol.ulb.ac.be/gehol/#!/Course/INFOF420/1-14">Schedule</a>:
+Mon 12-14 Room TBA; Thur 16-18 Room TBA.
+<p>
+Text book: M. de Berg, M. van Kreveld, M. Overmars, O. Schwarzkopf,
+<a href="http://www.cs.uu.nl/geobook/"><i>Computational Geometry: Algorithms and Applications</i></a>, (first or
+second or third edition), Springer Verlag, 1999.
+<p>
+Other references:
+<ul><li>J. O'Rourke, <a href=http://cs.smith.edu/~orourke/books/compgeom.html><i>Computational Geometry
+  in C</i></a>, Second Edition, Cambridge University Press, 1998.
+<li>F. Preparata
+  and M. Shamos, <a href="http://books.google.be/books/about/Computational_Geometry.html?id=gFtvRdUY09UC"><i>Computational Geometry</i></a>, Springer Verlag, 1985.
+</ul>
+
+<h2>Projects</h2>
+<a href=proj.html>Here</a> is a list of possible project topics.
+
+<h2> Lectures</h2>
+What follows is a brief summary of past lectures with links to
+relevant ressources on the web for those topics (Wikipedia, Mathworld,
+online lecture notes from other universities, java applets etc.).
+<p>
+If you find any links on the web that you think might be useful to
+other students, send them to me and I'll include them on this page.
+<p>
+<h2>Lecture 1: 3/11/2014</h2>
+<ul>
+  <li> Course description.</li>
+  <li> What is Computational Geometry?</li>
+  <li> Models of computation:
+    <ul>
+      <li> RAM model (<a
+      href="http://zoo.cs.yale.edu/classes/cs460/Spring98/chap1/machine.html">Lecture notes</a> at Yale by <a href="http://www.cs.elte.hu/~lovasz/">Laszlo Lovasz</a>) </li>
+      <li> <a href="http://en.wikipedia.org/wiki/Real_RAM">Real-RAM model</a> </li>
+      <li> <a href="http://en.wikipedia.org/wiki/Compass_and_straightedge_constructions">Ruler&amp;Compass</a> model (<a
+      href="http://www.cs.mcgill.ca/~sqrt/cons/constructions.html">applet
+     </a> by Fran&ccedil;ois Labelle). Play the <a
+     href="http://euclidthegame.com/">Euclid game</a>.</li>
+    </ul></li>
+  <li> The <a href="http://mathworld.wolfram.com/DotProduct.html">Dot Product</a>, <a
+    href="http://mathworld.wolfram.com/CrossProduct.html">Cross
+    Product</a> and applications.</li>
+  <li> Right-turn - Left-turn orientation determinant (<a
+    href="http://www-ma2.upc.edu/~geoc/mat1q1112/OrientationTests.pdf">Notes</a>
+    from <a href="http://www-ma2.upc.edu/rsilveira/">Rodrigo
+    Silveira</a> at UPC)</li>
+  <li>Dealing with degeneracies: <a href="http://arxiv.org/abs/math/9410209">Simulation of Simplicity</a></li>
+  <li> <a
+       href="http://mathworld.wolfram.com/Convex.html">Convexity</a>,
+       convex combination: definition.</li>
+  <li> <a href="http://mathworld.wolfram.com/ConvexHull.html">Convex Hull</a> $CH(S)$ of a finite set $S$ of points. </li>
+  <ul>
+      <li> Definition: $CH(S)$ is the intersection of all convex sets
+    containing $S$.
+      <li> Equivalent definition: The union of all convex combinations
+    of points of $S$.
+    <li> Equivalent definition: The union of all convex combinations
+    of triples of points (triangles) of $S$ using <a
+    href="http://en.wikipedia.org/wiki/Carath%C3%A9odory's_theorem_(convex_hull)">Carath&eacute;odory's
+    Theorem</a>.
+      <li> definition of a vertex of $CH(S)$ (a "corner" of the boundary).</li>
+      <li> A pt is a vertex iff it is not inside any triangle
+           => $O(n^4)$ algo.</li>
+	   <li> The order of the vertices along $CH(S)$ can be found by
+	   sorting the vertices using the orientation determinant as a
+	   comparison operator.
+    </ul>
+  <li> <b>Project:</b> implement (in <a href="http://processingjs.org/">processing-js</a>, processing or other)<ul>
+    <li> the orientation determinant</li>
+    <li> test if a point is inside a triangle given by 3 points</li>
+    <li> compute the vertices of $CH(S)$ for a set $S$ of points</li>
+    <li> find the order of the vertices using a sorting algorithm</li>
+    </ul>
+  </ul>
+</ul>
+
+<h2>Lecture 2: 6/11/2014</h2>
+<ul>
+  <li>Convex Hulls</li><ul>
+      <li> A pt is a vertex iff it is not inside any triangle
+           => $O(n^4)$ algo.</li>
+	   <li> The order of the vertices along $CH(S)$ can be found by
+	   sorting the vertices using the orientation determinant as a
+	   comparison operator.
+    <li> Two points $a$,$b$ form an edge of the CH iff for all other
+	   points $c$, $abc$ is a left turn. => $O(n^3)$ algo
+    <li> Check if a point is a vertex in $O(n)$ => $O(n^2)$</li>
+    <li> Jarvis march (<a
+    href="http://en.wikipedia.org/wiki/Gift_wrapping_algorithm">Wikipedia</a>,
+    <a href="http://www.cs.princeton.edu/courses/archive/spr09/cos226/demo/ah/JarvisMarch.html">applet</a>)</li>
+    <li> Graham scan original (<a href="http://www.youtube.com/watch?v=dw120YcIav8">video</a>)</li>
+    <li> Monotone Graham scan (<a href="http://www.youtube.com/watch?v=p7RPHYzkJpU">video</a>)</li>
+    <li> testing if a point is inside a convex polygon, computing
+    tangents, incremental convex hull.</li>
+    <li> <b>Read:</b> Textbook: Chapter I</li> </ul>
+    <li>Polygons, simple polygons (without self-intersections)</li>
+    <li>Checking if a point is inside a polygon in $O(n)$ time. Read:
+    <ul>
+      <li><a
+      href="http://cgm.cs.mcgill.ca/~godfried/teaching/cg-projects/97/Octavian/compgeom.html">The
+      Jordan curve Theorem</a> and <a
+      href="http://cgm.cs.mcgill.ca/~godfried/teaching/cg-projects/97/Octavian/pba_java.html">applet</a>
+      by a McGill student.</li>
+      <li><a
+      href="http://www.ics.uci.edu/~eppstein/161/960307.html">Notes</a>
+      from David Eppstein</li>
+    </ul>
+  </li>
+    <li> Lower bounds: <ul>
+      <li> Adversary arguments.</li>
+      <li> Reductions. ex: reduce sorting to computing a convex hull.</li>
+      <li> Decision trees.</li>
+      <li> <b>Read:</b> Michiel Smid's <a
+      href="http://www.scs.carleton.ca/~michiel/lecturenotes/EFFALG/lowerbounds.pdf">lecture notes</a> on lower bounds.
+      </ul>
+    </li>
+    <li><b>Project:</b><ul>
+      <li>implement one of the new Convex Hull
+    algorithms we have seen.
+      <li>Implement an algorithm that checks if a
+    point $q$ is inside a convex polygon $P$,
+      <li>and if not computes the
+    two tangents to $P$ through $q$.
+    <!--, adapt it for computing the convex hull of
+    a set of disks--></ul></li>
+</ul>
+<h2>Lecture 3: 10/11/2014</h2>
+    <ul>
+    <li> Lower bounds (cont'd): <ul>
+      <li> Adversary arguments.
+      <ul>
+	<li> testing if a point is inside a polygon (given as a
+    sequence of points). Takes $\Omega(n)$ time.
+      </ul>
+      </li>
+      <li> Reductions. ex: reduce sorting to computing a convex hull.</li>
+      <li> Algebraic decision trees, Dobkin-Lipton's theorem, Ben Or's
+      Theorem.</li>
+      <ul>
+	<li> Testing if a point is inside a polygon takes
+	$\Omega(\log n)$. Proof.</li>
+	<li> Checking if a set of points is in convex position takes
+	$\Omega(n \log n)$. Proof.
+	</ul>
+      <li> <b>Read:</b> Michiel Smid's <a
+      href="http://www.scs.carleton.ca/~michiel/lecturenotes/EFFALG/lowerbounds.pdf">lecture notes</a> on lower bounds.
+    </ul></li>
+      <li>Beating the $\Omega(n \log n)$ lower bound for Convex hulls
+      <ul>
+	<!-- <li> Computing the common tangents between two convex polygons
+	in $O(\log m + \log n)$ (see Preparata & Shamos or <a
+    href="http://www.cs.unc.edu/~snoeyink/papers/nosep.ps.gz">this -->
+	<!-- paper</a> for details) -->
+	<li> Output-sensitive algorithms: Jarvis march runs in $O(nH)$
+	<li> Chan's algorithm $O(n \log h)$ <a
+    href="https://cs.uwaterloo.ca/~tmchan/conv23d.ps">(.ps) (read section 2)</a></li>
+	<li> <b>Read:</b> Convex hull of a simple polygon:
+      <a href="http://cgm.cs.mcgill.ca/~athens/cs601">
+      Melkman's algorithm, and Sklansky's 3-coins algorithm.</a></li>
+      </ul>
+      <li> <b>Project:</b> <ul>
+	<li>Find the tangent to a convex polygon $P$
+      through a point $q$ in $O(log n)$ time.
+	<li>Implement Chan's output sensitive algorithm.
+	</ul>
+    </ul>
+
+
+    <h2>Lecture 4: 13/11/2014, Triangulations, Sweep Line Algorithms</h2>
+    <ul>
+      <li> Flashback: deciding if a point is inside a (non-convex)
+      polygon.
+      <li> Batching: Deciding which among $n$ points are inside a
+    polygon. Sweepline algorithms.
+      <li> Triangulating a polygon
+      <ul>
+	<li> Two ears theorem, method for finding two ears.
+	<li> Proof that triangulation is always possible (ear-cutting
+    and gluing back).
+      <li> Algorithms: <ul>
+	<li> $O(n^3)$ triangulation, brute force.
+	<li> $O(n^2)$ triangulation by finding chord in $O(n)$
+	<li> <a href=http://www.personal.kent.edu/~rmuhamma/Compgeometry/MyCG/TwoEar/two-ear.htm>finding ear in $O(n)$</a>.
+      </ul></li>
+      </ul>
+      <li> dual tree of a triangulation and 2 leaves = ears.
+      <li> Triangulation of a monotone chain in $O(n)$ time (Graham scan). </li>
+      <li> Monotone polygons, $O(n)$ time Triangulation.</li>
+      <li> Sweepline algorithms. Example: Given $n$ points and and an
+    orthogonal polygon with $n$ vertices, determine which points are in the
+      polygon in $O(n \log n)$ time</li>
+      <li> Example 2: same for a non-orthogonal simple polygon.
+      <li> Review: Balanced trees <a
+    href=https://www.youtube.com/watch?v=FNeL18KsWPc>AVL-Trees</a> by
+    Erik Demaine at MIT/OCW.
+      <li> Next time: Sweepline algorithm to decompose a polygon into monotone pieces. </li>
+      <li> <b>Read:</b> Textbook chapter 3</li>
+      <!--<li><b>Project:</b> Implement a sweepline algorithm of your choice.-->
+      <li> <b>Project:</b> <ul>
+	<li> Write a program which, given a polygon
+    finds an ear in $O(n)$ time.,
+	<li> and then triangulate the polygon recursively.
+	<li> Does Graham scan always triangulate the region between a
+    polygon and its convex hull? Prove or give a counterexample.
+	</ul>
+</ul>
+
+
+<h2> Lecture 5: 17/11/2014. More Sweep line, DCEL</h2>
+<ul>
+      <li> Sweepline algorithm to decompose a polygon into monotone
+  pieces in $O(n\log n)$. <ul>
+  <li> Together with triangulation of monotone polygons (seen last
+    time), $O(n\log n)$.
+  <li> Data structures for planar graphs, Doubly Connected Edge List
+      (DCEL).</li>
+  <li> History of triangulation algorithms (Chazelle's $O(n)$ time
+  algorithm). Read <a
+  href=http://en.wikipedia.org/wiki/Polygon_triangulation>Wikipedia
+    page</a>.
+    </ul></li>
+    <li> Sweepline for line-segment intersection: <a
+    href="http://en.wikipedia.org/wiki/Bentley%E2%80%93Ottmann_algorithm">Bentley-Ottmann
+    algorithm</a></li>
+    <li><b>Project:</b> <ul>
+      <li>Implement a binary search tree storing line segments
+      (ordered by $y$ coordinates for the $x$ position of a
+      sweepline).
+      For example, a <a href=http://opendatastructures.org/ods-java/7_Random_Binary_Search_Tree.html>Treap</a>.
+      <li>Use it to implement some linesweep algorithm, either given
+      $n$ points and a polygon $P$, decide which points are in $P$; or
+      given $n$ line segments, find all intersections
+    </ul>
+  </ul>
+
+
+<h2> Lecture 6: 24/11/2013. Planar Graphs and Point Location</h2>
+<ul>
+  <li> <a
+      href=http://cgm.cs.mcgill.ca/~godfried/teaching/cg-projects/97/Thierry/thierry507webprj/artgallery.html>Art
+      gallery</a>, $n/3$ guards sufficient and sometimes necessary.
+  <li> 3-coloring of a triangulated polygon
+  <li> Star shaped polygons, any pentagon is star-shaped.
+  <li> <b>Question:</b> Does everything extend to 3D? Can a 3D polyhedron be decomposed into
+       tetrahedra?</li>
+  <li> Planar graphs: Euler's formula $V-E+F=2$</li>
+  <li><a href="http://www.ics.uci.edu/~eppstein/junkyard/euler/">
+       Twenty proofs</a> of Euler's formula.</li>
+  <li> Consequences of Euler's formula: bounds on $E$ and $F$ as a
+  function of $V$: $E \leq 3V-6$.
+  <li>Average degree of a vertex $< 6$ (so
+       there is a vertex of degree 5).
+  <li> 6-color theorem for planar graphs
+  <li>Drawing planar graphs with straight edges: <a href="http://en.wikipedia.org/wiki/F%C3%A1ry's_theorem">Fary's thm</a></li>
+  <li>Other graph drawing results: Tutte spring theorem (outer face
+  convex); Steinitz (projection of a polyhedron); Koebe, Andreev and
+  Thurston (kissing disks)
+  <li><b>Project:</b> Implement the algorithm for finding $\leq n/3$ guards
+       for a given polygon.
+
+</ul>
+
+<h2>Lecture 7: 27/11/2014. Point location</h2>
+  <li> Data structures for storing graphs
+  <li> Data structures for planar graphs, Doubly Connected Edge List
+      (DCEL), augmenting for fast walking. Space analysis.</li>
+
+      <li> Point location data structures:<ul>
+   <li> By Triangle testing - $O(n)$ query time and space.</li>
+   <li> Dobkin-Lipton (vertical slabs) - $O(n^2)$ space/construction and
+   $O(\log n)$ query time</li>
+   <li> Path copying method for persistent Binary search trees
+   <li> <a href="http://www.cs.duke.edu/courses/fall11/cps234/reading/Tarjan86_Persistent.pdf">Sarnak-Tarjan method</a>: using persistence to reduce space of Dobkin-Lipton.
+   </ul></li>
+ <li> Kirkpatrick's point location data structure:<ul>
+   <li> Number of vertices of degree $\leq x$</li>
+   <li> There are n/18 independent vertices of degree $\leq 8$
+   <li> Construction by repeatedly removing independent vertices of
+        low degree, pointer structure.</li>
+   <li> Performing searches.</li>
+   <li> Query time, depth of the search structure.</li>
+   <li> Space. </li>
+   <li> Watch: <a
+   href="http://www.computational-geometry.org/SoCG-videos/socg03video/">video 4</a>
+ </ul></li>
+</ul>
+
+<h2>Lecture 8: 1/12/2014. Duality Transforms</h2>
+<ul>
+ <li> Duality transforms: <ul>
+  <li> Motivation: intersection of halfplanes </li>
+  <li> Point to line duality: $(a,b)$ to $y=ax+b$ </li>
+  <li> From the incidence property, derived line to point: $y=cx+d$ to
+       $(-c,d)$ </li>
+  <li> Preserves: <ul>
+   <li> Incidences </li>
+   <li> Above/below </li>
+   <li> vertical distance </li>
+   </ul></li>
+  <li> Dual vision of <ul>
+   <li> Vertical lines to points at infinity (homogeneous
+        coordinates)</li>
+   <li>	Collinear points </li>
+   <li> Halfplanes </li>
+   <li> Intersection of halfplanes to convex hull</li>
+    <li> Testing if a polygon is star-shaped = testing if intersection
+    of wedges is non-empty = testing if intersection of halfplanes is
+    empty = 2 convex hull in the dual + testing if they intersect</li>
+   </ul></li>
+  </ul></li>
+ <li>Arrangements:<ul>
+  <li> Definitions: vertices, edges, faces</li>
+  <li> Complexity: number of vertices, edges, faces</li>
+  <li> Data structure: DCEL</li>
+  <li> Construction: linesweep -&gt $O(n^2 \log n)$</li>
+  <li> Construction: incremental</li>
+  <li> Zone theorem: complexity of a zone is $O(n)$ =&gt complexity
+       incremental construction is $O(n^2)$</li>
+  <li> <b>Read:</b> Textbook chapter 8.</li>
+  </ul></li>
+</ul>
+
+<h2>Lecture 9: 4/12/2014. More on Duality. Linear Programming</h2>
+<ul>
+  <li> Ham-Sandwich cut theorem. Proof using duality and median
+  levels. Algorithm in $O(n^2)$ using the construction of the
+  arrangement. Mention of faster algorithms.</li>
+  <li> More on duality: polar duality, sphere view of the projective
+  plane and projective duality.<ul>
+  <li> Brief mention of higher dimension duality transforms, point to
+       planes and Plucker coordinates. </li>
+    <li> A segment = a double wedge in the dual</li>
+    <li> The convex billiard challenge: hit all edges of a convex
+    polygonal billiard in order with one ball = hit all edges of a
+    polygonal path with a line = finding a common intersection between
+    double wedges in the dual</li>
+  </ul></li>
+  <li> Linear Programming: <ul>
+    <li> Definition, Simplex method (can be slow) </li>
+    <li> Applications: recognizing star-shaped polygons, removing a
+    cake from its mold.
+    <li> Linear programming in $\mathbb{R}^1$ in $O(n)$</li>
+    <li> In $\mathbb{R}^2$: Convex Hull -&gt $O(n \log n)$</li>
+    <li> In $\mathbb{R}^2$: incremental -&gt $O(n^2)$</li>
+    <li> In $\mathbb{R}^2$: randomized incremental -&gt $O(n)$ expected </li>
+    <li> In $\mathbb{R}^d$: randomized incremental -&gt $O(d! n)$ expected</li>
+    <li> Smallest enclosing circle and LP-type problems</li>
+    <li> <b>Read:</b> Textbook chapter 4</li>
+  </ul></li>
+  <li> <b>Project: implement some (or several) dualities showing the
+  correspondance between objects (points, lines, other).</b>
+</ul>
+
+<h2>Lecture 10: 11/12/2014. Delaunay Triangulations</h2>
+<UL>
+  <li>Delaunay triangulations<ul>
+  <li> Triangulations for point sets. $O(n \log{n})$ algorithm by
+  Graham scan monotone.
+  <li> Quality of a triangulation. Lexicographic order of the angle
+  vectors.
+  <li> Quadrilateral (empty circumcircles)
+  <li> Illegal edges, edge flipping (local search)
+  <li> Proof that repeated flipping converges to a unique global
+  optimum. Definition of the Delaunay triangulation.
+  <LI>Incremental computation of Delaunay triangulation (edge
+  flipping). Analysis of the running time (worst case, average).
+  <LI>3D Paraboloid lifting algorithm for constructing Delaunay
+    triangulation
+    <li> Closest pair of points is an edge of the Delaunay
+    Triangulation. $O(n\log n)$ algorithm
+    <li> Minimum spanning tree is a subgraph of the Delaunay
+    Triangulation, proof.
+    </ul>
+  <li> <b>Project: compute the intersection of $n$ half-planes.</b>
+    </ul>
+
+
+<!--
+
+    <li>Voronoi diagrams<ul>
+      <li>Basic properties of Voronoi diagram shape. <b>Read</b> chapter 7.1 from textbook
+      <li>Halfplane intersection, convexity, vertex degree, boundedness, graph size, cell size, planarity...</li>
+      <li>Duality (planar graph) between Voronoi diagram and Delaunay
+      triangulation
+      <li>3D paraboloid lifting (using parabolic dual): the Voronoi
+      diagram is the upper envelope of the dual planes.
+    </ul>
+
+  <li>Reading material:<UL>
+    <LI>Chapters 7 and 9 of textbook, except parts not discussed at all in class.
+    <LI>Browse <a href="http://www.pi6.fernuni-hagen.de/publ/tr198.pdf">
+    extensive notes on Voronoi diagrams</a> by Franz Aurenhammer and Rolf Klein
+    <LI><a href="http://www-ma2.upc.es/~geoc/circumferenciaEN.pdf">
+    Notes by Vera Sacristan</a> about paraboloid/plane intersections, and their projections (only first page).
+    <LI><a href="http://www.cs.wustl.edu/~pless/546/lectures/L13.html">
+    Notes by Robert Pless</a> about the Delaunay - paraboloid - 3D convex hull connection.
+    <LI><a href="http://www.personal.kent.edu/~rmuhamma/Compgeometry/MyCG/Voronoi/Fortune/fortune.htm">
+    Applet for Fortune's algorithm </a> by A.Odgaard and B.Nielsen
+    (ignore notes)
+    <li><b>Videos</b> <a
+    href="http://tonyone56.net46.net/">demonstrating</a> Fortune's
+    algorithm by Antoine Hachez (ULB student)
+    <LI><a href="http://www.liefke.com/hartmut/cis677/">
+    More detailed applet for Fortune's algorithm</a> by Hartmut Liefke
+    <LI>Not covered in class, but worth understanding the basics: <a
+    href="http://www-ma2.upc.es/~geoc/mat1q1112/construccio_voronoi_EN.pdf">
+    Divide and Conquer $O(n \log n)$ for Voronoi </a> (notes by Vera Sacristan)
+    <LI><a href="http://www.personal.kent.edu/~rmuhamma/Compgeometry/MyCG/Voronoi/DivConqVor/divConqVor.htm">
+    Applet for Divide and Conquer computation</a>. (bisectors seem incorrect?  possible course project? : make improved version)
+    <LI><a href="http://www.nirarebakun.com/voro/efpvorocli.html"> applets for many Voronoi diagrams</a> (different metrics, etc.  Use "click" versions)
+    <LI><a
+    href="http://cgm.cs.mcgill.ca/~athens/cs507/Projects/2004/Svetlana-Stolpner/">
+    Proximity graph relations, with applet</a>. This applet page
+    crashes on some browsers (e.g. Safari 4.0.2 on Mac 10.5.8).
+    Works beautifully on Mac 10.7 or Firefox 8 on Windows 7).
+    <LI><a href="http://www.dma.fi.upm.es/mabellanas/tfcs/fvd/applet.html"> Farthest point Voronoi applet</a>
+    <LI><a href="http://www-cgrl.cs.mcgill.ca/%7Egodfried/teaching/projects.pr.98/tesson/taxi/644projet.html">
+Taxi cab geometry</a> (L1 metric, with L1-Voronoi applet)
+<LI>Not covered in class, but take a look:
+<a href="http://www-cgrl.cs.mcgill.ca/%7Egodfried/teaching/projects97/belair/alpha.html"> alpha shapes applet </a>
+</ul></li>
+<li><b>Programming: compute a Delaunay triangulation by repeated flipping</b>
+</ul>
+-->
+
+<!--
+<h2>Lecture 9: 3/12/2012. Voronoi Diagrams (Guest lecture by Maria Saumell)</h2>
+<ul>
+  <LI>Introduction to the furthest point Voronoi diagram<UL>
+    <LI>Definition and basic properties
+    <LI>with application to smallest enclosing circle problem,
+    definition, algorithm, applications
+  </UL>
+  <LI>Intro to Voronoi diagram in the $L_1$ metric, applications
+  <LI>Definitions of some standard proximity graphs:<ul>
+    <LI>NNG, MST, RNG, GG, DT
+    <li>Definitions and relations.
+    <li>Applications
+    <li>Computation
+  </UL></li>
+  <li>Applications<ul>
+    <li>Classification, facility location, collision avoidance, geographical information systems</li></ul></li>
+  <li>Largest empty circle problem</li>
+  <li>The Voronoi game (competitive facility location)</li>
+  <li>Computing the Voronoi diagram<ul>
+    <li>Brute force</li>
+    <li>Incremental (quadratic)</li>
+    <li>Lower bound</li>
+  </ul></li>
+  <li> <a
+  href="http://cg.scs.carleton.ca/~greg/voronoi/lectures-N28-D1.pdf">Lecture
+  notes</a> by Greg Aloupis.</li>
+  <li><b>Homework assignment</b>: compute Voronoi diagram with brute force.</li>
+  <li>Links<ul>
+    <LI><a href="http://www.personal.kent.edu/~rmuhamma/Compgeometry/MyCG/Voronoi/Incremental2/incremental2.htm">
+    Voronoi applet</a> by Rashid Bin Muhammad (permits dragging points when creating them) (ignore notes)
+    <LI><a href="http://www.pi6.fernuni-hagen.de/GeomLab/VoroGlide/index.html.en">
+    Voroglide applet</a> (can delete points) (demo included)
+    <LI>
+    <a href="http://www.voronoigame.com/VoronoiGameApplet.html"> Voronoi game</a> (see also the explanation at voronoigame.com)
+    <LI><a href="http://istarion.de/voronoi/"> Multi-player Voronoi game</a> (with several computer opponent modes)
+  </UL></li>
+  <li>Other sources (not required to read):<ul>
+    <LI><a href="http://www-cgi.cs.cmu.edu/afs/cs/academic/class/15850c-s96/www/drysdale.txt">
+    List of applications</a> by Scott Drysdale. Includes some further basic reading.
+    <LI><a href="http://www.voronoi.com/wiki/index.php?title=Voronoi_Applications">
+    voronoi.com</a> list of applications.
+    <LI><a href="http://2.bp.blogspot.com/_C5lOH4wRvwo/TMNnsGxEZcI/AAAAAAAAAFs/daoVf2v5V0s/s1600/turtle.jpg">
+    A turtle</a> from <a href="http://mappae-mundi.blogspot.com/2010/10/voronoi-diagramming-and-gis.html">
+    here</a>.
+    <LI><a href="http://www.ics.uci.edu/%7Eeppstein/vorpic.html">
+    David Eppstein's Voronoi face</a>
+    <LI><a href="http://en.wikipedia.org/wiki/Voronoi_diagram">
+    wiki</a> - just browse through
+  </UL></li>
+</ul>
+
+
+<h2> Lecture 7: Voronoi Diagrams</h2>
+ <li> Duality transform (a,b) -&gt; y=ax+b
+ <li> Play: <a
+ href="http://nms.lcs.mit.edu/~aklmiu/6.838/dual/">here</a> and <a href="http://www.ibis.t.u-tokyo.ac.jp/ryotat/applets/pld/">here</a>
+ <li> Intersection of halfplanes = dual of convex hulls.
+Guest <a href="http://cg.scs.carleton.ca/~greg/voronoi/">lecture</a>
+by Greg Aloupis
+-->
+
+</body>
+
+</html>
