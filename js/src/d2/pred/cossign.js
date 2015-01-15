@@ -37,9 +37,9 @@
  *
  */
 
-var cossign = function ( x, y, z ) {
+var cossign = function ( x , y , z ) {
 	return ( y[0] - x[0] ) * ( y[0] - z[0] ) +
-	       ( y[1] - x[1] ) * ( y[1] - z[1] );
-};
+	       ( y[1] - x[1] ) * ( y[1] - z[1] ) ;
+} ;
 
-exports.cossign = cossign;
+exports.cossign = cossign ;

@@ -1,12 +1,12 @@
 
-var scalar = function ( a, b ) {
+var scalar = function ( a , b ) {
 
-	var c;
+	var c ;
 
-	c = vsub( a, b );
+	c = vsub( a , b ) ;
 
-	return vdot( c, c );
-	
-};
+	return vdot( c , c ) ;
 
-exports.scalar = scalar;
+} ;
+
+exports.scalar = scalar ;
