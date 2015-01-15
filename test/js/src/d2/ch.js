@@ -68,7 +68,7 @@ var fromboolarray = function ( fn ) {
 algorithms = [
 	fromboolarray( cg.__chn4__( colinear, pit ) ),
 	fromboolarray( cg.__chn3__( cg.sinsign, cg.cossign ) ),
-	fromboolarray( cg.__chn2__( cg.sinsign, cg.cosval ) ),
+	fromboolarray( cg.__chn2__( cg.sinsign, cg.cossign ) ),
 	function ( set, hull ) {
 
 		var gsm;
