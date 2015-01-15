@@ -26,40 +26,40 @@ var __grahamscanmono__ = function ( sinsign ) {
 	 * @return {[type]}      [description]
 	 */
 
-	var grahamscanmono = function ( set, i, j, lo ) {
+	var grahamscanmono = function ( set , i , j , lo ) {
 
-		var k, n, hi, u, p, q;
+		var k , n , hi , u , p , q ;
 
-		n = set.length;
-		hi = [];
+		n = set.length ;
+		hi = [] ;
 
-		hi.push( set[i] );
-		hi.push( set[i + 1] );
-		lo.push( set[i] );
-		lo.push( set[i + 1] );
+		hi.push( set[i] ) ;
+		hi.push( set[i + 1] ) ;
+		lo.push( set[i] ) ;
+		lo.push( set[i + 1] ) ;
 
-		p = 0;
-		q = 0;
+		p = 0 ;
+		q = 0 ;
 
 		for ( k = i + 2 ; k < j ; ++k ) {
 
-			u = set[k];
+			u = set[k] ;
 
-			while ( p >= 0 && sinsign( hi[p], hi[p + 1], u ) >= 0 ) {
-				hi.pop();
-				--p;
+			while ( p >= 0 && sinsign( hi[p] , hi[p + 1] , u ) >= 0 ) {
+				hi.pop() ;
+				--p ;
 			}
 
-			hi.push( u );
-			++p;
+			hi.push( u ) ;
+			++p ;
 
-			while ( q >= 0 && sinsign( lo[q], lo[q + 1], u ) <= 0 ) {
-				lo.pop();
-				--q;
+			while ( q >= 0 && sinsign( lo[q] , lo[q + 1] , u ) <= 0 ) {
+				lo.pop() ;
+				--q ;
 			}
 
-			lo.push( u );
-			++q;
+			lo.push( u ) ;
+			++q ;
 
 		}
 
@@ -73,16 +73,16 @@ var __grahamscanmono__ = function ( sinsign ) {
 		//                \                 /
 		//                 * - > - * - > - *
 		//
-		// Note that the first and last element of hi are droped since
+		// Note that the first and last elements of hi are droped since
 		// they are already in lo
 
 		for ( i = p ; i > 0 ; --i ) {
-			lo.push( hi[i] );
+			lo.push( hi[i] ) ;
 		}
 
-	};
+	} ;
 
-	return grahamscanmono;
-};
+	return grahamscanmono ;
+} ;
 
-exports.__grahamscanmono__ = __grahamscanmono__;
+exports.__grahamscanmono__ = __grahamscanmono__ ;
