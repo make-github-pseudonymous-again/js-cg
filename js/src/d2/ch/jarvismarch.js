@@ -12,68 +12,87 @@
  * -> https://en.wikipedia.org/wiki/Gift_wrapping_algorithm
  *
  */
+var __jarvismarch__ = function ( sinsign , cossign ) {
 
-var jarvismarch = function(set){
-	if(set.length < 2) return set.slice();
+	/**
+	 * The idea is to wrap the set of points. The technique is the following.
+	 *
+	 * You first select a vertex for which you are sure that it is part of the
+	 * convex hull. For example you can choose the vertex that is first in
+	 * lexicographical order over the coordinates in two dimensions, i.e. find
+	 * all vertices that have the smallest x coordinate and if there is more
+	 * than one then keep only the one with the smallest y coordinate.
+	 *
+	 * From this selected vertex you compute the next one. The next one is
+	 * defined as the one that comes after in clockwise order.
+	 *
+	 *    |
+	 *    |     In this example u is the selected vertex and v the next one.
+	 *    |     v is such that there is no vertex w with sin( u , v , w ) < 0
+	 *    u     i.e. lying on the right of uv because otherwise u was not
+	 *     \    part of the hull in the first place.
+	 *      v
+	 *
+	 * To solve the problem completely we simply iterate over all successive uv
+	 * pairs ( we replace u with v after each iteration ). We stop when we made
+	 * the complete loop around the set of vertices, i.e when the next v is the
+	 * very first u.
+	 *
+	 *
+	 * Hypotheses:
+	 *   - |set| >= 2
+	 *   - set[0] must be part of the hull ( if |set| = 2 this is the
+	 *   only thing you have to do )
+	 *
+	 * @param {array} set is the input vertex set
+	 * @param {array} hull is the ouput hull, we omit to add set[0] voluntarily
+	 */
 
-	var c = 0;
-	for(var i = 1; i < set.length; ++i){
-		if(set[i].x < set[c].x || (set[i].x == set[c].x && set[i].y < set[c].y)) c = i;
-	}
+	var jarvismarch = function ( set , hull ) {
 
-	if(set.length < 3) return [set[c], set[c?0:1]];
+		var j , u , v , w , origin , sin , cos ;
 
-	var p = c;
-	var tmp = new Point(set[p].x, set[p].y - 1);
+		n = set.length ;
 
-	c = 0;
-	var i = p?0:1;
-	var cos = geo.cos(tmp, set[p], set[i]);
-	var d = dist(set[p], set[i]);
-	for(++i; i < set.length; ++i){
-		if(p == i) continue;
-		var cos_i = geo.cos(tmp, set[p], set[i]);
-		var d_i = dist(set[p], set[i]);
-		if(cos_i < cos || (cos_i == cos && d_i > d)){
-			c = i;
-			cos = cos_i;
-			d = d_i;
-		}
-	}
+		origin = u = set[0] ;
 
+		j = 1 ;
 
-	var ch = [set[p]];
-	var ch_0 = p;
-	var f = -1;
-	while(ch_0 != f){
-		ch.push(set[c]);
-		f = 0;
-		var i = 0;
-		for(; i < set.length; ++i){
-			if(p == i || c == i) continue;
-			f = i;
-			cos = geo.cos(set[p], set[c], set[i]);
-			d = dist(set[c], set[i]);
-			++i;
-			break;
-		}
-		for(; i < set.length; ++i){
-			if(p == i || c == i) continue;
-			var cos_i = geo.cos(set[p], set[c], set[i]);
-			var d_i = dist(set[c], set[i]);
-			if(cos_i < cos || (cos_i == cos && d_i > d)){
-				f = i;
-				cos = cos_i;
-				d = d_i;
+		while ( true ) {
+
+			v = set[j] ;
+
+			for ( ++j ; j < n ; ++j ) {
+
+				w = set[j] ;
+
+				sin = sinsign( u , v , w ) ;
+
+				if ( sin === 0 ) {
+
+					cos = cossign( u , v , w ) ;
+
+					if ( cos < 0 ) v = w ;
+
+				}
+
+				else if ( sin < 0 ) v = w ;
+
 			}
+
+			if ( v === origin ) break ;
+
+			hull.push( v );
+
+			u = v ;
+			j = 0 ;
+
 		}
 
-		p = c;
-		c = f;
-	}
+	} ;
 
-	return ch;
+	return jarvismarch ;
 
-};
+} ;
 
-exports.jarvismarch = jarvismarch;
+exports.__jarvismarch__ = __jarvismarch__ ;
