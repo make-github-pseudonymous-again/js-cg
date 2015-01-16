@@ -96,7 +96,7 @@ one = function ( algoname , algo , init , dataname , data , expected ) {
 
 } ;
 
-lexicographical = compare.lexicographical( compare.increasing ) ;
+lexicographical = cg.bottomleft( compare.increasing ) ;
 
 itertools.product( [
 
