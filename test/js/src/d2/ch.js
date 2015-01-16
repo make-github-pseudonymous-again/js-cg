@@ -1,42 +1,46 @@
 
-var algorithms, pit, ccwc, sets, hulls,
-	expectedlist, one,
+var pit, ccwc, sets, hulls,
+	one,
 	set, hull, expected,
-	i, j, k, points, p, algo,
+	k, points, p, algo,
 	sort, heapsort,
 	identical, genhull, colinear, array,
-	clocksort, ch, chsort, sortmethod, compare;
+	clocksort, ch, chsort, sortmethod, compare,
+	functools , itertools ,
+	frominclusionarray , inclusionarray , hulllist ;
 
-compare = require( "aureooms-js-compare" );
-random = require( "aureooms-js-random" );
-array = require( "aureooms-js-array" );
-algo = require( "aureooms-js-algo" );
-sort = require( "aureooms-js-sort" );
+compare = require( "aureooms-js-compare" ) ;
+random = require( "aureooms-js-random" ) ;
+array = require( "aureooms-js-array" ) ;
+algo = require( "aureooms-js-algo" ) ;
+sort = require( "aureooms-js-sort" ) ;
+functools = require( "aureooms-js-functools" ) ;
+itertools = require( "aureooms-js-itertools" ) ;
 
-heapsort = sort.__heapsort__( 2 );
+heapsort = sort.__heapsort__( 2 ) ;
 
-clocksort = cg.__clocksort__( heapsort, cg.sinsign, cg.cossign );
+clocksort = cg.__clocksort__( heapsort , cg.sinsign , cg.cossign ) ;
 
-chsort = function ( set, i, j ) {
+chsort = function ( set , i , j ) {
 
-	var k;
+	var k ;
 
-	k = array.argmin( cg.leftbottom( compare.increasing ), set, i, j );
+	k = array.argmin( cg.leftbottom( compare.increasing ), set , i , j ) ;
 
-	sort.swap( set, i, k );
+	sort.swap( set , i , k ) ;
 
-	clocksort( cg.__counterclockwise__, set, i, j );
+	clocksort( cg.__counterclockwise__ , set , i , j ) ;
 
-};
+} ;
 
 ch = function ( set ) {
-	chsort( set, 0, set.length );
-	return set;
-};
+	chsort( set , 0 , set.length ) ;
+	return set ;
+} ;
 
 
-points = require( "../../dep/points.js" );
-p = points.data;
+points = require( "../../data/points.js" ) ;
+p = points.data ;
 
 colinear = cg.__colinear__( cg.sinsign );
 
@@ -45,87 +49,99 @@ ccwc = cg.__ccwc__( cg.sinsign );
 pit = cg.__pit__( ccwc );
 
 
-var fromboolarray = function ( fn ) {
-	return function ( set, hull ) {
+frominclusionarray = function ( fn ) {
 
-		var i, out;
+	return function ( set , hull ) {
 
-		fn( set, hull );
+		var i , out ;
 
-		out = [];
+		fn( set , hull ) ;
+
+		out = [] ;
 
 		for ( i = 0 ; i < hull.length ; ++i ) {
 			if ( hull[i] ) {
-				out.push( set[i] );
+				out.push( set[i] ) ;
 			}
 		}
 
-		return ch(out);
+		return ch( out ) ;
 
-	};
-};
+	} ;
 
-algorithms = [
-	fromboolarray( cg.__chn4__( colinear, pit ) ),
-	fromboolarray( cg.__chn3__( cg.sinsign, cg.cossign ) ),
-	fromboolarray( cg.__chn2__( cg.sinsign, cg.cossign ) ),
-	function ( set, hull ) {
+} ;
 
-		var gsm;
+inclusionarray = function ( v ) {
 
-		set = set.slice( 0 );
+	return function ( n ) {
+		var hull ;
+		hull = array.alloc( n ) ;
+		array.fill( hull , 0 , n , v ) ;
+		return hull ;
+	} ;
 
-		gsm = cg.__grahamscanmono__( cg.sinsign );
+} ;
 
-		array.sort( sort.lexicographical( compare.increasing ), set );
+hulllist = function ( n ) { return [ ] ; } ;
 
-		gsm( set, 0, set.length, hull );
 
-		return hull;
+one = function ( algoname , algo , init , dataname , data , expected ) {
 
-	}
-];
+	test( algoname + " > " + dataname , function ( ) {
+		var out , hull ;
+		hull = init( data.length ) ;
+		out = algo( data , hull ) ;
+		deepEqual( out , expected , JSON.stringify( ) ) ;
+	} ) ;
 
-sets = [
-	p.slice( 0 )
-];
+} ;
 
-expectedlist = [ // one per set
-	ch([ p[30], p[36], p[42], p[48] ])
-];
 
-hulls = [ // one per algorithm
-	function ( n ) {
-		var hull;
-		hull = new Array( n );
-		array.fill( hull, 0, n, true );
-		return hull;
-	},
-	function ( n ) {
-		var hull;
-		hull = new Array( n );
-		array.fill( hull, 0, n, false );
-		return hull;
-	},
-	function ( n ) {
-		var hull;
-		hull = new Array( n );
-		array.fill( hull, 0, n, true );
-		return hull;
-	},
-	function ( n ) {
-		return [];
-	}
-];
+itertools.product( [
 
-one = function ( i, j, fn, set, hull, expected ) {
-	test( "fn("+i+", "+j+")", function () {
-		var out;
-		out = fn( set, hull );
-		deepEqual( out, expected, JSON.stringify() );
-	});
-};
+[
+	[
+		"chn4" ,
+		frominclusionarray( cg.__chn4__( colinear, pit ) ) ,
+		inclusionarray( true )
+	] ,
+	[
+		"chn3" ,
+		frominclusionarray( cg.__chn3__( cg.sinsign, cg.cossign ) ) ,
+		inclusionarray( false )
+	] ,
+	[
+		"chn2" ,
+		frominclusionarray( cg.__chn2__( cg.sinsign, cg.cossign ) ) ,
+		inclusionarray( true )
+	] ,
+	[
+		"graham scan mono" ,
+		function ( set , hull ) {
 
-for (i in algorithms)
-for (j in sets)
-one(i, j, algorithms[i], sets[j], hulls[i](sets[j].length), expectedlist[j]);
+			var gsm ;
+
+			set = set.slice( 0 ) ;
+
+			gsm = cg.__grahamscanmono__( cg.sinsign ) ;
+
+			array.sort( compare.lexicographical( compare.increasing ) , set ) ;
+
+			gsm( set , 0 , set.length , hull ) ;
+
+			return hull ;
+
+		} ,
+		hulllist
+	]
+] ,
+
+[
+	[
+		"all from data/points.js" ,
+		p.slice( 0 ) ,
+		ch( [ p[30] , p[36] , p[42] , p[48] ] )
+	]
+]
+
+] , 1 , [ ] ).forEach( functools.partial( functools.star , [ one ] ) ) ;

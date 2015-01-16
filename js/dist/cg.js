@@ -35,73 +35,170 @@
 
 
 /**
- * Find the convex hull in O(n^2) by checking for every point b
- * that there is no triangle ( a,  minleft, minright ) that
- * contains this point.
+ * Find the convex hull in O(n^2) by checking for every vertex b that there is
+ * no triangle ( a , u , v ) that contains this point.
+ *
+ * Vertex a is an arbitraty vertex in the vertex set. Note that it must be
+ * different from b. If b is not part of the convex hull of the vertex set then
+ * there must exist a segment going from u to v of the vertex set such that we
+ * can project b on this segment along direction ab. For this segment to exist
+ * u and v cannot be on the same side of the line going through a and b. Thus
+ * s( sinsign( a , b , u ) ) === - s( sinsign( a , b , v) ). Also at least one
+ * of u and v must be on the other side of the orthogonal to line ab, otherwise
+ * b would be necessarily a vertex of the convex hull.
+ *
+ * Note that cossign is only required to break ties in the case where the data
+ * contains (3 or more)-colinear vertices.
  */
 
-var __chn2__ = function ( sinsign, cosval ) {
+var __chn2__ = function ( sinsign , cossign ) {
 
 	/**
 	 * hypothesis : |set| >= 2
 	 * @param  {set} set   array of vertices
 	 * @param  {hull} hull inclusion array representation of the convex hull
+	 * initialized to true
 	 */
 
-	var chn2 = function ( set, hull ) {
+	var chn2 = function ( set , hull ) {
 
-		var i, j, k, a, b, c, n, minleft, minright, cosleft, cosright, sin, cos;
+		var i , j , k , a , b , c , n , u , v , sin , cos ;
 
-		n = set.length;
+		n = set.length ;
 
-		for ( j = 0 ; j < n ; ++j ) {
+		each : for ( j = 0 ; j < n ; ++j ) {
 
-			i = + ( j === 0 );
+			// we need i to be different from j
+			// to have a different from b
+			// i is 1 if j is 0, i is 0 otherwise
 
-			a = set[i];
-			b = set[j];
+			i = + ( j === 0 ) ;
 
-			minleft = null;
-			minright = null;
-			cosleft = 1;
-			cosright = 1;
+			a = set[i] ;
+			b = set[j] ;
+
+			// we initiate u and v to a and
+			// we will update them in a loop
+			// over vertices of the vertex set
+			// in the case we find a better candidate
+
+			u = v = a ;
+
+			// upon completion of the loop
+			// we will have u and v such that
+			// there is no c in the vertex set such that sin ( a , b , c ) > 0
+			// lying strictly on the right of the line through bu
+			// there is no c in the vertex set such that sin ( a , b , c ) < 0
+			// lying strictly on the left of the line through bv
 
 			for ( k = 1 ; k < n ; ++k ) {
 
-				if ( k === i || k === j ) {
-					continue;
+				// we can always skip k = 0 since i is 0 when j is not
+				// we also skip the cases where c = b or c = a
+
+				if ( k === i || k === j ) continue ;
+
+				c = set[k] ;
+
+				sin = sinsign( a , b , c ) ;
+
+				// if c is on the left of ab
+
+				//     |
+				//     |
+				// c   b
+				//     |
+				//     a
+
+				if ( sin > 0 ) {
+
+					sin = sinsign( b , u , c ) ;
+
+					// if c is on the right of bu
+
+					// u  c|             u   |
+					//   \ |               \ |
+					//     b  otherwise      b
+					//     |              c  |
+					//     a                 a
+
+					if ( sin < 0 ) u = c ;
+
 				}
 
-				c = set[k];
+				// if c is on the right of ab
 
-				sin = sinsign( a, b, c );
-				cos = cosval( a, b, c );
+				//     |
+				//     |
+				//     b   c
+				//     |
+				//     a
 
-				if ( sin >= 0 && cos <= cosleft ) {
-					minleft = c;
-					cosleft = cos;
+				else if ( sin < 0 ) {
+
+					sin = sinsign( b , v , c ) ;
+
+					// if c is on the left of bv
+
+					// |c  v             |   v
+					// | /               | /
+					// b      otherwise  b
+					// |                 |  c
+					// a                 a
+
+					if ( sin > 0 ) {
+						v = c ;
+					}
+
 				}
 
-				if ( sin <= 0 && cos <= cosright ) {
-					minright = c;
-					cosright = cos;
+				// when sin = 0 then we need to check if b
+				// lies on a segment from a to c
+
+				else {
+
+					cos = cossign( a , b , c ) ;
+
+					// |                     |    |
+					// c                     |    |
+					// |                     |    |
+					// b      otherwise      b or b
+					// |                     c    |
+					// a                     a    a
+					// |                     |    c
+
+					if ( cos < 0 ) {
+						hull[j] = false ;
+						continue each ;
+					}
+
 				}
 
 			}
 
-			if ( minleft !== null && minright !== null ) {
-				hull[j] = sinsign( minleft, minright, b ) > 0;
+			// if we found candidates for both sides of line ab
+			// and b is on the other side of uv relative to a
+			// then b is part of the convex hull
+
+			// u---|---v                 |   v
+			//   \ | /                   b /
+			//     b      otherwise      |
+			//     |                   / |
+			//     a                 u   a
+
+			if ( u !== a && v !== a && sinsign( u , v , b ) < 0 ) {
+				hull[j] = false ;
 			}
 
 		}
 
-	};
+	} ;
 
-	return chn2;
+	return chn2 ;
 
-};
+} ;
 
-exports.__chn2__ = __chn2__;
+exports.__chn2__ = __chn2__ ;
 
 /* js/src/d2/ch/chn3.js */
 
@@ -382,40 +479,40 @@ var __grahamscanmono__ = function ( sinsign ) {
 	 * @return {[type]}      [description]
 	 */
 
-	var grahamscanmono = function ( set, i, j, lo ) {
+	var grahamscanmono = function ( set , i , j , lo ) {
 
-		var k, n, hi, u, p, q;
+		var k , n , hi , u , p , q ;
 
-		n = set.length;
-		hi = [];
+		n = set.length ;
+		hi = [] ;
 
-		hi.push( set[i] );
-		hi.push( set[i + 1] );
-		lo.push( set[i] );
-		lo.push( set[i + 1] );
+		hi.push( set[i] ) ;
+		hi.push( set[i + 1] ) ;
+		lo.push( set[i] ) ;
+		lo.push( set[i + 1] ) ;
 
-		p = 0;
-		q = 0;
+		p = 0 ;
+		q = 0 ;
 
 		for ( k = i + 2 ; k < j ; ++k ) {
 
-			u = set[k];
+			u = set[k] ;
 
-			while ( p >= 0 && sinsign( hi[p], hi[p + 1], u ) >= 0 ) {
-				hi.pop();
-				--p;
+			while ( p >= 0 && sinsign( hi[p] , hi[p + 1] , u ) >= 0 ) {
+				hi.pop() ;
+				--p ;
 			}
 
-			hi.push( u );
-			++p;
+			hi.push( u ) ;
+			++p ;
 
-			while ( q >= 0 && sinsign( lo[q], lo[q + 1], u ) <= 0 ) {
-				lo.pop();
-				--q;
+			while ( q >= 0 && sinsign( lo[q] , lo[q + 1] , u ) <= 0 ) {
+				lo.pop() ;
+				--q ;
 			}
 
-			lo.push( u );
-			++q;
+			lo.push( u ) ;
+			++q ;
 
 		}
 
@@ -429,19 +526,19 @@ var __grahamscanmono__ = function ( sinsign ) {
 		//                \                 /
 		//                 * - > - * - > - *
 		//
-		// Note that the first and last element of hi are droped since
+		// Note that the first and last elements of hi are droped since
 		// they are already in lo
 
 		for ( i = p ; i > 0 ; --i ) {
-			lo.push( hi[i] );
+			lo.push( hi[i] ) ;
 		}
 
-	};
+	} ;
 
-	return grahamscanmono;
-};
+	return grahamscanmono ;
+} ;
 
-exports.__grahamscanmono__ = __grahamscanmono__;
+exports.__grahamscanmono__ = __grahamscanmono__ ;
 
 /* js/src/d2/ch/jarvismarch.js */
 
@@ -458,71 +555,90 @@ exports.__grahamscanmono__ = __grahamscanmono__;
  * -> https://en.wikipedia.org/wiki/Gift_wrapping_algorithm
  *
  */
+var __jarvismarch__ = function ( sinsign , cossign ) {
 
-var jarvismarch = function(set){
-	if(set.length < 2) return set.slice();
+	/**
+	 * The idea is to wrap the set of points. The technique is the following.
+	 *
+	 * You first select a vertex for which you are sure that it is part of the
+	 * convex hull. For example you can choose the vertex that is first in
+	 * lexicographical order over the coordinates in two dimensions, i.e. find
+	 * all vertices that have the smallest x coordinate and if there is more
+	 * than one then keep only the one with the smallest y coordinate.
+	 *
+	 * From this selected vertex you compute the next one. The next one is
+	 * defined as the one that comes after in clockwise order.
+	 *
+	 *    |
+	 *    |     In this example u is the selected vertex and v the next one.
+	 *    |     v is such that there is no vertex w with sin( u , v , w ) < 0
+	 *    u     i.e. lying on the right of uv because otherwise u was not
+	 *     \    part of the hull in the first place.
+	 *      v
+	 *
+	 * To solve the problem completely we simply iterate over all successive uv
+	 * pairs ( we replace u with v after each iteration ). We stop when we made
+	 * the complete loop around the set of vertices, i.e when the next v is the
+	 * very first u.
+	 *
+	 *
+	 * Hypotheses:
+	 *   - |set| >= 2
+	 *   - set[0] must be part of the hull ( if |set| = 2 this is the
+	 *   only thing you have to do )
+	 *
+	 * @param {array} set is the input vertex set
+	 * @param {array} hull is the ouput hull, we omit to add set[0] voluntarily
+	 */
 
-	var c = 0;
-	for(var i = 1; i < set.length; ++i){
-		if(set[i].x < set[c].x || (set[i].x == set[c].x && set[i].y < set[c].y)) c = i;
-	}
+	var jarvismarch = function ( set , hull ) {
 
-	if(set.length < 3) return [set[c], set[c?0:1]];
+		var j , u , v , w , origin , sin , cos ;
 
-	var p = c;
-	var tmp = new Point(set[p].x, set[p].y - 1);
+		n = set.length ;
 
-	c = 0;
-	var i = p?0:1;
-	var cos = geo.cos(tmp, set[p], set[i]);
-	var d = dist(set[p], set[i]);
-	for(++i; i < set.length; ++i){
-		if(p == i) continue;
-		var cos_i = geo.cos(tmp, set[p], set[i]);
-		var d_i = dist(set[p], set[i]);
-		if(cos_i < cos || (cos_i == cos && d_i > d)){
-			c = i;
-			cos = cos_i;
-			d = d_i;
-		}
-	}
+		origin = u = set[0] ;
 
+		j = 1 ;
 
-	var ch = [set[p]];
-	var ch_0 = p;
-	var f = -1;
-	while(ch_0 != f){
-		ch.push(set[c]);
-		f = 0;
-		var i = 0;
-		for(; i < set.length; ++i){
-			if(p == i || c == i) continue;
-			f = i;
-			cos = geo.cos(set[p], set[c], set[i]);
-			d = dist(set[c], set[i]);
-			++i;
-			break;
-		}
-		for(; i < set.length; ++i){
-			if(p == i || c == i) continue;
-			var cos_i = geo.cos(set[p], set[c], set[i]);
-			var d_i = dist(set[c], set[i]);
-			if(cos_i < cos || (cos_i == cos && d_i > d)){
-				f = i;
-				cos = cos_i;
-				d = d_i;
+		while ( true ) {
+
+			v = set[j] ;
+
+			for ( ++j ; j < n ; ++j ) {
+
+				w = set[j] ;
+
+				sin = sinsign( u , v , w ) ;
+
+				if ( sin === 0 ) {
+
+					cos = cossign( u , v , w ) ;
+
+					if ( cos < 0 ) v = w ;
+
+				}
+
+				else if ( sin < 0 ) v = w ;
+
 			}
+
+			if ( v === origin ) break ;
+
+			hull.push( v );
+
+			u = v ;
+			j = 0 ;
+
 		}
 
-		p = c;
-		c = f;
-	}
+	} ;
 
-	return ch;
+	return jarvismarch ;
 
-};
+} ;
 
-exports.jarvismarch = jarvismarch;
+exports.__jarvismarch__ = __jarvismarch__ ;
 
 /* js/src/d2/ch/kirkpatrickseidel.js */
 
@@ -1097,27 +1213,48 @@ exports.DCELVertex = DCELVertex ;
 /* js/src/d2/irrational */
 /* js/src/d2/irrational/cosval.js */
 
-var cosval = function ( a, b, c ) {
-	return cossign( a, b, c ) / dist( a, b ) / dist( b, c );
-};
+/**
+ * Typically this kind of computation is not allowed. Computing distances
+ * between two vertices in the general case requires to compute the square root
+ * of a number. We only work with rationals in our algorithms and cannot handle
+ * irrationals that could appear when allowing the use of square roots.
+ */
 
-exports.cosval = cosval;
+var cosval = function ( a , b , c ) {
+	return cossign( a , b , c ) / dist( a , b ) / dist( b , c ) ;
+} ;
+
+exports.cosval = cosval ;
 
 /* js/src/d2/irrational/dist.js */
 
-var dist = function ( a, b ) {
-	return Math.sqrt( scalar ( a, b ) );
-};
+/**
+ * Typically this kind of computation is not allowed. Computing distances
+ * between two vertices in the general case requires to compute the square root
+ * of a number. We only work with rationals in our algorithms and cannot handle
+ * irrationals that could appear when allowing the use of square roots.
+ */
 
-exports.dist = dist;
+var dist = function ( a , b ) {
+	return Math.sqrt( scalar ( a , b ) ) ;
+} ;
+
+exports.dist = dist ;
 
 /* js/src/d2/irrational/sinval.js */
 
-var sinval = function ( a, b, c ) {
-	return sinsign( a, b, c ) / dist( a, b ) / dist( b, c );
-};
+/**
+ * Typically this kind of computation is not allowed. Computing distances
+ * between two vertices in the general case requires to compute the square root
+ * of a number. We only work with rationals in our algorithms and cannot handle
+ * irrationals that could appear when allowing the use of square roots.
+ */
 
-exports.sinval = sinval;
+var sinval = function ( a , b , c ) {
+	return sinsign( a , b , c ) / dist( a , b ) / dist( b , c ) ;
+} ;
+
+exports.sinval = sinval ;
 
 /* js/src/d2/monotonicity */
 /* js/src/d2/monotonicity/monotonic.js */
@@ -1158,17 +1295,17 @@ exports.det3 = det3;
 
 /* js/src/d2/op/scalar.js */
 
-var scalar = function ( a, b ) {
+var scalar = function ( a , b ) {
 
-	var c;
+	var c ;
 
-	c = vsub( a, b );
+	c = vsub( a , b ) ;
 
-	return vdot( c, c );
-	
-};
+	return vdot( c , c ) ;
 
-exports.scalar = scalar;
+} ;
+
+exports.scalar = scalar ;
 
 /* js/src/d2/op/vadd.js */
 
@@ -1425,12 +1562,12 @@ exports.__convex__ = __convex__;
  *
  */
 
-var cossign = function ( x, y, z ) {
+var cossign = function ( x , y , z ) {
 	return ( y[0] - x[0] ) * ( y[0] - z[0] ) +
-	       ( y[1] - x[1] ) * ( y[1] - z[1] );
-};
+	       ( y[1] - x[1] ) * ( y[1] - z[1] ) ;
+} ;
 
-exports.cossign = cossign;
+exports.cossign = cossign ;
 
 /* js/src/d2/pred/cw.js */
 
@@ -1620,12 +1757,14 @@ exports.__rc__ = __rc__;
  *
  */
 
-var sinsign = function ( a, b, c ) {
+var sinsign = function ( a , b , c ) {
+
 	return ( b[0] - a[0] ) * ( c[1] - a[1] ) -
-	       ( b[1] - a[1] ) * ( c[0] - a[0] );
-};
+	       ( b[1] - a[1] ) * ( c[0] - a[0] ) ;
+
+} ;
 
 
-exports.sinsign = sinsign;
+exports.sinsign = sinsign ;
 
 })(typeof exports === 'undefined' ? this['cg'] = {} : exports);

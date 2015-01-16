@@ -5,12 +5,14 @@
 	"main": "js/dist/cg.js",
 	"dependencies": {},
 	"devDependencies": {
-		"aureooms-node-package": "^1.1.3",
-		"aureooms-js-compare": "^0.0.2",
+		"aureooms-node-package": "^1.2.0",
+		"aureooms-js-itertools": "^0.2.0",
+		"aureooms-js-functools": "^1.0.0",
+		"aureooms-js-compare": "^1.0.0",
 		"aureooms-js-random": "^0.0.3",
-		"aureooms-js-array": "^1.0.0",
-		"aureooms-js-algo": "^2.0.0",
-		"aureooms-js-sort": "^2.0.0"
+		"aureooms-js-array": "^1.1.0",
+		"aureooms-js-algo": "^2.0.2",
+		"aureooms-js-sort": "^3.1.0"
 	},
 	"scripts": {
 		"build": "./node_modules/.bin/aureooms-node-package-build",
