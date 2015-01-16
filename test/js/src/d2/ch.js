@@ -21,11 +21,13 @@ heapsort = sort.__heapsort__( 2 ) ;
 
 clocksort = cg.__clocksort__( heapsort , cg.sinsign , cg.cossign ) ;
 
+lexicographical = cg.bottomleft( compare.increasing ) ;
+
 chsort = function ( set , i , j ) {
 
 	var k ;
 
-	k = array.argmin( cg.leftbottom( compare.increasing ), set , i , j ) ;
+	k = array.argmin( lexicographical , set , i , j ) ;
 
 	sort.swap( set , i , k ) ;
 
@@ -96,8 +98,6 @@ one = function ( algoname , algo , init , dataname , data , expected ) {
 
 } ;
 
-lexicographical = cg.bottomleft( compare.increasing ) ;
-
 itertools.product( [
 
 [
@@ -156,6 +156,25 @@ itertools.product( [
 			jm( set , hull ) ;
 
 			return hull ;
+		} ,
+		hulllist
+	] ,
+	[
+		"graham scan" ,
+		function ( set , hull ) {
+
+			var gs ;
+
+			set = set.slice( ) ;
+
+			chsort( set , 0 , set.length ) ;
+
+			gs = cg.__grahamscan__( cg.sinsign ) ;
+
+			gs( set , 0 , set.length , hull ) ;
+
+			return hull ;
+
 		} ,
 		hulllist
 	]
