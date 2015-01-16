@@ -7,7 +7,7 @@ var pit, ccwc, sets, hulls,
 	identical, genhull, colinear, array,
 	clocksort, ch, chsort, sortmethod, compare,
 	functools , itertools ,
-	frominclusionarray , inclusionarray , hulllist ;
+	frominclusionarray , inclusionarray , hulllist , lexicographical ;
 
 compare = require( "aureooms-js-compare" ) ;
 random = require( "aureooms-js-random" ) ;
@@ -96,6 +96,7 @@ one = function ( algoname , algo , init , dataname , data , expected ) {
 
 } ;
 
+lexicographical = compare.lexicographical( compare.increasing ) ;
 
 itertools.product( [
 
@@ -121,16 +122,40 @@ itertools.product( [
 
 			var gsm ;
 
-			set = set.slice( 0 ) ;
+			set = set.slice( ) ;
 
 			gsm = cg.__grahamscanmono__( cg.sinsign ) ;
 
-			array.sort( compare.lexicographical( compare.increasing ) , set ) ;
+			array.sort( lexicographical , set ) ;
 
 			gsm( set , 0 , set.length , hull ) ;
 
 			return hull ;
 
+		} ,
+		hulllist
+	] ,
+	[
+		"jarvis march" ,
+		function ( set , hull ) {
+
+			var i , n , jm ;
+
+			n = set.length ;
+
+			set = set.slice( ) ;
+
+			i = array.argmin( lexicographical , set , 0 , n ) ;
+
+			sort.swap( set , 0 , i ) ;
+
+			hull.push( set[0] ) ;
+
+			jm = cg.__jarvismarch__( cg.sinsign , cg.cossign ) ;
+
+			jm( set , hull ) ;
+
+			return hull ;
 		} ,
 		hulllist
 	]

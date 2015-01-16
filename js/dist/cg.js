@@ -591,7 +591,7 @@ var __jarvismarch__ = function ( sinsign , cossign ) {
 
 	var jarvismarch = function ( set , hull ) {
 
-		var j , u , v , w , origin , sin , cos ;
+		var n , j , u , v , w , origin , sin , cos ;
 
 		n = set.length ;
 
