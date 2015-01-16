@@ -1,0 +1,8 @@
+<!DOCTYPE html><html lang="en"><head><title>d2/irrational/dist</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="d2/irrational/dist"><meta name="groc-project-path" content="js/src/d2/irrational/dist.js"><meta name="groc-github-url" content="https://github.com/aureooms/js-cg"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/aureooms/js-cg/blob/master/js/src/d2/irrational/dist.js">js/src/d2/irrational/dist.js</a></div></div><div id="document"><div class="segment"></div><div class="segment"><div class="comments "><div class="wrapper"><p>Typically this kind of computation is not allowed. Computing distances
+between two vertices in the general case requires to compute the square root
+of a number. We only work with rationals in our algorithms and cannot handle
+irrationals that could appear when allowing the use of square roots.</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> dist = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">( a , b )</span> {</span>
+	<span class="hljs-keyword">return</span> <span class="hljs-built_in">Math</span>.sqrt( scalar ( a , b ) ) ;
+} ;
+
+exports.dist = dist ;</div></div></div></div></body></html>

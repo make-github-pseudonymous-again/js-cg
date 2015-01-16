@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="en"><head><title>d2/pred/icc</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="d2/pred/icc"><meta name="groc-project-path" content="js/src/d2/pred/icc.js"><meta name="groc-github-url" content="https://github.com/aureooms/js-cg"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/aureooms/js-cg/blob/master/js/src/d2/pred/icc.js">js/src/d2/pred/icc.js</a></div></div><div id="document"><div class="segment"></div><div class="segment"><div class="comments "><div class="wrapper"><p>In circum circle predicate</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> __icc__ = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">( det3 )</span> {</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Checks if <em>w</em> lies strictly inside the circum circle
+of triangle <em>tuv</em>.</p></div></div><div class="code"><div class="wrapper">	<span class="hljs-keyword">var</span> icc = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">( t, u, v, w )</span> {</span>
+
+		<span class="hljs-keyword">var</span> t0, t1, u0, u1, v0, v1, w0, w1, y;
+
+		t0 = t[<span class="hljs-number">0</span>]; t1 = t[<span class="hljs-number">1</span>];
+		u0 = u[<span class="hljs-number">0</span>]; u1 = u[<span class="hljs-number">1</span>];
+		v0 = v[<span class="hljs-number">0</span>]; v1 = v[<span class="hljs-number">1</span>];
+		w0 = w[<span class="hljs-number">0</span>]; w1 = w[<span class="hljs-number">1</span>];
+
+		y = w0 * w0 + w1 * w1;
+
+		<span class="hljs-keyword">return</span> det3( [
+			[t0 - w0, t1 - w1, t0 * t0 + t1 * t1 - y],
+			[u0 - w0, u1 - w1, u0 * u0 + u1 * u1 - y],
+			[v0 - w0, v1 - w1, v0 * v0 + v1 * v1 - y]
+		] ) &gt; <span class="hljs-number">0</span>;
+
+	};
+
+	<span class="hljs-keyword">return</span> icc;
+};
+
+exports.__icc__ = __icc__;</div></div></div></div></body></html>

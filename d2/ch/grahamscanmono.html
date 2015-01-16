@@ -1,0 +1,70 @@
+<!DOCTYPE html><html lang="en"><head><title>d2/ch/grahamscanmono</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="d2/ch/grahamscanmono"><meta name="groc-project-path" content="js/src/d2/ch/grahamscanmono.js"><meta name="groc-github-url" content="https://github.com/aureooms/js-cg"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/aureooms/js-cg/blob/master/js/src/d2/ch/grahamscanmono.js">js/src/d2/ch/grahamscanmono.js</a></div></div><div id="document"><div class="segment"></div><div class="segment"><div class="comments "><div class="wrapper"><p>This method is O(n), the only requirement is that the
+set of vertices should be prealably sorted.</p>
+<p>From Wikipedia :</p>
+<p>Monotone chain aka Andrew&#39;s algorithm — O(n log n)
+Published in 1979 by A. M. Andrew. The algorithm can be seen as a variant of
+Graham scan which sorts the points lexicographically by their coordinates.
+When the input is already sorted, the algorithm takes O(n) time.</p>
+<p>-&gt; <a href="https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain">https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain</a></p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> __grahamscanmono__ = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">( sinsign )</span> {</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>hypothesis : set is lexicographically ordered
+( in 2D : sorted according to x then y or y then x )</p>
+<p>Parameters:</p>
+<ul>
+<li><p><strong>set must be a [type].</strong><br/>([description])</p>
+</li>
+<li><p><strong>hull must be a [type].</strong><br/>([description])</p>
+</li>
+</ul>
+<p><strong>Returns a [type]</strong><br/>([description])</p></div></div><div class="code"><div class="wrapper">	<span class="hljs-keyword">var</span> grahamscanmono = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">( set , i , j , lo )</span> {</span>
+
+		<span class="hljs-keyword">var</span> k , n , hi , u , p , q ;
+
+		n = set.length ;
+		hi = [] ;
+
+		hi.push( set[i] ) ;
+		hi.push( set[i + <span class="hljs-number">1</span>] ) ;
+		lo.push( set[i] ) ;
+		lo.push( set[i + <span class="hljs-number">1</span>] ) ;
+
+		p = <span class="hljs-number">0</span> ;
+		q = <span class="hljs-number">0</span> ;
+
+		<span class="hljs-keyword">for</span> ( k = i + <span class="hljs-number">2</span> ; k &lt; j ; ++k ) {
+
+			u = set[k] ;
+
+			<span class="hljs-keyword">while</span> ( p &gt;= <span class="hljs-number">0</span> &amp;&amp; sinsign( hi[p] , hi[p + <span class="hljs-number">1</span>] , u ) &gt;= <span class="hljs-number">0</span> ) {
+				hi.pop() ;
+				--p ;
+			}
+
+			hi.push( u ) ;
+			++p ;
+
+			<span class="hljs-keyword">while</span> ( q &gt;= <span class="hljs-number">0</span> &amp;&amp; sinsign( lo[q] , lo[q + <span class="hljs-number">1</span>] , u ) &lt;= <span class="hljs-number">0</span> ) {
+				lo.pop() ;
+				--q ;
+			}
+
+			lo.push( u ) ;
+			++q ;
+
+		}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>enumerate hull vertices
+counter clock wise, in fact ccw if set is monotone <em>increasing</em>,
+cw otherwise</p>
+<pre><code>            * - &lt; - * - &lt; - *
+           /                 \</code></pre>
+<p>hi[0] = lo[0] <em>                   </em> hi[p + 1] = lo[q + 1]
+               \                 /</p>
+<pre><code>            * - &gt; - * - &gt; - *</code></pre>
+<p>Note that the first and last elements of hi are droped since
+they are already in lo</p></div></div><div class="code"><div class="wrapper">		<span class="hljs-keyword">for</span> ( i = p ; i &gt; <span class="hljs-number">0</span> ; --i ) {
+			lo.push( hi[i] ) ;
+		}
+
+	} ;
+
+	<span class="hljs-keyword">return</span> grahamscanmono ;
+} ;
+
+exports.__grahamscanmono__ = __grahamscanmono__ ;</div></div></div></div></body></html>
