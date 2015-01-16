@@ -9,12 +9,12 @@
  * there must exist a segment going from u to v of the vertex set such that we
  * can project b on this segment along direction ab. For this segment to exist
  * u and v cannot be on the same side of the line going through a and b. Thus
- * s( sinsign( a , b , u ) ) === - s( sinsign( a , b , v) ). Also at least one
- * of u and v must be on the other side of the orthogonal to line ab, otherwise
- * b would be necessarily a vertex of the convex hull.
+ * s( sin( a , b , u ) ) === - s( sin( a , b , v ) ). Also at least one of u
+ * and v must be on the other side of the orthogonal to line ab, otherwise b
+ * would be necessarily a vertex of the convex hull.
  *
- * Note that cossign is only required to break ties in the case where the data
- * contains (3 or more)-colinear vertices.
+ * Note that cossign is only required to break ties consistently in the case
+ * where the data contains (3 or more)-colinear vertices.
  */
 
 var __chn2__ = function ( sinsign , cossign ) {
@@ -112,9 +112,7 @@ var __chn2__ = function ( sinsign , cossign ) {
 					// |                 |  c
 					// a                 a
 
-					if ( sin > 0 ) {
-						v = c ;
-					}
+					if ( sin > 0 ) v = c ;
 
 				}
 
@@ -152,7 +150,7 @@ var __chn2__ = function ( sinsign , cossign ) {
 			//     |                   / |
 			//     a                 u   a
 
-			if ( u !== a && v !== a && sinsign( u , v , b ) < 0 ) {
+			if ( u !== a && v !== a && sinsign( u , v , b ) <= 0 ) {
 				hull[j] = false ;
 			}
 
