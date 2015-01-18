@@ -7,7 +7,8 @@ var pit, ccwc, sets, hulls,
 	identical, genhull, colinear, array,
 	clocksort, ch, chsort, sortmethod, compare,
 	functools , itertools ,
-	frominclusionarray , inclusionarray , hulllist , lexicographical ;
+	frominclusionarray , inclusionarray , hulllist ,
+	lexicographical , mirror ;
 
 compare = require( "aureooms-js-compare" ) ;
 random = require( "aureooms-js-random" ) ;
@@ -22,6 +23,7 @@ heapsort = sort.__heapsort__( 2 ) ;
 clocksort = cg.__clocksort__( heapsort , cg.sinsign , cg.cossign ) ;
 
 lexicographical = cg.bottomleft( compare.increasing ) ;
+mirror = cg.rightbottom( compare.increasing ) ;
 
 chsort = function ( set , i , j ) {
 
@@ -172,6 +174,46 @@ itertools.product( [
 			gs = cg.__grahamscan__( cg.sinsign ) ;
 
 			gs( set , 0 , set.length , hull ) ;
+
+			return hull ;
+
+		} ,
+		hulllist
+	] ,
+	[
+		"quickhull" ,
+		function ( set , hull ) {
+
+			var qh , bottomleft , topright , lefttop , rightbottom , n , a , b , c , d ;
+
+			n = set.length ;
+
+			set = set.slice( ) ;
+
+			bottomleft = array.argmin( lexicographical , set , 0 , n ) ;
+			sort.swap( set , 0 , bottomleft ) ;
+
+			rightbottom = array.argmin( mirror , set , 1 , n ) ;
+			sort.swap( set , 1 , rightbottom ) ;
+
+			topright = array.argmax( lexicographical , set , 2 , n ) ;
+			sort.swap( set , 2 , topright ) ;
+
+			lefttop = array.argmax( mirror , set , 3 , n ) ;
+			sort.swap( set , 3 , lefttop ) ;
+
+
+			qh = cg.__quickhull__( cg.sinsign , lexicographical ) ;
+
+			a = set[0] ;
+			b = set[1] ;
+			c = set[2] ;
+			d = set[3] ;
+
+			hull.push( a ) ;
+			qh( set , 4 , set.length , a , b , c , hull ) ;
+			hull.push( c ) ;
+			qh( set , 4 , set.length , c , d , a , hull ) ;
 
 			return hull ;
 

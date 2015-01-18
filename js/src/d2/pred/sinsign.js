@@ -6,6 +6,10 @@
  * coordinate system (i.e. clockwise angle values).
  * sinsign(a, b, c) > 0 iff point c 'lies to the left' of segment _ab_.
  *
+ * It also computes the area of the parallelogram defined by a, b
+ * and c. It can for example be used in the Quick Hull algorithm to find the
+ * farthest points from the pivot line.
+ *
  * <p>
  * Originally implemented as
  *
