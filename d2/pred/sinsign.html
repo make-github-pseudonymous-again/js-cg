@@ -2,6 +2,9 @@
 Can be interpreted as the sinus sign in a &quot;right-handed&quot;
 coordinate system (i.e. clockwise angle values).
 sinsign(a, b, c) &gt; 0 iff point c &#39;lies to the left&#39; of segment <em>ab</em>.</p>
+<p>It also computes the area of the parallelogram defined by a, b
+and c. It can for example be used in the Quick Hull algorithm to find the
+farthest points from the pivot line.</p>
 <p><p>
 Originally implemented as</p>
 <pre><code>a[1] * (c[0] - b[0]) + b[1] * (a[0] - c[0]) + c[1] * (b[0] - a[0])</code></pre>
