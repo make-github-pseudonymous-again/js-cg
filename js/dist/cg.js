@@ -756,7 +756,7 @@ var __quickhull__ = function ( sinsign , compare ) {
 			set[L] = set[i] ;
 			set[i] = tmp ;
 
-			quickhull( set , i , l , u , tmp , v , hull ) ;
+			quickhull( set , i + 1 , l , u , tmp , v , hull ) ;
 
 		}
 
@@ -768,7 +768,7 @@ var __quickhull__ = function ( sinsign , compare ) {
 			set[R] = set[l] ;
 			set[l] = tmp ;
 
-			quickhull( set , l + 1 , j , v , tmp , u ,  hull ) ;
+			quickhull( set , l + 1 , e , v , tmp , w , hull ) ;
 
 		}
 
