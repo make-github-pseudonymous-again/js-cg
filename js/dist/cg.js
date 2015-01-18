@@ -756,7 +756,7 @@ var __quickhull__ = function ( sinsign , compare ) {
 			set[L] = set[i] ;
 			set[i] = tmp ;
 
-			quickhull( set , i , split, u , tmp , v , hull ) ;
+			quickhull( set , i , l , u , tmp , v , hull ) ;
 
 		}
 
@@ -765,10 +765,10 @@ var __quickhull__ = function ( sinsign , compare ) {
 		if ( R !== -1 ) {
 
 			tmp = set[R] ;
-			set[R] = set[split] ;
-			set[split] = tmp ;
+			set[R] = set[l] ;
+			set[l] = tmp ;
 
-			quickhull( set , split + 1 , j , v , tmp , u ,  hull ) ;
+			quickhull( set , l + 1 , j , v , tmp , u ,  hull ) ;
 
 		}
 

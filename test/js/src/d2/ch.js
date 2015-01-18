@@ -1,19 +1,13 @@
 
-var pit, ccwc, sets, hulls,
-	one,
-	set, hull, expected,
-	k, points, p, algo,
-	sort, heapsort,
-	identical, genhull, colinear, array,
-	clocksort, ch, chsort, sortmethod, compare,
-	functools , itertools ,
+var one , colinear , pit , ccwc ,
+	heapsort , clocksort , chsort , ch ,
 	frominclusionarray , inclusionarray , hulllist ,
-	lexicographical , mirror ;
+	lexicographical , mirror , dataset ;
+
+var compare , array , sort , functools , itertools ;
 
 compare = require( "aureooms-js-compare" ) ;
-random = require( "aureooms-js-random" ) ;
 array = require( "aureooms-js-array" ) ;
-algo = require( "aureooms-js-algo" ) ;
 sort = require( "aureooms-js-sort" ) ;
 functools = require( "aureooms-js-functools" ) ;
 itertools = require( "aureooms-js-itertools" ) ;
@@ -42,9 +36,19 @@ ch = function ( set ) {
 	return set ;
 } ;
 
+dataset = function ( name ) {
 
-points = require( "../../data/points.js" ) ;
-p = points.data ;
+	var points ;
+
+	points = require( "../../data/" + name + ".js" ) ;
+
+	return [
+		name ,
+		points.data.slice( ) ,
+		points.ch.slice( )
+	] ;
+
+} ;
 
 colinear = cg.__colinear__( cg.sinsign );
 
@@ -223,11 +227,8 @@ itertools.product( [
 ] ,
 
 [
-	[
-		"all from data/points.js" ,
-		p.slice( 0 ) ,
-		ch( [ p[30] , p[36] , p[42] , p[48] ] )
-	]
+	dataset( "rectangular-grid" ) ,
+//	dataset( "octagon" )
 ]
 
 ] , 1 , [ ] ).forEach( functools.partial( functools.star , [ one ] ) ) ;
