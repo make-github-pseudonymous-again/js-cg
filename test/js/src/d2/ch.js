@@ -228,7 +228,7 @@ itertools.product( [
 
 [
 	dataset( "rectangular-grid" ) ,
-//	dataset( "octagon" )
+	dataset( "octagon" )
 ]
 
 ] , 1 , [ ] ).forEach( functools.partial( functools.star , [ one ] ) ) ;
