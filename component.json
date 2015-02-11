@@ -1,0 +1,11 @@
+{
+	"name": "aureooms-js-cg",
+	"repo": "aureooms/js-cg",
+	"scripts": [
+		"js/dist/cg.js"
+	],
+	"version": "0.10.0",
+	"description": "computational geometry code bricks for JavaScript",
+	"main": "js/dist/cg.js",
+	"license": "AGPL-3.0"
+}
