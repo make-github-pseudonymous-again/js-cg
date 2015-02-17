@@ -26,4 +26,5 @@ reference:
  - http://homepages.ulb.ac.be/~slanger/cg/P/WSPD/index.html
  - http://homepages.ulb.ac.be/~slanger/cg/Swimmer/one_swimmer.html
  - http://homepages.ulb.ac.be/~slanger/cg/hsaureooms/def.html
+ - www.cs.tufts.edu/comp/260/lectures.html
  - http://www-cgrl.cs.mcgill.ca/~godfried/teaching/cg-projects/97/Ian/cutting_ears.html
