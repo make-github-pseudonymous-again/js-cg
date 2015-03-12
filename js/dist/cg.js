@@ -1321,23 +1321,26 @@ exports.monotonic = monotonic;
 /* js/src/d2/op */
 /* js/src/d2/op/det3.js */
 
-var det3 = function ( A ) {
+/**
+ * Computes the determinant of the following 3 x 3 matrix.
+ *
+ * | A00 A01 A02 |
+ * | A10 A11 A12 |
+ * | A20 A21 A22 |
+ *
+ */
 
-	var A0, A1, A2, A00, A01, A02, A10, A11, A12, A20, A21, A22;
-
-	A0 = A[0]; A00 = A0[0]; A01 = A0[1]; A02 = A0[2];
-	A1 = A[1]; A10 = A1[0]; A11 = A1[1]; A12 = A1[2];
-	A2 = A[2]; A20 = A2[0]; A21 = A2[1]; A22 = A2[2];
+var det3 = function ( A00 , A01 , A02 , A10 , A11 , A12 , A20 , A21 , A22 ) {
 
 	return A00 * A11 * A22 +
 	       A01 * A12 * A20 +
 	       A02 * A10 * A21 -
 	       A20 * A11 * A02 -
 	       A21 * A12 * A00 -
-	       A22 * A10 * A01;
-};
+	       A22 * A10 * A01 ;
+} ;
 
-exports.det3 = det3;
+exports.det3 = det3 ;
 
 /* js/src/d2/op/scalar.js */
 
@@ -1658,39 +1661,41 @@ exports.__cwc__ = __cwc__;
 
 
 /**
- * In circum circle predicate
+ * In circum circle predicate.
  */
 
 var __icc__ = function ( det3 ) {
 
 	/**
-	 * Checks if _w_ lies strictly inside the circum circle
-	 * of triangle _tuv_.
+	 * Computes if _w_ lies inside the circum circle
+	 * of triangle _tuv_. Returns > 0 if striclty inside, = 0 if on the
+	 * perimeter and < 0 otherwise.
 	 */
 
-	var icc = function ( t, u, v, w ) {
+	var icc = function ( t , u , v , w ) {
 
-		var t0, t1, u0, u1, v0, v1, w0, w1, y;
+		var t0 , t1 , u0 , u1 , v0 , v1 , w0 , w1 , y ;
 
-		t0 = t[0]; t1 = t[1];
-		u0 = u[0]; u1 = u[1];
-		v0 = v[0]; v1 = v[1];
-		w0 = w[0]; w1 = w[1];
+		t0 = t[0] ; t1 = t[1] ;
+		u0 = u[0] ; u1 = u[1] ;
+		v0 = v[0] ; v1 = v[1] ;
+		w0 = w[0] ; w1 = w[1] ;
 
-		y = w0 * w0 + w1 * w1;
+		y = w0 * w0 + w1 * w1 ;
 
-		return det3( [
-			[t0 - w0, t1 - w1, t0 * t0 + t1 * t1 - y],
-			[u0 - w0, u1 - w1, u0 * u0 + u1 * u1 - y],
-			[v0 - w0, v1 - w1, v0 * v0 + v1 * v1 - y]
-		] ) > 0;
+		return det3(
+			t0 - w0 , t1 - w1 , t0 * t0 + t1 * t1 - y ,
+			u0 - w0 , u1 - w1 , u0 * u0 + u1 * u1 - y ,
+			v0 - w0 , v1 - w1 , v0 * v0 + v1 * v1 - y
+		) ;
 
-	};
+	} ;
 
-	return icc;
-};
+	return icc ;
 
-exports.__icc__ = __icc__;
+} ;
+
+exports.__icc__ = __icc__ ;
 
 /* js/src/d2/pred/piq.js */
 
