@@ -1725,18 +1725,19 @@ exports.__piq__ = __piq__ ;
 
 var __pit__ = function ( ccw ) {
 
-	var pit = function ( x, a, b, c ) {
+	var pit = function ( x , a , b , c ) {
 
-		return ccw( a, b, x ) &&
-		       ccw( b, c, x ) &&
-		       ccw( c, a, x );
+		return ccw( a , b , x ) &&
+		       ccw( b , c , x ) &&
+		       ccw( c , a , x ) ;
 
-	};
+	} ;
 
-	return pit;
-};
+	return pit ;
 
-exports.__pit__ = __pit__;
+} ;
+
+exports.__pit__ = __pit__ ;
 
 /* js/src/d2/pred/rc.js */
 
