@@ -1692,6 +1692,30 @@ var __icc__ = function ( det3 ) {
 
 exports.__icc__ = __icc__;
 
+/* js/src/d2/pred/piq.js */
+
+
+/**
+ * Returns true if point is in convex quadrilateral.
+ */
+
+var __piq__ = function ( ccw ) {
+
+	var piq = function ( x , a , b , c , d ) {
+
+		return ccw( a , b , x ) &&
+		       ccw( b , c , x ) &&
+		       ccw( c , d , x ) &&
+		       ccw( d , a , x ) ;
+
+	} ;
+
+	return piq ;
+
+} ;
+
+exports.__piq__ = __piq__ ;
+
 /* js/src/d2/pred/pit.js */
 
 
