@@ -28,3 +28,4 @@ reference:
  - http://homepages.ulb.ac.be/~slanger/cg/hsaureooms/def.html
  - http://www.cs.tufts.edu/comp/260/lectures.html
  - http://www-cgrl.cs.mcgill.ca/~godfried/teaching/cg-projects/97/Ian/cutting_ears.html
+ - https://github.com/gorhill/Javascript-Voronoi
