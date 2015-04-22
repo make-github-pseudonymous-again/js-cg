@@ -1,17 +1,14 @@
-<!DOCTYPE html><html lang="en"><head><title>d2/op/det3</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="d2/op/det3"><meta name="groc-project-path" content="js/src/d2/op/det3.js"><meta name="groc-github-url" content="https://github.com/aureooms/js-cg"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/aureooms/js-cg/blob/master/js/src/d2/op/det3.js">js/src/d2/op/det3.js</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> det3 = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">( A )</span> {</span>
-
-	<span class="hljs-keyword">var</span> A0, A1, A2, A00, A01, A02, A10, A11, A12, A20, A21, A22;
-
-	A0 = A[<span class="hljs-number">0</span>]; A00 = A0[<span class="hljs-number">0</span>]; A01 = A0[<span class="hljs-number">1</span>]; A02 = A0[<span class="hljs-number">2</span>];
-	A1 = A[<span class="hljs-number">1</span>]; A10 = A1[<span class="hljs-number">0</span>]; A11 = A1[<span class="hljs-number">1</span>]; A12 = A1[<span class="hljs-number">2</span>];
-	A2 = A[<span class="hljs-number">2</span>]; A20 = A2[<span class="hljs-number">0</span>]; A21 = A2[<span class="hljs-number">1</span>]; A22 = A2[<span class="hljs-number">2</span>];
+<!DOCTYPE html><html lang="en"><head><title>d2/op/det3</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="d2/op/det3"><meta name="groc-project-path" content="js/src/d2/op/det3.js"><meta name="groc-github-url" content="https://github.com/aureooms/js-cg"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/aureooms/js-cg/blob/master/js/src/d2/op/det3.js">js/src/d2/op/det3.js</a></div></div><div id="document"><div class="segment"></div><div class="segment"><div class="comments "><div class="wrapper"><p>Computes the determinant of the following 3 x 3 matrix.</p>
+<p>| A00 A01 A02 |
+| A10 A11 A12 |
+| A20 A21 A22 |</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> det3 = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">( A00 , A01 , A02 , A10 , A11 , A12 , A20 , A21 , A22 )</span> {</span>
 
 	<span class="hljs-keyword">return</span> A00 * A11 * A22 +
 	       A01 * A12 * A20 +
 	       A02 * A10 * A21 -
 	       A20 * A11 * A02 -
 	       A21 * A12 * A00 -
-	       A22 * A10 * A01;
-};
+	       A22 * A10 * A01 ;
+} ;
 
-exports.det3 = det3;</div></div></div></div></body></html>
+exports.det3 = det3 ;</div></div></div></div></body></html>

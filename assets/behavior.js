@@ -1039,6 +1039,26 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "foldPrefix": "^",
                   "name": "JavaScript"
                 },
+                "sourcePath": "/home/aureooms/dev/js/js-cg/js/src/d2/pred/piq.js",
+                "projectPath": "js/src/d2/pred/piq.js",
+                "targetPath": "d2/pred/piq",
+                "pageTitle": "d2/pred/piq",
+                "title": "piq"
+              },
+              "depth": 3,
+              "outline": []
+            }, {
+              "type": "file",
+              "data": {
+                "language": {
+                  "nameMatchers": [".js"],
+                  "pygmentsLexer": "javascript",
+                  "multiLineComment": ["/*", "*", "*/"],
+                  "singleLineComment": ["//"],
+                  "ignorePrefix": "}",
+                  "foldPrefix": "^",
+                  "name": "JavaScript"
+                },
                 "sourcePath": "/home/aureooms/dev/js/js-cg/js/src/d2/pred/pit.js",
                 "projectPath": "js/src/d2/pred/pit.js",
                 "targetPath": "d2/pred/pit",
