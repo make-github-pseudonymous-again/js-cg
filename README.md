@@ -13,6 +13,7 @@ computational geometry code bricks for JavaScript
 [![Code Climate](http://img.shields.io/codeclimate/github/aureooms/js-cg.svg?style=flat)](https://codeclimate.com/github/aureooms/js-cg)
 [![NPM downloads per month](http://img.shields.io/npm/dm/aureooms-js-cg.svg?style=flat)](https://www.npmjs.org/package/aureooms-js-cg)
 [![GitHub issues](http://img.shields.io/github/issues/aureooms/js-cg.svg?style=flat)](https://github.com/aureooms/js-cg/issues)
+[![Inline docs](http://inch-ci.org/github/aureooms/js-cg.svg?branch=master&style=shields)](http://inch-ci.org/github/aureooms/js-cg)
 
 
 reference:
