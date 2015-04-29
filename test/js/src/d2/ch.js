@@ -25,7 +25,7 @@ chsort = function ( set , i , j ) {
 
 	k = array.argmin( lexicographical , set , i , j ) ;
 
-	sort.swap( set , i , k ) ;
+	array.swap( set , i , k ) ;
 
 	clocksort( cg.__counterclockwise__ , set , i , j ) ;
 
@@ -104,8 +104,10 @@ one = function ( algoname , algo , init , dataname , data , expected ) {
 
 } ;
 
-itertools.product( [
-
+itertools.exhaust( itertools.starmap(
+	one , itertools.map(
+		functools.compose( [ itertools.list , itertools.chain ] ) ,
+		itertools.product( [
 [
 	[
 		"chn4" ,
@@ -153,7 +155,7 @@ itertools.product( [
 
 			i = array.argmin( lexicographical , set , 0 , n ) ;
 
-			sort.swap( set , 0 , i ) ;
+			array.swap( set , 0 , i ) ;
 
 			hull.push( set[0] ) ;
 
@@ -195,16 +197,16 @@ itertools.product( [
 			set = set.slice( ) ;
 
 			bottomleft = array.argmin( lexicographical , set , 0 , n ) ;
-			sort.swap( set , 0 , bottomleft ) ;
+			array.swap( set , 0 , bottomleft ) ;
 
 			rightbottom = array.argmin( mirror , set , 1 , n ) ;
-			sort.swap( set , 1 , rightbottom ) ;
+			array.swap( set , 1 , rightbottom ) ;
 
 			topright = array.argmax( lexicographical , set , 2 , n ) ;
-			sort.swap( set , 2 , topright ) ;
+			array.swap( set , 2 , topright ) ;
 
 			lefttop = array.argmax( mirror , set , 3 , n ) ;
-			sort.swap( set , 3 , lefttop ) ;
+			array.swap( set , 3 , lefttop ) ;
 
 
 			qh = cg.__quickhull__( cg.sinsign , lexicographical ) ;
@@ -231,4 +233,7 @@ itertools.product( [
 	dataset( "octagon" )
 ]
 
-] , 1 , [ ] ).forEach( functools.partial( functools.star , [ one ] ) ) ;
+] , 1 )
+		)
+	)
+) ;
