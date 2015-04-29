@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head><title>d2/pred/rc</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../../"><meta name="groc-document-path" content="d2/pred/rc"><meta name="groc-project-path" content="js/src/d2/pred/rc.js"><meta name="groc-github-url" content="https://github.com/aureooms/js-cg"><link rel="stylesheet" type="text/css" media="all" href="../../assets/style.css"><script type="text/javascript" src="../../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/aureooms/js-cg/blob/master/js/src/d2/pred/rc.js">js/src/d2/pred/rc.js</a></div></div><div id="document"><div class="segment"></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>Parameters:</p>
 <ul>
 <li><strong>ris must be a function.</strong><br/>(ris( p , q , u , v ) computes if ray pq intersects segement uv, implementation can differ for the corner case where p is on uv. Hence, one can generate two different versions of the ray casting algorithm depending if one wants to compute strict or non-strict polygon point containment. For strict containment ris should return 1 for p on uv and 0 otherwise. For non-strict containment ris should return 0 for p on uv and 1 otherwise.)</li>
-</ul></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> __rc__ = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">( ris )</span> {</span></div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h1 id="ray-casting-algorithm">Ray casting algorithm.</h1>
+</ul></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> __rc__ = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">( ris )</span> </span>{</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><h1 id="ray-casting-algorithm">Ray casting algorithm.</h1>
 <p>Counts the number of times a ray intersects a polygon. If the count is a
 multiple of 2 then the point lies outside the polygon, inside otherwise.</p>
 <p>Hypothesis :</p>
@@ -21,7 +21,7 @@ multiple of 2 then the point lies outside the polygon, inside otherwise.</p>
 </li>
 <li><p><strong>q must be a point.</strong><br/>(direction point of the ray see <a href="http://en.wikipedia.org/wiki/Point_in_polygon">http://en.wikipedia.org/wiki/Point_in_polygon</a>)</p>
 </li>
-</ul></div></div><div class="code"><div class="wrapper">	<span class="hljs-keyword">var</span> rc = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">( polygon , i , j , p , q )</span> {</span>
+</ul></div></div><div class="code"><div class="wrapper">	<span class="hljs-keyword">var</span> rc = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">( polygon , i , j , p , q )</span> </span>{
 
 		<span class="hljs-keyword">var</span> u , v , n ;
 
