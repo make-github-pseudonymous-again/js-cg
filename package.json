@@ -22,19 +22,23 @@
 		"url": "https://github.com/aureooms/js-cg.git"
 	},
 	"keywords": [
-		"js",
-		"javascript",
 		"algorithm",
+		"cg",
 		"complexity",
-		"template",
-		"kernel",
 		"computational geometry",
-		"cg"
+		"ender",
+		"javascript",
+		"js",
+		"kernel",
+		"template"
 	],
 	"author": "aureooms",
 	"license": "AGPL-3.0",
 	"bugs": {
 		"url": "https://github.com/aureooms/js-cg/issues"
 	},
-	"homepage": "https://aureooms.github.io/js-cg"
+	"homepage": "https://aureooms.github.io/js-cg",
+	"spm": {
+		"main": "js/dist/cg.js"
+	}
 }
