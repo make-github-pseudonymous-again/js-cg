@@ -5,7 +5,7 @@ set of vertices should be prealably sorted.</p>
 Published in 1979 by A. M. Andrew. The algorithm can be seen as a variant of
 Graham scan which sorts the points lexicographically by their coordinates.
 When the input is already sorted, the algorithm takes O(n) time.</p>
-<p>-&gt; <a href="https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain">https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain</a></p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> __grahamscanmono__ = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">( sinsign )</span> </span>{</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>hypothesis : set is lexicographically ordered
+<p>-&gt; <a href="https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain">https://en.wikibooks.org/wiki/Algorithm_Implementation/Geometry/Convex_hull/Monotone_chain</a></p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> __grahamscanmono__ = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"> sinsign </span>) </span>{</div></div></div><div class="segment"><div class="comments doc-section"><div class="wrapper"><p>hypothesis : set is lexicographically ordered
 ( in 2D : sorted according to x then y or y then x )</p>
 <p>Parameters:</p>
 <ul>
@@ -14,7 +14,7 @@ When the input is already sorted, the algorithm takes O(n) time.</p>
 <li><p><strong>hull must be a [type].</strong><br/>([description])</p>
 </li>
 </ul>
-<p><strong>Returns a [type]</strong><br/>([description])</p></div></div><div class="code"><div class="wrapper">	<span class="hljs-keyword">var</span> grahamscanmono = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">( set , i , j , lo )</span> </span>{
+<p><strong>Returns a [type]</strong><br/>([description])</p></div></div><div class="code"><div class="wrapper">	<span class="hljs-keyword">var</span> grahamscanmono = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"> set , i , j , lo </span>) </span>{
 
 		<span class="hljs-keyword">var</span> k , n , hi , u , p , q ;
 
