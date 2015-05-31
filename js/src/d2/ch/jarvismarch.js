@@ -50,7 +50,7 @@ var __jarvismarch__ = function ( sinsign , cossign ) {
 
 	var jarvismarch = function ( set , hull ) {
 
-		var n , j , u , v , w , origin , sin , cos ;
+		var n , j , u , v , w , origin , sin ;
 
 		n = set.length ;
 
@@ -68,15 +68,7 @@ var __jarvismarch__ = function ( sinsign , cossign ) {
 
 				sin = sinsign( u , v , w ) ;
 
-				if ( sin === 0 ) {
-
-					cos = cossign( u , v , w ) ;
-
-					if ( cos < 0 ) v = w ;
-
-				}
-
-				else if ( sin < 0 ) v = w ;
+				if ( sin < 0 || ( sin === 0 && cossign( u , v , w ) < 0 ) ) v = w ;
 
 			}
 

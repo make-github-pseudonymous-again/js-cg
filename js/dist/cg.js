@@ -352,14 +352,8 @@
 				var cos_r = geo.cos(ch[o], p, ch[n_i]);
 
 				if (cos_m < cos_l) {
-					if (cos_m < cos_r) {
-						return i;
-					} else if (cos_m == cos_r && dist(p, ch[i]) < dist(p, ch[n_i])) {
-						return i;
-					} else l = i + 1;
-				} else if (cos_m == cos_l && cos_m < cos_r && dist(p, ch[i]) < dist(p, ch[p_i])) {
-					return i;
-				} else r = i;
+					if (cos_m < cos_r) return i;else if (cos_m == cos_r && dist(p, ch[i]) < dist(p, ch[n_i])) return i;else l = i + 1;
+				} else if (cos_m == cos_l && cos_m < cos_r && dist(p, ch[i]) < dist(p, ch[p_i])) return i;else r = i;
 			}
 
 			return i;
@@ -590,7 +584,7 @@
 
 			var jarvismarch = function jarvismarch(set, hull) {
 
-				var n, j, u, v, w, origin, sin, cos;
+				var n, j, u, v, w, origin, sin;
 
 				n = set.length;
 
@@ -608,12 +602,7 @@
 
 						sin = sinsign(u, v, w);
 
-						if (sin === 0) {
-
-							cos = cossign(u, v, w);
-
-							if (cos < 0) v = w;
-						} else if (sin < 0) v = w;
+						if (sin < 0 || sin === 0 && cossign(u, v, w) < 0) v = w;
 					}
 
 					if (v === origin) break;
@@ -650,17 +639,7 @@
    */
 		var __quickhull__ = function __quickhull__(sinsign, compare) {
 
-			var quickhull = (function (_quickhull) {
-				function quickhull(_x, _x2, _x3, _x4, _x5, _x6, _x7) {
-					return _quickhull.apply(this, arguments);
-				}
-
-				quickhull.toString = function () {
-					return _quickhull.toString();
-				};
-
-				return quickhull;
-			})(function (set, i, j, u, v, w, hull) {
+			var quickhull = function quickhull(set, i, j, u, v, w, hull) {
 
 				var c, sin, minL, minR, L, R, tmp, l, r, e, x;
 
@@ -769,7 +748,7 @@
 
 					quickhull(set, l + 1, e, v, tmp, w, hull);
 				}
-			});
+			};
 
 			return quickhull;
 		};
@@ -1721,6 +1700,6 @@
 			return definition({});
 		});
 	} else if (typeof window === "object" && typeof window.document === "object") {
-		definition(window.cg = {});
+		definition(window["cg"] = {});
 	} else console.error("unable to detect type of module to define for aureooms-js-cg");
 })();
