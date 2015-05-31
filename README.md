@@ -98,7 +98,9 @@ Alternatively, you can use any tool mentioned [here](http://bower.io/docs/tools/
 require( [ "aureooms-js-cg" ] , function ( cg ) { ... } ) ;
 ```
 
-## References
+## Reference
+
+### Information
   - http://homepages.ulb.ac.be/~slanger/cg/
   - http://homepages.ulb.ac.be/~slanger/cg/lenertz/
   - http://homepages.ulb.ac.be/~slanger/cg/P/PopsAndPopturns/projetGeom.html
@@ -108,7 +110,14 @@ require( [ "aureooms-js-cg" ] , function ( cg ) { ... } ) ;
   - http://fremycompany.com/compugem
   - http://www-cgrl.cs.mcgill.ca/~godfried/teaching/cg-projects/97/Ian/cutting_ears.html
   - http://www.cs.tufts.edu/comp/260/lectures.html
+  - http://www.toptal.com/python/computational-geometry-in-python-from-theory-to-implementation
+
+### Code
   - https://github.com/crm416/point-location
   - https://github.com/ironwallaby/delaunay
   - https://github.com/gorhill/Javascript-Voronoi
-  - http://www.toptal.com/python/computational-geometry-in-python-from-theory-to-implementation
+  - https://github.com/mikolalysenko/convex-hull
+  - https://github.com/mourner/rbush
+  - https://github.com/mikolalysenko/delaunay-triangulate
+  - https://github.com/mikolalysenko/incremental-delaunay
+  - https://github.com/mikolalysenko/box-intersect-benchmark
