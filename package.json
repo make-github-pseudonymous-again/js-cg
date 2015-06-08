@@ -6,7 +6,7 @@
 	"dependencies": {},
 	"devDependencies": {
 		"aureooms-node-package": "^4.2.5",
-		"aureooms-js-itertools": "^1.1.1",
+		"aureooms-js-itertools": "^1.1.2",
 		"aureooms-js-functools": "^2.0.3",
 		"aureooms-js-compare": "^1.4.3",
 		"aureooms-js-array": "^2.2.0",

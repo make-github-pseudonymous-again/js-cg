@@ -1163,7 +1163,7 @@
    */
 
 		var dist = function dist(a, b) {
-			return Math.sqrt(scalar(a, b));
+			return Math.sqrt(scalar2(a, b));
 		};
 
 		exports.dist = dist;
@@ -1215,66 +1215,66 @@
 
 		exports.det3 = det3;
 
-		/* js/src/d2/op/scalar.js */
+		/* js/src/d2/op/scalar2.js */
 
-		var scalar = function scalar(a, b) {
+		var scalar2 = function scalar2(a, b) {
 
 			var c;
 
-			c = vsub(a, b);
+			c = vsub2(a, b);
 
-			return vdot(c, c);
+			return vdot2(c, c);
 		};
 
-		exports.scalar = scalar;
+		exports.scalar2 = scalar2;
 
-		/* js/src/d2/op/vadd.js */
+		/* js/src/d2/op/vadd2.js */
 
 		/**
    * Computes u + v
    */
 
-		var vadd = function vadd(u, v) {
+		var vadd2 = function vadd2(u, v) {
 			return [u[0] + v[0], u[1] + v[1]];
 		};
 
-		exports.vadd = vadd;
+		exports.vadd2 = vadd2;
 
-		/* js/src/d2/op/vcross.js */
+		/* js/src/d2/op/vcross2.js */
 
 		/**
    * Computes cross product u x v
    */
 
-		var vcross = function vcross(u, v) {
+		var vcross2 = function vcross2(u, v) {
 			return u[0] * v[1] - u[1] * v[0];
 		};
 
-		exports.vcross = vcross;
+		exports.vcross2 = vcross2;
 
-		/* js/src/d2/op/vdot.js */
+		/* js/src/d2/op/vdot2.js */
 
 		/**
    * Computes dot product u.v
    */
 
-		var vdot = function vdot(u, v) {
+		var vdot2 = function vdot2(u, v) {
 			return u[0] * v[0] + u[1] * v[1];
 		};
 
-		exports.vdot = vdot;
+		exports.vdot2 = vdot2;
 
-		/* js/src/d2/op/vsub.js */
+		/* js/src/d2/op/vsub2.js */
 
 		/**
    * Computes u - v
    */
 
-		var vsub = function vsub(u, v) {
+		var vsub2 = function vsub2(u, v) {
 			return [u[0] - v[0], u[1] - v[1]];
 		};
 
-		exports.vsub = vsub;
+		exports.vsub2 = vsub2;
 
 		/* js/src/d2/pred */
 		/* js/src/d2/pred/ccw.js */
@@ -1690,6 +1690,78 @@
 		};
 
 		exports.sinsign = sinsign;
+
+		/* js/src/dn */
+		/* js/src/dn/rayshoot.js */
+
+		/**
+   * Computes the hyperplane in `Ax = b` closest to `z` with respect to the
+   * direction `r`. Complexity is O(nd).
+   *
+   * @param {dimension} d space dimension
+   * @param {count} m the number of hyperplanes
+   * @param {matrix} A an m x d matrix
+   * @param {vector} b a vector of length d
+   * @param {vertex} z the point to shoot from
+   * @param {direction} r the direction to shoot in
+   */
+
+		var rayshoot = function rayshoot(d, m, A, b, z, r) {
+
+			var i = 0;
+			var j = m;
+			var w = undefined;
+
+			while (true) {
+
+				if (i >= j) return j;
+
+				var h = A[i];
+
+				w = (b[i] - vdot(d, h, z)) / vdot(d, h, r);
+
+				if (w >= 0) break;
+
+				++i;
+			}
+
+			var k = i;
+
+			while (true) {
+
+				++i;
+
+				if (i >= j) return k;
+
+				var h = A[i];
+
+				var l = (b[i] - vdot(d, h, z)) / vdot(d, h, r);
+
+				if (l < 0 || l >= w) continue;
+
+				k = i;
+				w = l;
+			}
+		};
+
+		exports.rayshoot = rayshoot;
+
+		/* js/src/dn/vdot.js */
+
+		/**
+   * Computes dot product u.v
+   */
+
+		var vdot = function vdot(d, u, v) {
+
+			var s = 0;
+
+			for (var i = 0; i < d; ++i) {
+				s += u[i] * v[i];
+			}return s;
+		};
+
+		exports.vdot = vdot;
 
 		return exports;
 	};

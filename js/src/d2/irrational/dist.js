@@ -7,7 +7,7 @@
  */
 
 var dist = function ( a , b ) {
-	return Math.sqrt( scalar ( a , b ) ) ;
+	return Math.sqrt( scalar2( a , b ) ) ;
 } ;
 
 exports.dist = dist ;
