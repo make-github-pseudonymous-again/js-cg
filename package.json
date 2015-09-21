@@ -1,44 +1,44 @@
 {
-  "name": "aureooms-js-cg",
-  "description": "computational geometry code bricks for JavaScript",
-  "version": "1.0.0",
-  "main": "js/dist/cg.js",
-  "dependencies": {},
-  "devDependencies": {
-    "aureooms-js-array": "^3.1.0",
-    "aureooms-js-compare": "^1.4.4",
-    "aureooms-js-functools": "^2.0.3",
-    "aureooms-js-heapsort": "^8.0.0",
-    "aureooms-js-itertools": "^1.3.0",
-    "aureooms-node-package": "^5.0.2"
-  },
-  "scripts": {
-    "build": "./node_modules/.bin/aureooms-node-package-build",
-    "test": "./node_modules/.bin/aureooms-node-package-test",
-    "doc": "./node_modules/.bin/groc"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/aureooms/js-cg.git"
-  },
-  "keywords": [
-    "algorithm",
-    "cg",
-    "complexity",
-    "computational geometry",
-    "ender",
-    "javascript",
-    "js",
-    "kernel",
-    "template"
-  ],
-  "author": "aureooms",
-  "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/aureooms/js-cg/issues"
-  },
-  "homepage": "https://aureooms.github.io/js-cg",
-  "spm": {
-    "main": "js/dist/cg.js"
-  }
+	"name": "aureooms-js-cg",
+	"description": "computational geometry code bricks for JavaScript",
+	"version": "1.0.1",
+	"main": "js/dist/cg.js",
+	"dependencies": {},
+	"devDependencies": {
+		"aureooms-js-array": "^3.1.0",
+		"aureooms-js-compare": "^1.4.4",
+		"aureooms-js-functools": "^2.0.3",
+		"aureooms-js-heapsort": "^8.0.0",
+		"aureooms-js-itertools": "^1.3.0",
+		"aureooms-node-package": "^5.0.2"
+	},
+	"scripts": {
+		"build": "./node_modules/.bin/aureooms-node-package-build",
+		"test": "./node_modules/.bin/aureooms-node-package-test",
+		"doc": "./node_modules/.bin/groc"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/aureooms/js-cg.git"
+	},
+	"keywords": [
+		"algorithm",
+		"cg",
+		"complexity",
+		"computational geometry",
+		"ender",
+		"javascript",
+		"js",
+		"kernel",
+		"template"
+	],
+	"author": "aureooms",
+	"license": "AGPL-3.0",
+	"bugs": {
+		"url": "https://github.com/aureooms/js-cg/issues"
+	},
+	"homepage": "https://aureooms.github.io/js-cg",
+	"spm": {
+		"main": "js/dist/cg.js"
+	}
 }
