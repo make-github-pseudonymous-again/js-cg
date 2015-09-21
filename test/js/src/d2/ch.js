@@ -4,15 +4,15 @@ var one , colinear , pit , ccwc ,
 	frominclusionarray , inclusionarray , hulllist ,
 	lexicographical , mirror , dataset ;
 
-var compare , array , sort , functools , itertools ;
+var compare , array , _heapsort , functools , itertools ;
 
 compare = require( "aureooms-js-compare" ) ;
 array = require( "aureooms-js-array" ) ;
-sort = require( "aureooms-js-sort" ) ;
+_heapsort = require( "aureooms-js-heapsort" ) ;
 functools = require( "aureooms-js-functools" ) ;
 itertools = require( "aureooms-js-itertools" ) ;
 
-heapsort = sort.__heapsort__( 2 ) ;
+heapsort = _heapsort.dary( 2 ) ;
 
 clocksort = cg.__clocksort__( heapsort , cg.sinsign , cg.cossign ) ;
 

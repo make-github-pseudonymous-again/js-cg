@@ -2,7 +2,7 @@
 
 (function () {
 
-	"use strict";
+	'use strict';
 
 	var definition = function definition(exports, undefined) {
 
@@ -168,39 +168,39 @@
 
 						else if (sin < 0) {
 
-							sin = sinsign(b, v, c);
+								sin = sinsign(b, v, c);
 
-							// if c is on the left of bv
+								// if c is on the left of bv
 
-							// |c  v             |   v
-							// | /               | /
-							// b      otherwise  b
-							// |                 |  c
-							// a                 a
+								// |c  v             |   v
+								// | /               | /
+								// b      otherwise  b
+								// |                 |  c
+								// a                 a
 
-							if (sin > 0) v = c;
-						}
-
-						// when sin = 0 then we need to check if b
-						// lies on a segment from a to c
-
-						else {
-
-							cos = cossign(a, b, c);
-
-							// |                     |    |
-							// c                     |    |
-							// |                     |    |
-							// b      otherwise      b or b
-							// |                     c    |
-							// a                     a    a
-							// |                     |    c
-
-							if (cos < 0) {
-								hull[j] = false;
-								continue each;
+								if (sin > 0) v = c;
 							}
-						}
+
+							// when sin = 0 then we need to check if b
+							// lies on a segment from a to c
+
+							else {
+
+									cos = cossign(a, b, c);
+
+									// |                     |    |
+									// c                     |    |
+									// |                     |    |
+									// b      otherwise      b or b
+									// |                     c    |
+									// a                     a    a
+									// |                     |    c
+
+									if (cos < 0) {
+										hull[j] = false;
+										continue each;
+									}
+								}
 					}
 
 					// if we found candidates for both sides of line ab
