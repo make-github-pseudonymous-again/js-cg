@@ -101,6 +101,10 @@ Alternatively, you can use any tool mentioned [here](http://bower.io/docs/tools/
 require( [ "aureooms-js-cg" ] , function ( cg ) { ... } ) ;
 ```
 
+## Children
+
+  - [aureooms/js-convex-hull-2d](https://github.com/aureooms/js-convex-hull-2d)
+
 ## Reference
 
 ### Information
