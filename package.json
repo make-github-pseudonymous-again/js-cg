@@ -1,7 +1,7 @@
 {
 	"name": "aureooms-js-cg",
 	"description": "computational geometry code bricks for JavaScript",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"main": "js/dist/cg.js",
 	"dependencies": {},
 	"devDependencies": {

@@ -4,7 +4,7 @@
 	"scripts": [
 		"js/dist/cg.js"
 	],
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "computational geometry code bricks for JavaScript",
 	"main": "js/dist/cg.js",
 	"license": "AGPL-3.0"
