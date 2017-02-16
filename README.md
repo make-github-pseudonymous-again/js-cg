@@ -10,7 +10,7 @@ and
 vcross( vsub( b , a ) , vsub( c , a ) ) ;
 ```
 
-[![NPM license](https://img.shields.io/npm/l/@aureooms/js-cg.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-cg/master/LICENSE)
+[![License](https://img.shields.io/github/license/aureooms/js-cg.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-cg/master/LICENSE)
 [![NPM version](https://img.shields.io/npm/v/@aureooms/js-cg.svg?style=flat)](https://www.npmjs.org/package/@aureooms/js-cg)
 [![Bower version](https://img.shields.io/bower/v/@aureooms/js-cg.svg?style=flat)](http://bower.io/search/?q=@aureooms/js-cg)
 [![Build Status](https://img.shields.io/travis/aureooms/js-cg.svg?style=flat)](https://travis-ci.org/aureooms/js-cg)
