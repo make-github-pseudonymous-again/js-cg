@@ -10,15 +10,15 @@ and
 vcross( vsub( b , a ) , vsub( c , a ) ) ;
 ```
 
-[![NPM license](http://img.shields.io/npm/l/aureooms-js-cg.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-cg/master/LICENSE)
-[![NPM version](http://img.shields.io/npm/v/aureooms-js-cg.svg?style=flat)](https://www.npmjs.org/package/aureooms-js-cg)
-[![Bower version](http://img.shields.io/bower/v/aureooms-js-cg.svg?style=flat)](http://bower.io/search/?q=aureooms-js-cg)
+[![NPM license](http://img.shields.io/npm/l/@aureooms/js-cg.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-cg/master/LICENSE)
+[![NPM version](http://img.shields.io/npm/v/@aureooms/js-cg.svg?style=flat)](https://www.npmjs.org/package/@aureooms/js-cg)
+[![Bower version](http://img.shields.io/bower/v/@aureooms/js-cg.svg?style=flat)](http://bower.io/search/?q=@aureooms/js-cg)
 [![Build Status](http://img.shields.io/travis/aureooms/js-cg.svg?style=flat)](https://travis-ci.org/aureooms/js-cg)
 [![Coverage Status](http://img.shields.io/coveralls/aureooms/js-cg.svg?style=flat)](https://coveralls.io/r/aureooms/js-cg)
 [![Dependencies Status](http://img.shields.io/david/aureooms/js-cg.svg?style=flat)](https://david-dm.org/aureooms/js-cg#info=dependencies)
 [![devDependencies Status](http://img.shields.io/david/dev/aureooms/js-cg.svg?style=flat)](https://david-dm.org/aureooms/js-cg#info=devDependencies)
 [![Code Climate](http://img.shields.io/codeclimate/github/aureooms/js-cg.svg?style=flat)](https://codeclimate.com/github/aureooms/js-cg)
-[![NPM downloads per month](http://img.shields.io/npm/dm/aureooms-js-cg.svg?style=flat)](https://www.npmjs.org/package/aureooms-js-cg)
+[![NPM downloads per month](http://img.shields.io/npm/dm/@aureooms/js-cg.svg?style=flat)](https://www.npmjs.org/package/@aureooms/js-cg)
 [![GitHub issues](http://img.shields.io/github/issues/aureooms/js-cg.svg?style=flat)](https://github.com/aureooms/js-cg/issues)
 [![Inline docs](http://inch-ci.org/github/aureooms/js-cg.svg?branch=master&style=shields)](http://inch-ci.org/github/aureooms/js-cg)
 
@@ -37,7 +37,7 @@ and [npm](https://github.com/npm/npm).
 ```terminal
 jspm install github:aureooms/js-cg
 # or
-jspm install npm:aureooms-js-cg
+jspm install npm:@aureooms/js-cg
 ```
 ### duo
 No install step needed for duo!
@@ -49,27 +49,27 @@ component install aureooms/js-cg
 
 ### bower
 ```terminal
-bower install aureooms-js-cg
+bower install @aureooms/js-cg
 ```
 
 ### ender
 ```terminal
-ender add aureooms-js-cg
+ender add @aureooms/js-cg
 ```
 
 ### jam
 ```terminal
-jam install aureooms-js-cg
+jam install @aureooms/js-cg
 ```
 
 ### spm
 ```terminal
-spm install aureooms-js-cg --save
+spm install @aureooms/js-cg --save
 ```
 
 ### npm
 ```terminal
-npm install aureooms-js-cg --save
+npm install @aureooms/js-cg --save
 ```
 
 ## Require
@@ -77,7 +77,7 @@ npm install aureooms-js-cg --save
 ```js
 let cg = require( "github:aureooms/js-cg" ) ;
 // or
-import cg from 'aureooms-js-cg' ;
+import cg from '@aureooms/js-cg' ;
 ```
 ### duo
 ```js
@@ -86,19 +86,19 @@ let cg = require( "aureooms/js-cg" ) ;
 
 ### component, ender, spm, npm
 ```js
-let cg = require( "aureooms-js-cg" ) ;
+let cg = require( "@aureooms/js-cg" ) ;
 ```
 
 ### bower
 The script tag exposes the global variable `cg`.
 ```html
-<script src="bower_components/aureooms-js-cg/js/dist/cg.min.js"></script>
+<script src="bower_components/@aureooms/js-cg/js/dist/cg.min.js"></script>
 ```
 Alternatively, you can use any tool mentioned [here](http://bower.io/docs/tools/).
 
 ### jam
 ```js
-require( [ "aureooms-js-cg" ] , function ( cg ) { ... } ) ;
+require( [ "@aureooms/js-cg" ] , function ( cg ) { ... } ) ;
 ```
 
 ## Children
