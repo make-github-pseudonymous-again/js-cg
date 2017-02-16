@@ -1,5 +1,5 @@
 
-var itertools = require( 'aureooms-js-itertools' ) ;
+var itertools = require( '@aureooms/js-itertools' ) ;
 
 test( 'shoelace' , function ( assert ) {
 

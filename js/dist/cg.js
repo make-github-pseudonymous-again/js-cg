@@ -1061,10 +1061,10 @@ var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = 
 	if (typeof exports === "object") {
 		definition(exports);
 	} else if (typeof define === "function" && define.amd) {
-		define("aureooms-js-cg", [], function () {
+		define("@aureooms/js-cg", [], function () {
 			return definition({});
 		});
 	} else if (typeof window === "object" && typeof window.document === "object") {
 		definition(window["cg"] = {});
-	} else console.error("unable to detect type of module to define for aureooms-js-cg");
+	} else console.error("unable to detect type of module to define for @aureooms/js-cg");
 })();
