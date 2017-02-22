@@ -1,10 +1,11 @@
 [js-cg](http://aureooms.github.io/js-cg)
 ==
 
-Computational geometry code bricks for JavaScript. Parents are
-[aureooms/js-algo](https://github.com/aureooms/js-algo)
+Computational geometry data structures and algorithms for JavaScript.
+Parents are
+[@aureooms/js-algorithms](https://github.com/aureooms/js-algorithms)
 and
-[aureooms/js-data-structures](https://github.com/aureooms/js-data-structures).
+[@aureooms/js-data-structures](https://github.com/aureooms/js-data-structures).
 
 ```js
 vcross( vsub( b , a ) , vsub( c , a ) ) ;
