@@ -1,4 +1,4 @@
-[js-cg](http://aureooms.github.io/js-cg)
+[@aureooms/js-cg](http://aureooms.github.io/js-cg)
 ==
 
 Computational geometry data structures and algorithms for JavaScript.
