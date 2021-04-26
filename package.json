@@ -37,7 +37,7 @@
 	"bugs": {
 		"url": "https://github.com/aureooms/js-cg/issues"
 	},
-	"homepage": "https://aureooms.github.io/js-cg",
+	"homepage": "https://make-github-pseudonymous-again.github.io/js-cg",
 	"spm": {
 		"main": "js/dist/cg.js"
 	}
