@@ -3,25 +3,25 @@
 
 Computational geometry data structures and algorithms for JavaScript.
 Parents are
-[@aureooms/js-algorithms](https://github.com/aureooms/js-algorithms)
+[@aureooms/js-algorithms](https://github.com/make-github-pseudonymous-again/js-algorithms)
 and
-[@aureooms/js-data-structures](https://github.com/aureooms/js-data-structures).
+[@aureooms/js-data-structures](https://github.com/make-github-pseudonymous-again/js-data-structures).
 
 ```js
 vcross( vsub( b , a ) , vsub( c , a ) ) ;
 ```
 
-[![License](https://img.shields.io/github/license/aureooms/js-cg.svg?style=flat)](https://raw.githubusercontent.com/aureooms/js-cg/master/LICENSE)
+[![License](https://img.shields.io/github/license/make-github-pseudonymous-again/js-cg.svg?style=flat)](https://raw.githubusercontent.com/make-github-pseudonymous-again/js-cg/master/LICENSE)
 [![NPM version](https://img.shields.io/npm/v/@aureooms/js-cg.svg?style=flat)](https://www.npmjs.org/package/@aureooms/js-cg)
 [![Bower version](https://img.shields.io/bower/v/@aureooms/js-cg.svg?style=flat)](http://bower.io/search/?q=@aureooms/js-cg)
-[![Build Status](https://img.shields.io/travis/aureooms/js-cg.svg?style=flat)](https://travis-ci.org/aureooms/js-cg)
-[![Coverage Status](https://img.shields.io/coveralls/aureooms/js-cg.svg?style=flat)](https://coveralls.io/r/aureooms/js-cg)
-[![Dependencies Status](https://img.shields.io/david/aureooms/js-cg.svg?style=flat)](https://david-dm.org/aureooms/js-cg#info=dependencies)
-[![devDependencies Status](https://img.shields.io/david/dev/aureooms/js-cg.svg?style=flat)](https://david-dm.org/aureooms/js-cg#info=devDependencies)
-[![Code Climate](https://img.shields.io/codeclimate/github/aureooms/js-cg.svg?style=flat)](https://codeclimate.com/github/aureooms/js-cg)
+[![Build Status](https://img.shields.io/travis/make-github-pseudonymous-again/js-cg.svg?style=flat)](https://travis-ci.org/make-github-pseudonymous-again/js-cg)
+[![Coverage Status](https://img.shields.io/coveralls/make-github-pseudonymous-again/js-cg.svg?style=flat)](https://coveralls.io/r/make-github-pseudonymous-again/js-cg)
+[![Dependencies Status](https://img.shields.io/david/make-github-pseudonymous-again/js-cg.svg?style=flat)](https://david-dm.org/make-github-pseudonymous-again/js-cg#info=dependencies)
+[![devDependencies Status](https://img.shields.io/david/dev/make-github-pseudonymous-again/js-cg.svg?style=flat)](https://david-dm.org/make-github-pseudonymous-again/js-cg#info=devDependencies)
+[![Code Climate](https://img.shields.io/codeclimate/github/make-github-pseudonymous-again/js-cg.svg?style=flat)](https://codeclimate.com/github/make-github-pseudonymous-again/js-cg)
 [![NPM downloads per month](https://img.shields.io/npm/dm/@aureooms/js-cg.svg?style=flat)](https://www.npmjs.org/package/@aureooms/js-cg)
-[![GitHub issues](https://img.shields.io/github/issues/aureooms/js-cg.svg?style=flat)](https://github.com/aureooms/js-cg/issues)
-[![Inline docs](http://inch-ci.org/github/aureooms/js-cg.svg?branch=master&style=shields)](http://inch-ci.org/github/aureooms/js-cg)
+[![GitHub issues](https://img.shields.io/github/issues/make-github-pseudonymous-again/js-cg.svg?style=flat)](https://github.com/make-github-pseudonymous-again/js-cg/issues)
+[![Inline docs](http://inch-ci.org/github/make-github-pseudonymous-again/js-cg.svg?branch=master&style=shields)](http://inch-ci.org/github/make-github-pseudonymous-again/js-cg)
 
 Can be managed through [jspm](https://github.com/jspm/jspm-cli),
 [duo](https://github.com/duojs/duo),
@@ -104,7 +104,7 @@ require( [ "@aureooms/js-cg" ] , function ( cg ) { ... } ) ;
 
 ## Children
 
-  - [aureooms/js-convex-hull-2d](https://github.com/aureooms/js-convex-hull-2d)
+  - [aureooms/js-convex-hull-2d](https://github.com/make-github-pseudonymous-again/js-convex-hull-2d)
 
 ## Reference
 
